@@ -1,0 +1,48 @@
+{
+  "root": true,
+  "plugins": [
+    "vue"
+  ],
+  "extends": [
+    "semistandard",
+    "plugin:node/recommended",
+    "plugin:vue/recommended"
+  ],
+  "rules": {
+    "vue/html-self-closing": ["warn", {
+      "html": {
+        "void": "never",
+        "normal": "always",
+        "component": "any"
+      },
+      "svg": "always",
+      "math": "always"
+    }],
+    "vue/max-attributes-per-line": [2, {
+      "singleline": 6,
+      "multiline": {
+        "max": 7,
+        "allowFirstLine": true
+      }
+    }],
+    "node/no-unsupported-features/es-syntax": ["error", {
+        "version": ">=8.0.0",
+        "ignores": [
+          "modules"
+        ]
+    }]
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "commonjs": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "globalReturn": true
+    }
+  }
+}

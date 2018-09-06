@@ -1,0 +1,63 @@
+{
+  "name": "bruga-music",
+  "description": "A Vue.js project made in Platzi's Basic Vue Course",
+  "version": "1.0.0",
+  "author": "andres-brugarolas",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "dependencies": {
+    "vue": "2.5.17",
+    "vue-router": "3.0.1",
+    "hyperid": "1.4.1",
+    "greenlet": "1.0.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "devDependencies": {
+    "babel-loader": "8.0.0",
+    "@babel/cli": "7.0.0",
+    "@babel/core": "7.0.0",
+    "@babel/preset-env": "7.0.0",
+    "@babel/plugin-proposal-function-bind": "7.0.0",
+    "@babel/plugin-proposal-logical-assignment-operators": "7.0.0",
+    "@babel/plugin-proposal-optional-chaining": "7.0.0",
+    "@babel/plugin-proposal-pipeline-operator": "7.0.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "7.0.0",
+    "@babel/plugin-proposal-do-expressions": "7.0.0",
+    "@babel/plugin-proposal-decorators": "7.0.0",
+    "@babel/plugin-proposal-throw-expressions": "7.0.0",
+    "@babel/plugin-proposal-class-properties": "7.0.0",
+    "@babel/polyfill": "7.0.0",
+    "@babel/preset-typescript": "7.0.0",
+    "babel-preset-minify": "0.4.3",
+    "less": "3.8.1",
+    "cross-env": "5.2.0",
+    "css-loader": "1.0.0",
+    "file-loader": "1.1.11",
+    "less-loader": "4.1.0",
+    "vue-loader": "15.4.1",
+    "vue-template-compiler": "2.5.17",
+    "webpack": "4.17.2",
+    "webpack-dev-server": "3.1.7",
+    "webpack-cli": "3.1.0",
+    "eslint": "5.5.0",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-node": "7.0.1",
+    "eslint-plugin-promise": "4.0.0",
+    "eslint-plugin-standard": "4.0.0",
+    "eslint-plugin-react": "7.11.1",
+    "eslint-plugin-vue": "4.7.1",
+    "eslint-config-standard": "12.0.0",
+    "eslint-config-semistandard": "12.0.1"
+  }
+}

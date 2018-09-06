@@ -1,0 +1,123 @@
+@import (less, reference) "./colors.less";
+
+.fontFixes() {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  padding: 0;
+  margin: 0;
+  color: @color-letter;
+}
+.main {
+  font-family: 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
+  text-align: center;
+  .fontFixes();
+  color: #2c3e50;
+  margin-top: 50px;
+  padding-top: 30px;
+  padding-bottom: 60px;
+  position: relative;
+  box-sizing: border-box;
+  background-color: @color-background;
+}
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+  text-decoration: none;
+}
+img {
+  cursor: pointer;
+  display: inline-block;
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.header {
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px 50px;
+  background-color: @color-white;
+  box-shadow: 0 1/4rem 1/8rem 0 @color-shadow;
+  z-index: 2;
+
+  .header-title {
+    font-family: 'Roboto', sans-serif;
+    .fontFixes();
+    font-size: 24px;
+    margin-left: 8px;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+
+  .header-icon {
+    font-size: 24px;
+    color: @color-white;
+    background-color: @main-color;
+    padding: 10px 11px 10px 9px;
+    border-radius: 4px;
+    text-shadow: 2px 2px 0px @main-dark-color;
+    transition: all .3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.footer {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  height: 40px;
+  width: 100%;
+  padding: 12px 50px;
+  background-color: @color-white;
+  box-shadow: 0 -1/4rem 1/8rem 0 @color-shadow;
+  z-index: 2;
+}
+
+.float-box {
+  display: flow-root;
+
+  &::after {
+    content: '';
+    clear: both;
+    display: table;
+  }
+}
+
+.author {
+  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  display: inline-block;
+  text-align: right;
+  float: right;
+  font-size: 18px;
+  line-height: 44px;
+  opacity: 0.25;
+  font-weight: 100;
+
+  .heart {
+    color: @color-heart;
+  }
+}
