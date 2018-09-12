@@ -1,5 +1,6 @@
 import config from './config.js';
 import HyperId from 'hyperid';
+import { sanitize } from '@/utils/aux-methods.js';
 HyperId.instance = HyperId({ fixedLength: true, urlSafe: true });
 const { apiKey, url } = config;
 const format = 'json';
@@ -14,7 +15,7 @@ const getTopArtists = async (country) => {
 };
 
 const getArtistInfo = async (artist) => {
-  const url = buildApiUrl('artist.getinfo', { 'artist': artist.replace(/ /g, '+') });
+  const url = buildApiUrl('artist.getinfo', { 'artist': sanitize(artist) });
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
@@ -22,7 +23,7 @@ const getArtistInfo = async (artist) => {
 };
 
 const getArtistTopTags = async (artist) => {
-  const url = buildApiUrl('artist.gettoptags', { 'artist': artist.replace(/ /g, '+') });
+  const url = buildApiUrl('artist.gettoptags', { 'artist': sanitize(artist) });
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
@@ -30,7 +31,7 @@ const getArtistTopTags = async (artist) => {
 };
 
 const getArtistTopAlbums = async (artist) => {
-  const url = buildApiUrl('artist.gettopalbums', { 'artist': artist.replace(/ /g, '+') });
+  const url = buildApiUrl('artist.gettopalbums', { 'artist': sanitize(artist) });
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
@@ -38,11 +39,19 @@ const getArtistTopAlbums = async (artist) => {
 };
 
 const getArtistTopTracks = async (artist) => {
-  const url = buildApiUrl('artist.gettoptracks', { 'artist': artist.replace(/ /g, '+'), 'limit': 10 });
+  const url = buildApiUrl('artist.gettoptracks', { 'artist': sanitize(artist), 'limit': 10 });
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
   return json.toptracks.track;
+};
+
+const getTrackInfo = async (artist, track) => {
+  const url = buildApiUrl('track.getinfo', { 'artist': sanitize(artist), 'track': sanitize(track) });
+
+  const response = await fetch(url, { cache: 'force-cache' });
+  const json = await response.json();
+  return json.track;
 };
 
 const searchTrack = async (search) => {
@@ -71,4 +80,4 @@ const checkMbids = (list) => {
 };
 
 /* Exports */
-export default { getTopArtists, getArtistInfo, getArtistTopTags, getArtistTopAlbums, getArtistTopTracks, searchTrack };
+export default { getTopArtists, getArtistInfo, getArtistTopTags, getArtistTopAlbums, getArtistTopTracks, getTrackInfo, searchTrack };

@@ -87,7 +87,9 @@ export default {
     }
 
     &:active {
-      background-color: @main-color;
+      background-color: @main-light-color;
+      border-color: @main-light-color;
+      transition: all .1s ease-in-out;
     }
 
     &::after {
@@ -114,7 +116,8 @@ export default {
     }
 
     &:active::after {
-      border-color: @main-dark-color;
+      border-color: @main-light-color;
+      transition: all .1s ease-in-out;
     }
   }
 

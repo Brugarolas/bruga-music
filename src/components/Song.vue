@@ -1,11 +1,13 @@
 <template>
-  <a :href="track.url" target="_blank" class="track">
+  <a class="track" @click="selectSong">
     <img :src="imageUrl">
     <h2 class="track-title">{{ title }}</h2>
   </a>
 </template>
 
 <script>
+import { str } from '@/utils/aux-methods.js';
+
 export default {
   name: 'Song',
   props: {
@@ -20,6 +22,11 @@ export default {
     },
     imageUrl () {
       return this.track.image[1]['#text'];
+    }
+  },
+  methods: {
+    selectSong () {
+      this.$store.dispatch('playSong', { 'artist': str(this.track.artist), 'track': str(this.track.name), 'image': this.imageUrl });
     }
   }
 };

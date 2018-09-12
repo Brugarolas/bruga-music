@@ -6,24 +6,45 @@
       <div class="author">Made with <i class="heart fas fa-heart" /> by Andrés Brugarolas</div>
     </header>
     <main class="main">
-      <transition>
+      <transition name="move">
         <keep-alive>
           <router-view />
         </keep-alive>
       </transition>
     </main>
     <footer class="footer">
-
+      <Player />
+      <div id="ytPlayer" />
     </footer>
   </div>
 </template>
 
 <script>
+import Player from '@/components/Player.vue';
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Player
+  }
 };
 </script>
 
 <style lang="less">
 @import (less) "./assets/styles/main.less";
+
+.move-enter-active, .move-leave-active {
+  transform: translateX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.move-enter, .move-leave-to {
+  transform: translateX(-100%);
+}
+
+#ytPlayer {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
 </style>
