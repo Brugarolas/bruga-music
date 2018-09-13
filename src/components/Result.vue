@@ -1,6 +1,6 @@
 <template>
   <div class="results-wrapper">
-    <h2>Artists</h2>
+    <h2 style="text-transform: capitalize;">{{ type }}s</h2>
     <Spinner v-if="loading" />
 
     <ul v-if="isArtist" class="artist-list">

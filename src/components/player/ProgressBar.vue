@@ -113,7 +113,7 @@ export default {
 </script>
 
 <style lang="less">
-@import (reference, less) "../assets/styles/colors.less";
+@import (reference, less) "../../assets/styles/colors.less";
 
 .progress-bar {
   display: inline-block;

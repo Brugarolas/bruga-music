@@ -11,8 +11,8 @@
 
     <div class="player-controls-panel">
       <div class="buttons-panel">
-        <i v-if="!isPlaying" class="fas fa-play" @click="play" />
-        <i v-if="isPlaying" class="fas fa-pause" @click="pause" />
+        <i v-if="!isPlaying" class="play-pause-button fas fa-play" @click="play" />
+        <i v-if="isPlaying" class="play-pause-button fas fa-pause" @click="pause" />
       </div>
 
       <div class="progress-bar-wrapper">
@@ -20,22 +20,28 @@
       </div>
     </div>
 
+    <div class="player-sound-panel">
+      <SoundControl @changeVolume="changeVolume" @mute="mute" @unmute="unmute" />
+    </div>
+
     <div class="player-music-time">
       <SoundIcon :playing="isPlaying" />
 
-      <span class="time">{{ time | duration }} / {{ duration | duration }}</span>
+      <TimeDuration :time="time" :duration="duration" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import ProgressBar from '@/components/ProgressBar.vue';
-import SoundIcon from '@/components/SoundIcon.vue';
+import ProgressBar from './ProgressBar.vue';
+import SoundIcon from './SoundIcon.vue';
+import TimeDuration from './TimeDuration.vue';
+import SoundControl from './SoundControl.vue';
 
 export default {
   name: 'Player',
-  components: { ProgressBar, SoundIcon },
+  components: { ProgressBar, SoundIcon, TimeDuration, SoundControl },
   data () {
     return {
       time: 0,
@@ -55,6 +61,11 @@ export default {
     }
   },
   mounted () {
+    this.$youtube.player.setOnReadyEvent(() => {
+      this.$bus.$emit('api-change-volume', this.$youtube.player.volume());
+      this.$bus.$emit('api-change-mute', this.$youtube.player.isMuted());
+    });
+
     this.$youtube.player.setCurrentTimeEvent((time) => {
       this.time = time;
     });
@@ -77,12 +88,23 @@ export default {
     setPlayerTime (time) {
       this.$youtube.player.goTo(time);
       this.time = time;
+    },
+    changeVolume (volume) {
+      this.$youtube.player.setVolume(volume);
+    },
+    mute () {
+      this.$youtube.player.mute();
+    },
+    unmute () {
+      this.$youtube.player.unmute();
     }
   }
 };
 </script>
 
 <style lang="less">
+@import (less, reference) "../../assets/styles/colors.less";
+
 .player {
   height: 60px;
   width: 100%;
@@ -161,14 +183,14 @@ export default {
     line-height: 24px;
     font-size: 28px;
 
-    .fas {
+    .play-pause-button  {
       cursor: pointer;
-      opacity: 0.80;
+      color: @color-light-letter;
       transition: all 0.3s ease-in-out;
     }
 
-    .fas:hover {
-      opacity: 1;
+    .play-pause-button:hover {
+      color: @color-letter;
     }
   }
 
@@ -180,6 +202,16 @@ export default {
   }
 }
 
+.player-sound-panel {
+  display: inline-block;
+  float: left;
+  width: 25%;
+  text-align: center;
+  box-sizing: border-box;
+  vertical-align: middle;
+  margin-top: 10px;
+}
+
 .player-music-time {
   display: inline-block;
   float: right;
@@ -187,15 +219,5 @@ export default {
   box-sizing: border-box;
   vertical-align: middle;
   margin-top: 8px;
-
-  .time {
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-family: "Open Sans", sans-serif;
-    font-size: 16px;
-    margin-top: 2px;
-    font-weight: 400;
-  }
 }
 </style>

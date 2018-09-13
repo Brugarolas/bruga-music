@@ -75,6 +75,22 @@ class YouTubePlayer {
     this._player.seekTo(time, true);
   }
 
+  setVolume (volume) {
+    this._player.setVolume(volume * 100);
+  }
+
+  mute () {
+    this._player.mute();
+  }
+
+  unmute () {
+    this._player.unMute();
+  }
+
+  volume () {
+    return this._player.getVolume() / 100;
+  }
+
   duration () {
     return this._player.getDuration();
   }

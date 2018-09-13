@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="less">
-@import (reference, less) "../assets/styles/colors.less";
+@import (reference, less) "../../assets/styles/colors.less";
 
 /* Variables */
 @max-height: 27px;
