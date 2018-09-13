@@ -9,6 +9,12 @@
       </li>
     </ul>
 
+    <ul v-if="isAlbum" class="album-list">
+      <li v-for="album in albums" :key="album.id" class="album-wrapper">
+        <Album :album="album" />
+      </li>
+    </ul>
+
     <ul v-if="isTrack" class="track-list">
       <li v-for="track in tracks" :key="track.mbid" class="track-wrapper">
         <Song :track="track" />
@@ -21,11 +27,12 @@
 import Spinner from './Spinner.vue';
 import Artist from './Artist.vue';
 import Song from './Song.vue';
+import Album from './Album.vue';
 
 export default {
   name: 'Result',
   components: {
-    Spinner, Artist, Song
+    Spinner, Artist, Album, Song
   },
   props: {
     results: {
@@ -45,6 +52,9 @@ export default {
     isArtist () {
       return this.type === 'artist';
     },
+    isAlbum () {
+      return this.type === 'album';
+    },
     isTrack () {
       return this.type === 'track';
     },
@@ -53,6 +63,9 @@ export default {
     },
     tracks () {
       return this.isTrack ? this.results : [];
+    },
+    albums () {
+      return this.isAlbum ? this.results : [];
     }
   }
 };
@@ -65,5 +78,9 @@ export default {
 }
 .track-wrapper {
   display: block;
+  margin: 0;
+  padding: 0 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 </style>

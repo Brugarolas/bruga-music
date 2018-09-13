@@ -41,13 +41,15 @@ export default {
         this.loading = false;
       });
     },
-    onSearch (search) {
+    onSearch (search, type = 'track') {
       if (search === '') { this.refreshArtist(this.country); return; }
       this.loading = true;
 
-      LastFM.searchTrack(search).then((tracks) => {
-        this.results = tracks;
-        this.type = 'track';
+      let searchFunction = LastFM.getSearchFunction(type);
+
+      searchFunction(search).then((results) => {
+        this.results = results;
+        this.type = type;
         this.loading = false;
       });
     }

@@ -1,6 +1,7 @@
 <template>
   <a class="track" @click="selectSong">
-    <img :src="imageUrl">
+    <img :src="imageUrl" class="track-image">
+    <i class="track-play fas fa-play" />
     <h2 class="track-title">{{ title }}</h2>
   </a>
 </template>
@@ -33,15 +34,52 @@ export default {
 </script>
 
 <style lang="less">
-  .track {
-    display: block;
-    margin: 5px;
-    margin-left: 75px;
-    text-align: left;
-  }
+.track {
+  position: relative;
+  display: block;
+  margin: 5px 75px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: #ccc0;
+  transition: all 0.3s ease-in-out;
+
   .track-title {
     display: inline-block;
     margin: 0;
-    vertical-align: 85%;
+    margin-left: 10px;
+    vertical-align: 65%;
+    font-size: 20px;
+    width: calc(100% - 80px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
+  .track-image {
+    display: inline-block;
+    border-radius: 4px;
+    width: 56px;
+    height: 56px;
+    background-color: #ccc;
+    object-fit: cover;
+  }
+  .track-play {
+    position: absolute;
+    font-size: 28px;
+    opacity: 0;
+    color: #fff;
+    top: 14px;
+    left: 16px;
+    z-index: 3;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover {
+    background-color: #ccc2;
+
+    .track-play {
+      opacity: 0.90;
+    }
+  }
+}
 </style>

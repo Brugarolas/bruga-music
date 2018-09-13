@@ -5,6 +5,11 @@
              class="input-search" placeholder="Search tracks or artists…">
       <span class="reset-wrapper" @click="onReset"><span class="button-reset">+</span></span>
     </div>
+
+    <div class="type-wrapper">
+      <Selector :starting="'track'" :elements="types" @change="changeType"/>
+    </div>
+
     <button class="button-search" type="submit">
       <i class="fas fa-search" />
       <span>Search</span>
@@ -13,12 +18,21 @@
 </template>
 
 <script>
+import Selector from '@/components/common/Selector.vue';
+
 export default {
   name: 'Search',
+  components: { Selector },
   data () {
     return {
       search: '',
-      old: ''
+      type: 'track',
+      old: { search: '', type: 'track' },
+      types: [
+        { name: 'Tracks', value: 'track' },
+        { name: 'Artists', value: 'artist' },
+        { name: 'Albums', value: 'album' }
+      ]
     };
   },
   computed: {
@@ -27,11 +41,21 @@ export default {
     }
   },
   methods: {
+    changeType: function (type) {
+      this.type = type;
+    },
+    saveSearchParams: function () {
+      this.old.search = this.search;
+      this.old.type = this.type;
+    },
+    isRepeatedSearch: function () {
+      return (this.search === this.old.search && this.type === this.old.type);
+    },
     onSubmit: function (event) {
-      if (this.search === this.old) return;
-      this.old = this.search;
+      if (this.isRepeatedSearch()) return;
+      this.saveSearchParams();
 
-      this.$emit('search', this.search);
+      this.$emit('search', this.search, this.type);
     },
     onReset: function (event) {
       if (this.search === '') return;
@@ -63,6 +87,11 @@ export default {
     &:hover, &:focus, &.completed {
       border-color: @main-color;
     }
+  }
+
+  .type-wrapper {
+    display: inline-block;
+    margin: 0 5px;
   }
 
   .button-search {

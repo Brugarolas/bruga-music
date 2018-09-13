@@ -54,6 +54,22 @@ const getTrackInfo = async (artist, track) => {
   return json.track;
 };
 
+const getSearchFunction = (type) => {
+  if (type === 'track') {
+    return searchTrack;
+  }
+
+  if (type === 'artist') {
+    return searchArtist;
+  }
+
+  if (type === 'album') {
+    return searchAlbum;
+  }
+
+  return q => { console.warn('This searcher is not supported yet!'); };
+};
+
 const searchTrack = async (search) => {
   const url = buildApiUrl('track.search', { 'track': search });
 
@@ -62,7 +78,23 @@ const searchTrack = async (search) => {
   return checkMbids(json.results.trackmatches.track);
 };
 
-/* Aux methods */
+const searchAlbum = async (search) => {
+  const url = buildApiUrl('album.search', { 'album': search });
+
+  const response = await fetch(url, { cache: 'force-cache' });
+  const json = await response.json();
+  return checkMbids(json.results.albummatches.album);
+};
+
+const searchArtist = async (search) => {
+  const url = buildApiUrl('artist.search', { 'artist': search });
+
+  const response = await fetch(url, { cache: 'force-cache' });
+  const json = await response.json();
+  return checkMbids(sortWithoutImages(filterMbids(json.results.artistmatches.artist)));
+};
+
+/* Aux API methods */
 const buildApiUrl = (method, params) => buildUrl(url, { 'method': method, ...params, 'api_key': apiKey, 'format': format });
 
 const buildUrl = (url, params) => `${url}?${paramsToUrl(params)}`;
@@ -71,7 +103,19 @@ const paramsToUrl = (params = {}) => Object.entries(params).map((param) => param
 
 const paramToUrl = (name, value) => name + (value ? '=' + value : '');
 
-/* MBIDs */
+/* Other aux */
+const filterMbids = (list) => {
+  let mbids = new Map();
+
+  return list.filter(element => {
+    if (!element.mbid) return true;
+
+    let exists = mbids.has(element.mbid);
+    if (!exists) mbids.set(element.mbid, true);
+    return !exists;
+  });
+};
+
 const checkMbids = (list) => {
   list.filter(element => !element.mbid).forEach(element => {
     element.mbid = 'random:' + HyperId.instance();
@@ -79,5 +123,23 @@ const checkMbids = (list) => {
   return list;
 };
 
+const sortWithoutImages = (artists) => {
+  let withImages = [];
+  let withoutImages = [];
+
+  artists.forEach(artist => {
+    let image = artist.image[2]['#text'];
+    let array = image === '' ? withoutImages : withImages;
+    array.push(artist);
+  });
+
+  return withImages.concat(withoutImages);
+};
+
 /* Exports */
-export default { getTopArtists, getArtistInfo, getArtistTopTags, getArtistTopAlbums, getArtistTopTracks, getTrackInfo, searchTrack };
+const standalone = { getTopArtists };
+const artist = { getArtistInfo, getArtistTopTags, getArtistTopAlbums, getArtistTopTracks };
+const track = { getTrackInfo };
+const search = { getSearchFunction, searchTrack, searchAlbum, searchArtist };
+
+export default { ...standalone, ...artist, ...track, ...search };

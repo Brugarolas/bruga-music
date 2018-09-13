@@ -60,7 +60,9 @@ const store = new Vuex.Store({
 });
 
 const buildSearchQuery = (artist, track) => {
-  if (artist === '[unknown]' || track.includes(artist)) artist = '';
+  let aux = artist.toLowerCase();
+  if (aux === '[unknown]' || track.toLowerCase().includes(aux)) artist = '';
+
   return `${artist} ${track}`;
 };
 

@@ -1,29 +1,32 @@
 <template>
-  <router-link :to="{ name: 'Artist', params: { name: artist.name.replace(/ /g, '+') } }" :class="'artist'">
-    <h2 class="artist-name">{{ artist.name }}</h2>
-    <img :src="imageUrl" class="artist-image">
-  </router-link>
+  <div :class="'album'">
+    <h2 class="album-name">{{ title }}</h2>
+    <img :src="imageUrl" class="album-image">
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Artist',
+  name: 'Album',
   props: {
-    artist: {
+    album: {
       type: Object,
       required: true
     }
   },
   computed: {
+    title () {
+      return this.album.artist + ' - ' + this.album.name;
+    },
     imageUrl () {
-      return this.artist.image[2]['#text'];
+      return this.album.image[2]['#text'];
     }
   }
 };
 </script>
 
 <style lang="less">
-  .artist {
+  .album {
     width: 200px;
     padding: 5px;
     margin: 10px 0 5px 0;
@@ -32,7 +35,7 @@ export default {
     background-color: #ccc0;
     transition: all 0.3s ease-in-out;
 
-    .artist-name {
+    .album-name {
       display: block;
       width: 100%;
       font-size: 20px;
@@ -40,7 +43,7 @@ export default {
       overflow: hidden;
     }
 
-    .artist-image {
+    .album-image {
       display: inline-block;
       border-radius: 4px;
       width: 156px;

@@ -87,6 +87,10 @@ class YouTubePlayer {
     this._player.unMute();
   }
 
+  muted () {
+    return this._player.isMuted();
+  }
+
   volume () {
     return this._player.getVolume() / 100;
   }

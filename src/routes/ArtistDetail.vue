@@ -155,21 +155,32 @@ export default {
       height: 150px;
       border-radius: 50%;
       cursor: inherit;
+      float: left;
+      background-color: #ccc;
+      box-sizing: border-box;
     }
 
     .name {
-      font-size: 42px;
+      font-size: 36px;
       display: inline-block;
+      width: calc(100% - 600px);
       margin: 0;
-      vertical-align: 100%;
-      margin-left: 25px;
+      padding: 55px 0 0 10px;
+      float: left;
+      box-sizing: border-box;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .extra {
       display: inline-block;
       text-align: center;
-      margin-left: 25px;
-      vertical-align: 215%;
+      width: 150px;
+      margin-top: 55px;
+      float: left;
+      box-sizing: border-box;
 
       .extra-title {
         display: block;
@@ -195,6 +206,9 @@ export default {
       font-size: 12px;
       vertical-align: 100%;
       text-align: right;
+      margin: 0;
+      margin-top: 5px;
+      box-sizing: border-box;
 
       .tag {
         color: @color-white;

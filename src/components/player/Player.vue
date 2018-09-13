@@ -63,7 +63,7 @@ export default {
   mounted () {
     this.$youtube.player.setOnReadyEvent(() => {
       this.$bus.$emit('api-change-volume', this.$youtube.player.volume());
-      this.$bus.$emit('api-change-mute', this.$youtube.player.isMuted());
+      this.$bus.$emit('api-change-mute', this.$youtube.player.muted());
     });
 
     this.$youtube.player.setCurrentTimeEvent((time) => {

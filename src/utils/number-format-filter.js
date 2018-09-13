@@ -12,7 +12,7 @@ numberFormatFilter.install = (Vue, options) => {
       count++;
     }
 
-    return numValue.toFixed(2) + units[count];
+    return (Number.isInteger(numValue) ? numValue : numValue.toFixed(2)) + units[count];
   });
 };
 
