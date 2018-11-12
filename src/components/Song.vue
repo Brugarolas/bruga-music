@@ -71,6 +71,7 @@ export default {
     top: 14px;
     left: 16px;
     z-index: 3;
+    pointer-events: none;
     transition: all 0.3s ease-in-out;
   }
 

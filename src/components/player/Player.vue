@@ -122,7 +122,7 @@ export default {
   float: left;
   vertical-align: middle;
   box-sizing: border-box;
-  width: 5%;
+  width: 60px;
 
   .player-image {
     width: 60px;
@@ -140,7 +140,7 @@ export default {
   text-align: left;
   float: left;
   padding-left: 20px;
-  width: 30%;
+  width: calc(35% - 60px);
   min-height: 5px;
   box-sizing: border-box;
   vertical-align: middle;
