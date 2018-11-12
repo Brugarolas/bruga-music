@@ -1,6 +1,6 @@
 # bruga-music
 
-> A Vue.js project made in Platzi's Basic Vue Course
+> A Vue.js personal project made for learning purposes
 
 ## Build Setup
 
