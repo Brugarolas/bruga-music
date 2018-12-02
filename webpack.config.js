@@ -21,9 +21,13 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          'vue-style-loader',
-          'css-loader',
-          'less-loader'
+          { loader: 'vue-style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'less-loader',
+            options: {
+              paths: [ path.resolve(__dirname, 'node_modules') ]
+            }
+          }
         ]
       },
       {
@@ -31,8 +35,7 @@ module.exports = {
         loader: 'vue-loader',
         exclude: /node_modules/,
         options: {
-          loaders: { // other vue-loader options go here
-          }
+          loaders: { /* other vue-loader options go here */ }
         }
       },
       {
@@ -43,31 +46,6 @@ module.exports = {
           presets: [
             'minify',
             [ '@babel/env', { 'targets': { 'browsers': [ 'last 2 versions' ] }, 'modules': false } ]
-          ],
-          plugins: [
-            // Stage 0
-            // '@babel/plugin-proposal-function-bind',
-
-            // Stage 1
-            // "@babel/plugin-proposal-export-default-from",
-            // '@babel/plugin-proposal-logical-assignment-operators',
-            ['@babel/plugin-proposal-optional-chaining', { 'loose': false }],
-            // ['@babel/plugin-proposal-pipeline-operator', { 'proposal': 'minimal' }],
-            // ['@babel/plugin-proposal-nullish-coalescing-operator', { 'loose': false }],
-            // '@babel/plugin-proposal-do-expressions',
-
-            // Stage 2
-            ['@babel/plugin-proposal-decorators', { 'legacy': true }]
-            // "@babel/plugin-proposal-function-sent",
-            // "@babel/plugin-proposal-export-namespace-from",
-            // "@babel/plugin-proposal-numeric-separator",
-            // '@babel/plugin-proposal-throw-expressions',
-
-            // Stage 3
-            // "@babel/plugin-syntax-dynamic-import",
-            // "@babel/plugin-syntax-import-meta",
-            // ['@babel/plugin-proposal-class-properties', { 'loose': false }]
-            // "@babel/plugin-proposal-json-strings"
           ]
         }
       },
@@ -76,6 +54,14 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
+        }
+      },
+      {
+        test: /\.(woff|woff2|ttf|eot)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]?[hash]',
+          outputPath: 'fonts/'
         }
       }
     ]

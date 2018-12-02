@@ -1,9 +1,5 @@
 {
   "presets": [
     [ "@babel/env", { "targets": { "browsers": [ "last 2 versions" ] }, "modules": false } ]
-  ],
-  "plugins": [
-    ["@babel/plugin-proposal-optional-chaining", { "loose": false }],
-    ["@babel/plugin-proposal-decorators", { "legacy": true }]
   ]
 }
