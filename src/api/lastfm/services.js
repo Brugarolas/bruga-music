@@ -1,7 +1,9 @@
 import config from './config.js';
 import HyperId from 'hyperid';
 import { sanitize } from '@/utils/aux-methods.js';
+
 HyperId.instance = HyperId({ fixedLength: true, urlSafe: true });
+
 const { apiKey, url } = config;
 const format = 'json';
 

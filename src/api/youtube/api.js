@@ -1,6 +1,5 @@
-import gapi from './google.api.min.js';
+import youtube from './searcher.js';
 import './widget.api.min.js';
-const apiKey = 'AIzaSyAq4ALvqOE08oCXDMyHy9XdbvpNsuuZrpA';
 
 /* YouTube Player */
 
@@ -161,48 +160,6 @@ class YouTubePlayer {
   }
 }
 
-/* YouTube Searcher */
-
-const loadAsync = (load, timeout = 5000) => {
-  return Promise.race([
-    new Promise((resolve, reject) => {
-      load(resolve);
-    }),
-    new Promise((resolve, reject) => {
-      setTimeout(reject, timeout);
-    })
-  ]);
-};
-
-const loadGoogleClient = () => {
-  return loadAsync(resolve => {
-    gapi.load('client', resolve);
-  });
-};
-
-const loadYouTube = () => {
-  return loadAsync(resolve => {
-    gapi.client.load('youtube', 'v3', resolve);
-  });
-};
-
-const createYouTubeSearcher = async () => {
-  await loadGoogleClient();
-  await loadYouTube();
-  await gapi.client.init({ apiKey });
-
-  return (q) => {
-    return new Promise((resolve, reject) => {
-      gapi.client.youtube.search.list({
-        q: q,
-        part: 'snippet'
-      })
-        .then(resp => { resolve(resp.result.items); })
-        .catch(err => { reject(new Error(err.statusText)); });
-    });
-  };
-};
-
 /* Public API */
 
 const YouTubeSearcher = {};
@@ -215,13 +172,7 @@ YouTubeSearcher.install = (Vue, options) => {
     console.warn('YouTube searcher is not initialized yet!');
   };
 
-  createYouTubeSearcher().then(searcher => {
-    Vue.prototype.$youtube.search = searcher;
-  }).catch(err => {
-    Vue.prototype.$youtube.search = (q) => {
-      console.warn('YouTube searcher could not be initialized!', err);
-    };
-  });
+  Vue.prototype.$youtube.search = youtube.search;
 
   // Player
   Vue.prototype.$youtube.player = new YouTubePlayer();
