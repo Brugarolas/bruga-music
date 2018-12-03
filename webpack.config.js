@@ -50,14 +50,15 @@ module.exports = {
         }
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|gif)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]'
+          name: '[name].[ext]?[hash]',
+          outputPath: 'img'
         }
       },
       {
-        test: /\.(woff|woff2|ttf|eot)$/,
+        test: /\.(woff|woff2|ttf|eot|svg)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]',

@@ -9,6 +9,7 @@ import DurationFilter from '@/utils/duration-filter.js';
 import VolumeFilter from '@/utils/volume-filter.js';
 import AsyncComputed from 'vue-async-computed';
 import store from '@/store.js';
+import './assets/logo.png';
 
 Vue.use(VueRouter);
 Vue.use(GlobalBus);
