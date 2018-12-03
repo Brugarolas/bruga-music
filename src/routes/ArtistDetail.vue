@@ -28,9 +28,11 @@
       </div>
 
       <div class="float-box">
-        <div class="bio">
+        <div class="main-content">
           <h4 class="title">Biography</h4>
-          <div v-html="biography" />
+          <div>{{ biography }}</div>
+
+          <TopTracks :name="name" />
         </div>
 
         <div class="similar">
@@ -49,21 +51,21 @@
 </template>
 
 <script>
-import LastFM from '@/api/lastfm/services.js';
 import Spinner from '@/components/Spinner.vue';
 import Artist from '@/components/Artist.vue';
+import TopTracks from '@/components/artist/TopTracks.vue';
 
 export default {
   name: 'ArtistDetail',
   components: {
-    Spinner, Artist
+    Spinner, Artist, TopTracks
   },
   data () {
     return {
+      name: '',
       artist: {},
       tags: [],
       albums: [],
-      tracks: [],
       initialized: false,
       loading: true
     };
@@ -75,7 +77,7 @@ export default {
     biography () {
       if (this.loading) return '';
 
-      let bio = this.artist.bio.content;
+      let bio = this.artist.bio.summary || this.artist.bio.content;
       let index = bio.indexOf(' <a');
       return bio.substring(0, index);
     },
@@ -90,38 +92,37 @@ export default {
     this.load();
   },
   beforeRouteUpdate (to, from, next) {
-    const name = to.params.name;
-    this.searchArtistByMbid(name);
+    this.name = to.params.name;
+    this.searchArtistByMbid();
     next();
   },
   methods: {
     load () {
-      const name = this.$route.params.name;
-      this.searchArtistByMbid(name);
+      this.name = this.$route.params.name;
+      this.searchArtistByMbid();
     },
     reset () {
+      // this.artist = {};
       this.tags = [];
+      this.albums = [];
     },
-    searchArtistByMbid (name) {
+    searchArtistByMbid () {
       this.loading = true;
-      this.tags = [];
+      const name = this.name;
+      this.reset();
 
-      LastFM.getArtistInfo(name).then(artist => {
+      this.$lastfm.getArtistInfo(name).then(artist => {
         this.artist = artist;
         this.loading = false;
         this.initialized = true;
       });
 
-      LastFM.getArtistTopTags(name).then(tags => {
+      this.$lastfm.getArtistTopTags(name).then(tags => {
         this.tags = tags.slice(0, 5);
       });
 
-      LastFM.getArtistTopAlbums(name).then(albums => {
+      this.$lastfm.getArtistTopAlbums(name).then(albums => {
         this.albums = albums;
-      });
-
-      LastFM.getArtistTopTracks(name).then(tracks => {
-        this.tacks = tracks;
       });
     }
   }
@@ -220,9 +221,9 @@ export default {
     }
   }
 
-  .bio {
+  .main-content {
     font-family: 'Open Sans', sans-serif;
-    padding: 5px 20px;
+    padding: 0 20px;
     font-size: 16px;
     text-align: justify;
 

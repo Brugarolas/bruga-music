@@ -18,8 +18,12 @@ export default {
     }
   },
   computed: {
+    artist () {
+      let artist = this.track.artist;
+      return typeof artist === 'object' ? artist.name : artist;
+    },
     title () {
-      return this.track.artist + ' - ' + this.track.name;
+      return this.artist + ' - ' + this.track.name;
     },
     imageUrl () {
       return this.track.image[1]['#text'];
@@ -27,7 +31,7 @@ export default {
   },
   methods: {
     selectSong () {
-      this.$store.dispatch('playSong', { 'artist': str(this.track.artist), 'track': str(this.track.name), 'image': this.imageUrl });
+      this.$store.dispatch('playSong', { 'artist': str(this.artist), 'track': str(this.track.name), 'image': this.imageUrl });
     }
   }
 };

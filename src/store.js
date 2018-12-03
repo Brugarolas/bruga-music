@@ -1,12 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import LastFM from '@/api/lastfm/services.js';
+import LastFM from '@/api/lastfm/vue-plugin.js';
 import YouTube from '@/api/youtube/vue-plugin.js';
 
 Vue.use(Vuex);
 
 Vue.use(YouTube);
 Vuex.Store.prototype.$youtube = Vue.prototype.$youtube;
+
+Vue.use(LastFM);
+Vuex.Store.prototype.$lastfm = Vue.prototype.$lastfm;
 
 const store = new Vuex.Store({
   state: {
@@ -44,7 +47,7 @@ const store = new Vuex.Store({
 
       context.commit('setSongBasicData', { artist, track, image });
 
-      LastFM.getTrackInfo(artist, track).then((trackInfo) => {
+      this.$lastfm.getTrackInfo(artist, track).then((trackInfo) => {
         context.commit('setSongMetaData', trackInfo);
       });
 
