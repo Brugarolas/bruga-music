@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import LastFM from '@/api/lastfm/services.js';
-import YouTube from '@/api/youtube/api.js';
+import YouTube from '@/api/youtube/vue-plugin.js';
 
 Vue.use(Vuex);
 
