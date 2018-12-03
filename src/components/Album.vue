@@ -12,11 +12,15 @@ export default {
     album: {
       type: Object,
       required: true
+    },
+    ignoreArtist: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     title () {
-      return this.album.artist + ' - ' + this.album.name;
+      return (this.ignoreArtist ? '' : this.album.artist + ' - ') + this.album.name;
     },
     imageUrl () {
       return this.album.image[2]['#text'];
@@ -26,6 +30,10 @@ export default {
 </script>
 
 <style lang="less">
+  .album-list {
+    text-align: center;
+  }
+
   .album {
     width: 200px;
     padding: 5px;
@@ -37,6 +45,7 @@ export default {
 
     .album-name {
       display: block;
+      text-align: center;
       width: 100%;
       font-size: 20px;
       max-height: 50px;
@@ -48,6 +57,7 @@ export default {
       border-radius: 4px;
       width: 156px;
       height: 156px;
+      margin: 0 22px;
       background-color: #ccc;
       object-fit: cover;
     }

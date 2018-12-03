@@ -17,34 +17,25 @@
           <span class="extra-info">{{ artist.stats.playcount | humanNumber }}</span>
         </div>
 
-        <div v-if="hasTags" class="tags">
-          <ul class="tag-list">
-            <li v-for="tag in tags" :key="tag.name" class="tag">
-              <span style="margin-right: 2px;">{{ tag.name | lowercase }}</span>
-              <i class="fas fa-tag" />
-            </li>
-          </ul>
+        <div class="tags">
+          <Tags :artist-name="name" />
         </div>
       </div>
 
       <div class="float-box">
         <div class="main-content">
-          <h4 class="title">Biography</h4>
-          <div>{{ biography }}</div>
+          <Biography :artist="artist" />
 
-          <TopTracks :name="name" />
+          <TopTracks :artist-name="name" />
+
+          <Albums :artist-name="name" />
         </div>
 
-        <div class="similar">
-          <h4 class="title">Similar Artists</h4>
-
-          <ul class="artist-list">
-            <li v-for="similarArtist in artist.similar.artist" :key="similarArtist.name" class="artist-wrapper">
-              <Artist :artist="similarArtist" />
-            </li>
-          </ul>
+        <div class="additional-content">
+          <Similar :artist="artist" />
         </div>
       </div>
+
       <a :href="moreLink" target="_blank">More information</a>
     </div>
   </section>
@@ -52,20 +43,21 @@
 
 <script>
 import Spinner from '@/components/Spinner.vue';
-import Artist from '@/components/Artist.vue';
+import Biography from '@/components/artist/Biography.vue';
+import Tags from '@/components/artist/Tags.vue';
 import TopTracks from '@/components/artist/TopTracks.vue';
+import Albums from '@/components/artist/Albums.vue';
+import Similar from '@/components/artist/Similar.vue';
 
 export default {
   name: 'ArtistDetail',
   components: {
-    Spinner, Artist, TopTracks
+    Spinner, Biography, Tags, TopTracks, Albums, Similar
   },
   data () {
     return {
       name: '',
       artist: {},
-      tags: [],
-      albums: [],
       initialized: false,
       loading: true
     };
@@ -73,13 +65,6 @@ export default {
   computed: {
     imageUrl () {
       return this.loading ? '' : this.artist.image[4]['#text'];
-    },
-    biography () {
-      if (this.loading) return '';
-
-      let bio = this.artist.bio.summary || this.artist.bio.content;
-      let index = bio.indexOf(' <a');
-      return bio.substring(0, index);
     },
     moreLink () {
       return this.loading ? '' : this.artist.bio.links.link.href;
@@ -103,8 +88,6 @@ export default {
     },
     reset () {
       // this.artist = {};
-      this.tags = [];
-      this.albums = [];
     },
     searchArtistByMbid () {
       this.loading = true;
@@ -115,14 +98,6 @@ export default {
         this.artist = artist;
         this.loading = false;
         this.initialized = true;
-      });
-
-      this.$lastfm.getArtistTopTags(name).then(tags => {
-        this.tags = tags.slice(0, 5);
-      });
-
-      this.$lastfm.getArtistTopAlbums(name).then(albums => {
-        this.albums = albums;
       });
     }
   }
@@ -242,28 +217,11 @@ export default {
     text-align: center;
   }
 
-  .similar {
+  .additional-content {
     display: inline-block;
     width: 25%;
     box-sizing: border-box;
     float: right;
-
-    .artist-wrapper {
-      display: block;
-    }
-
-    .artist {
-      .name {
-        font-size: 18px;
-        letter-spacing: 0.5px;
-      }
-
-      .image {
-        width: 87px;
-        height: 87px;
-        border-radius: 50%;
-      }
-    }
   }
 }
 </style>

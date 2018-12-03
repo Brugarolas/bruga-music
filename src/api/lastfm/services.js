@@ -24,12 +24,14 @@ const getArtistInfo = async (artist) => {
   return json.artist;
 };
 
-const getArtistTopTags = async (artist) => {
+const getArtistTopTags = async (artist, num) => {
   const url = buildApiUrl('artist.gettoptags', { 'artist': sanitize(artist) });
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
-  return json.toptags.tag;
+
+  let tags = json.toptags.tag;
+  return num ? tags.slice(0, num) : tags;
 };
 
 const getArtistTopAlbums = async (artist) => {
@@ -37,7 +39,9 @@ const getArtistTopAlbums = async (artist) => {
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
-  return json.topalbums.album;
+
+  let albums = json.topalbums.album;
+  return albums.filter(album => album.name !== '(null)');
 };
 
 const getArtistTopTracks = async (artist) => {

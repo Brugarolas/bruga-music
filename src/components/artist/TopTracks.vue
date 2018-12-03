@@ -1,5 +1,5 @@
 <template>
-  <div class="top-tracks margin-top-xl">
+  <div v-if="ready" class="top-tracks margin-top-xl">
     <h4 class="title">Popular Tracks</h4>
 
     <ul class="track-list">
@@ -19,14 +19,19 @@ export default {
     Song
   },
   props: {
-    name: {
+    artistName: {
       type: String,
       required: true
     }
   },
   asyncComputed: {
     async tracks () {
-      return this.$lastfm.getArtistTopTracks(this.name);
+      return this.$lastfm.getArtistTopTracks(this.artistName);
+    }
+  },
+  computed: {
+    ready () {
+      return !!this.tracks;
     }
   }
 };
