@@ -1,27 +1,33 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const isProduction = process.env.NODE_ENV === 'production';
+const distPath = '/dist/';
 
 module.exports = {
   entry: ['@babel/polyfill', './src/main.js'],
   mode: 'development',
+  stats: { children: false },
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
+    publicPath: distPath,
+    filename: 'js/build.js'
   },
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
-          'vue-style-loader',
+          isProduction ? MiniCssExtractPlugin.loader : 'vue-style-loader',
           'css-loader'
         ]
       },
       {
         test: /\.less$/,
         use: [
-          { loader: 'vue-style-loader' },
+          { loader: isProduction ? MiniCssExtractPlugin.loader : 'vue-style-loader' },
           { loader: 'css-loader' },
           { loader: 'less-loader',
             options: {
@@ -62,13 +68,21 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]',
-          outputPath: 'fonts/'
+          outputPath: 'fonts',
+          publicPath: isProduction ? '/fonts' : distPath + '/fonts'
         }
       }
     ]
   },
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'style/styles.css'
+    }),
+    new HtmlWebpackPlugin({
+      template: 'production.html',
+      inject: false
+    })
   ],
   resolve: {
     alias: {
