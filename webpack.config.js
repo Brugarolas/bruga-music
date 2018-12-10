@@ -102,7 +102,7 @@ module.exports = {
   devtool: '#eval-source-map'
 };
 
-if (process.env.NODE_ENV === 'production') { // http://vue-loader.vuejs.org/en/workflow/production.html
+if (isProduction) { // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.devtool = '#source-map';
   module.exports.mode = 'production';
 }
