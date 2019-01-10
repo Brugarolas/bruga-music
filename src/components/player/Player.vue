@@ -57,6 +57,9 @@ export default {
       this.$youtube.player.load(this.playing.youtubeId, true).then(() => {
         this.duration = this.$youtube.player.duration();
         this.isPlaying = true;
+
+        let { track, artist } = this.playing;
+        document.title = `${track} - ${artist} | Bruga Music`;
       });
     }
   },
