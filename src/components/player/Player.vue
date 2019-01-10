@@ -1,5 +1,5 @@
 <template>
-  <div class="player">
+  <div class="player"  :class="{ 'hidden': !hasSong }">
     <div class="player-image-wrapper">
       <img :src="imagePlaying" class="player-image">
     </div>
@@ -50,7 +50,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['playing', 'imagePlaying'])
+    ...mapGetters(['playing', 'imagePlaying', 'hasSong'])
   },
   watch: {
     playing: function (val) {
@@ -106,9 +106,19 @@ export default {
 @import (less, reference) "../../assets/styles/colors.less";
 
 .player {
-  height: 60px;
+  height: 100%;
   width: 100%;
   box-sizing: border-box;
+
+  padding: 12px 50px;
+  background-color: @color-white;
+  box-shadow: 0 -1/4rem 1/8rem 0 @color-shadow;
+  transition: all 0.3s ease-in-out;
+  transform: none;
+
+  &.hidden {
+    transform: translate3d(0, 90px, 0);
+  }
 
   &::after {
     content: '';

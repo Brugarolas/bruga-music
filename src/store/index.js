@@ -21,6 +21,9 @@ const store = new Vuex.Store({
     }
   },
   getters: {
+    hasSong (state) {
+      return state.song.youtube && state.song.youtube.youtubeId;
+    },
     playing (state) {
       return state.song.youtube;
     },

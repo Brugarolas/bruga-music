@@ -82,7 +82,7 @@ const loadYouTubeWidgetPlayer = () => {
   loadScript({
     type: 'text/javascript',
     id: 'www-widgetapi-script',
-    src: 'https://s.ytimg.com/yts/jsbin/www-widgetapi-vflylTdqs/www-widgetapi.js',
+    src: 'https://s.ytimg.com/yts/jsbin/www-widgetapi-vflkA4wlR/www-widgetapi.js',
     async: true,
     nonce: getCurrentNonce()
   });
