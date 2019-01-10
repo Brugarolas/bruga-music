@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'Artist', params: { name: artist.name.replace(/ /g, '+') } }" :class="'artist'">
+  <router-link :to="{ name: 'Artist', params: { name: artist.name } }" :class="'artist'">
     <h2 class="artist-name">{{ artist.name }}</h2>
     <img :src="imageUrl" class="artist-image">
   </router-link>

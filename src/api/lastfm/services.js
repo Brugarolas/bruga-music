@@ -52,6 +52,14 @@ const getArtistTopTracks = async (artist) => {
   return json.toptracks.track;
 };
 
+const getAlbumInfo = async(artist, album) => {
+  const url = buildApiUrl('album.getinfo', { 'artist': sanitize(artist), 'album': sanitize(album) } )
+
+  const response = await fetch(url, { cache: 'force-cache' });
+  const json = await response.json();
+  return json.album;
+}
+
 const getTrackInfo = async (artist, track) => {
   const url = buildApiUrl('track.getinfo', { 'artist': sanitize(artist), 'track': sanitize(track) });
 
@@ -145,7 +153,8 @@ const sortWithoutImages = (artists) => {
 /* Exports */
 const standalone = { getTopArtists };
 const artist = { getArtistInfo, getArtistTopTags, getArtistTopAlbums, getArtistTopTracks };
+const album = { getAlbumInfo }
 const track = { getTrackInfo };
 const search = { getSearchFunction, searchTrack, searchAlbum, searchArtist };
 
-export default { ...standalone, ...artist, ...track, ...search };
+export default { ...standalone, ...artist, ...album, ...track, ...search };

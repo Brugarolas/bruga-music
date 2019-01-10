@@ -1,8 +1,8 @@
 <template>
-  <div :class="'album'">
+  <router-link :to="{ name: 'Album', params: { name: album.artist.name, album: album.name } }" :class="'album'">
     <h2 class="album-name">{{ title }}</h2>
     <img :src="imageUrl" class="album-image">
-  </div>
+  </router-link>
 </template>
 
 <script>

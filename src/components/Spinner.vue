@@ -18,7 +18,7 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: #0001;
+  /* background-color: #0001; */
   border-radius: 8px;
   z-index: 4;
 }
@@ -42,7 +42,7 @@ export default {
   -ms-transform: translateZ(0);
   transform: translateZ(0);
   overflow: hidden;
-  box-shadow: 0px 0px 12px 0px #000;
+  box-shadow: 0px 0px 12px 0px #000, inset 0px 0px 6px #000;
   -webkit-animation: load8 1.25s infinite linear;
   animation: load8 1.25s infinite linear;
 }

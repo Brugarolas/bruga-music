@@ -11,18 +11,18 @@ body {
   padding: 0;
   margin: 0;
   color: @color-letter;
+  background-color: @color-background;
 }
 .main {
   font-family: 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
   text-align: center;
   .fontFixes();
   color: #2c3e50;
-  margin-top: 50px;
+  margin-top: 68px;
   padding-top: 30px;
   padding-bottom: 100px;
   position: relative;
   box-sizing: border-box;
-  background-color: @color-background;
 }
 h1, h2 {
   font-weight: normal;
@@ -133,3 +133,5 @@ img {
 .margin-top-xl {
   margin-top: 40px;
 }
+
+@import (less) "./details.less";

@@ -7,7 +7,7 @@
     </header>
     <main class="main">
       <transition name="move">
-        <keep-alive>
+        <keep-alive :max="5">
           <router-view />
         </keep-alive>
       </transition>

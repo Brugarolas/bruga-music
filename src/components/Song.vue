@@ -15,6 +15,10 @@ export default {
     track: {
       type: Object,
       required: true
+    },
+    image: {
+      type: String,
+      required: false
     }
   },
   computed: {
@@ -26,7 +30,7 @@ export default {
       return this.artist + ' - ' + this.track.name;
     },
     imageUrl () {
-      return this.track.image[1]['#text'];
+      return this.image ? this.image : this.track.image[1]['#text'];
     }
   },
   methods: {
