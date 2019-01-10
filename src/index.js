@@ -1,15 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from '@/App.vue';
-import routes from '@/routes.js';
-import GlobalBus from '@/utils/bus.js';
+import routes from '@/routes/index.js';
+import GlobalBus from '@/utils/vue-bus.js';
 import LowerCaseFilter from '@/utils/lowercase-filter.js';
 import HumanNumberFilter from '@/utils/number-format-filter.js';
 import DurationFilter from '@/utils/duration-filter.js';
 import VolumeFilter from '@/utils/volume-filter.js';
 import AsyncComputed from 'vue-async-computed';
-import store from '@/store.js';
-import './assets/logo.png';
+import store from '@/store/index.js';
 
 Vue.use(VueRouter);
 Vue.use(GlobalBus);

@@ -10,7 +10,7 @@ const isProduction = NODE_ENV === 'production';
 const publicPath = isProduction ? '/' + (PUBLIC_PATH ? PUBLIC_PATH + '/' : '') : '/';
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/index.js',
   mode: 'development',
   stats: { children: false },
   output: {

@@ -30,7 +30,8 @@
         "ignores": [
           "modules"
         ]
-    }]
+    }],
+    "node/no-unpublished-require": 0
   },
   "env": {
     "browser": true,

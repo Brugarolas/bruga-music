@@ -1,5 +1,5 @@
-import Main from '@/routes/Main.vue';
-import ArtistDetail from '@/routes/ArtistDetail.vue';
+import Main from './Main.vue';
+import ArtistDetail from './ArtistDetail.vue';
 
 const routes = [
   { path: '/', component: Main, name: 'Main' },
