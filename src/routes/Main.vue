@@ -26,7 +26,7 @@ export default {
     };
   },
   mounted () {
-    this.refreshArtist();
+    this.searchTopArtistByCountry();
   },
   methods: {
     searchTopArtistByCountry (country = 'spain') {
