@@ -1,5 +1,5 @@
 <template>
-  <Selector :starting="'spain'" :elements="countries" @change="changeCountry"/>
+  <Selector :starting="'spain'" :elements="countries" @change="changeCountry" />
 </template>
 
 <script>

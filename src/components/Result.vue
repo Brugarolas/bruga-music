@@ -1,7 +1,10 @@
 <template>
   <div class="results-wrapper">
-    <h2 style="text-transform: capitalize;">{{ type }}s</h2>
     <Spinner v-if="loading" />
+
+    <h2 v-if="showDefaultSearch" class="search-title default">Showing top {{ type }}s in <Countries @change="changeCountry" /></h2>
+
+    <h2 v-if="!showDefaultSearch" class="search-title">{{ type }}s</h2>
 
     <ul v-if="isArtist" class="artist-list">
       <li v-for="artist in artists" :key="artist.mbid" class="artist-wrapper">
@@ -25,6 +28,7 @@
 
 <script>
 import Spinner from './Spinner.vue';
+import Countries from '@/components/Countries.vue';
 import Artist from './Artist.vue';
 import Song from './Song.vue';
 import Album from './Album.vue';
@@ -32,7 +36,7 @@ import Album from './Album.vue';
 export default {
   name: 'Result',
   components: {
-    Spinner, Artist, Album, Song
+    Spinner, Countries, Artist, Album, Song
   },
   props: {
     results: {
@@ -46,6 +50,10 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    showDefaultSearch: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -67,11 +75,24 @@ export default {
     albums () {
       return this.isAlbum ? this.results : [];
     }
+  },
+  methods: {
+    changeCountry: function (country) {
+      this.$emit('changeCountry', country);
+    }
   }
 };
 </script>
 
 <style lang="less">
+.search-title {
+  text-transform: capitalize;
+
+  &.default {
+    text-transform: none;
+    margin-bottom: 0;
+  }
+}
 .results-wrapper {
   display: block;
   position: relative;

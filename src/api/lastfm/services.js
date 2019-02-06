@@ -1,8 +1,6 @@
 import config from './config.js';
-import HyperId from 'hyperid';
+import nanoid from 'nanoid';
 import { sanitize } from '@/utils/aux-methods.js';
-
-HyperId.instance = HyperId({ fixedLength: true, urlSafe: true });
 
 const { apiKey, url } = config;
 const format = 'json';
@@ -41,7 +39,7 @@ const getArtistTopAlbums = async (artist) => {
   const json = await response.json();
 
   let albums = json.topalbums.album;
-  return albums.filter(album => album.name !== '(null)');
+  return filterUndefined(albums);
 };
 
 const getArtistTopTracks = async (artist) => {
@@ -97,7 +95,7 @@ const searchAlbum = async (search) => {
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
-  return checkMbids(json.results.albummatches.album);
+  return checkMbids(filterUndefined(json.results.albummatches.album));
 };
 
 const searchArtist = async (search) => {
@@ -130,9 +128,13 @@ const filterMbids = (list) => {
   });
 };
 
+const filterUndefined = (list) => {
+  return list.filter(element => element.name && element.name !== '(null)' && element.name !== 'undefined');
+}
+
 const checkMbids = (list) => {
   list.filter(element => !element.mbid).forEach(element => {
-    element.mbid = 'random:' + HyperId.instance();
+    element.mbid = 'random:' + nanoid();
   });
   return list;
 };

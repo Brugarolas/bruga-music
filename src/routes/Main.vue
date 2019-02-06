@@ -2,27 +2,25 @@
   <section class="view">
     <Search @search="onSearch" />
 
-    <Countries @change="refreshArtist" />
-
-    <Result :loading="loading" :results="results" :type="type" />
+    <Result :loading="loading" :results="results" :type="type" :show-default-search="!hasSearch" @changeCountry="searchTopArtistByCountry" />
   </section>
 </template>
 
 <script>
 import LastFM from '@/api/lastfm/services.js';
-import Countries from '@/components/Countries.vue';
 import Search from '@/components/Search.vue';
 import Result from '@/components/Result.vue';
 
 export default {
   name: 'Main',
   components: {
-    Countries, Search, Result
+    Search, Result
   },
   data () {
     return {
       results: [],
       type: '',
+      hasSearch: false,
       loading: true,
       country: 'spain'
     };
@@ -31,8 +29,9 @@ export default {
     this.refreshArtist();
   },
   methods: {
-    refreshArtist (country = 'spain') {
+    searchTopArtistByCountry (country = 'spain') {
       this.loading = true;
+      this.hasSearch = false;
       this.country = country;
 
       LastFM.getTopArtists(country).then((artists) => {
@@ -42,7 +41,10 @@ export default {
       });
     },
     onSearch (search, type = 'track') {
-      if (search === '') { this.refreshArtist(this.country); return; }
+      if (search === '') {
+        this.searchTopArtistByCountry(this.country);
+        return;
+      }
       this.loading = true;
 
       let searchFunction = LastFM.getSearchFunction(type);
@@ -50,6 +52,7 @@ export default {
       searchFunction(search).then((results) => {
         this.results = results;
         this.type = type;
+        this.hasSearch = true;
         this.loading = false;
       });
     }
