@@ -1,12 +1,13 @@
 <template>
   <a class="track" @click="selectSong">
     <img :src="imageUrl" class="track-image">
-    <i class="track-play fas fa-play" />
+    <i class="track-play fas" :class="[hasSong ? 'fa-plus' : 'fa-play']" />
     <h2 class="track-title">{{ title }}</h2>
   </a>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { str } from '@/utils/aux-methods.js';
 
 export default {
@@ -18,10 +19,12 @@ export default {
     },
     image: {
       type: String,
+      default: null,
       required: false
     }
   },
   computed: {
+    ...mapGetters(['hasSong']),
     artist () {
       let artist = this.track.artist;
       return typeof artist === 'object' ? artist.name : artist;
@@ -81,6 +84,12 @@ export default {
     z-index: 3;
     pointer-events: none;
     transition: all 0.3s ease-in-out;
+
+    &.fa-plus {
+      font-size: 36px;
+      top: 11px;
+      left: 11px;
+    }
   }
 
   &:hover {

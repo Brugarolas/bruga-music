@@ -53,7 +53,6 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           presets: [
-            [ 'minify', { builtIns: false } ],
             [ '@babel/env', { targets: { browsers: [ 'last 2 versions' ] }, useBuiltIns: 'usage', modules: false } ]
           ]
         }
@@ -123,9 +122,13 @@ module.exports = {
   devtool: '#eval-source-map'
 };
 
-if (isProduction) { // http://vue-loader.vuejs.org/en/workflow/production.html
+if (isProduction) {
   module.exports.devtool = '#source-map';
   module.exports.mode = 'production';
+
+  // Add babel-minify preset only in production
+  const babelRules = module.exports.module.rules.find(rule => rule.loader === 'babel-loader');
+  babelRules.options.presets.unshift([ 'minify', { builtIns: false } ]);
 }
 
 if (publicPath !== '/') {

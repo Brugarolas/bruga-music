@@ -1,5 +1,5 @@
 <template>
-  <div class="player"  :class="{ 'hidden': !hasSong }">
+  <div class="player" :class="{ 'hidden': !hasSong }">
     <div class="player-image-wrapper">
       <img :src="imagePlaying" class="player-image">
     </div>
@@ -11,8 +11,9 @@
 
     <div class="player-controls-panel">
       <div class="buttons-panel">
-        <i v-if="!isPlaying" class="play-pause-button fas fa-play" @click="play" />
-        <i v-if="isPlaying" class="play-pause-button fas fa-pause" @click="pause" />
+        <i class="control-button fas fa-step-backward" @click="playPrevSong" :class="{ 'disabled': !hasPrevSong }" />
+        <i class="control-button fas" @click="playPause" :class="[isPlaying ? 'fa-pause' : 'fa-play']" />
+        <i class="control-button fas fa-step-forward" @click="playNextSong" :class="{ 'disabled': !hasNextSong }" />
       </div>
 
       <div class="progress-bar-wrapper">
@@ -46,21 +47,18 @@ export default {
     return {
       time: 0,
       duration: 0,
-      isPlaying: false
+      isPlaying: false,
+      actual: null
     };
   },
   computed: {
-    ...mapGetters(['playing', 'imagePlaying', 'hasSong'])
+    ...mapGetters(['playing', 'imagePlaying', 'hasSong', 'hasPrevSong', 'hasNextSong'])
   },
   watch: {
     playing: function (val) {
-      this.$youtube.player.load(this.playing.youtubeId, true).then(() => {
-        this.duration = this.$youtube.player.duration();
-        this.isPlaying = true;
-
-        let { track, artist } = this.playing;
-        document.title = `${track} - ${artist} | Bruga Music`;
-      });
+      if (this.actual !== this.playing.youtubeId) {
+        this.load(this.playing.youtubeId);
+      }
     }
   },
   mounted () {
@@ -75,9 +73,21 @@ export default {
 
     this.$youtube.player.setEndSongEvent(() => {
       this.isPlaying = false;
+      this.$store.commit('nextSong');
     });
   },
   methods: {
+    load (youtubeId) {
+      this.actual = youtubeId;
+
+      this.$youtube.player.load(youtubeId, true).then(() => {
+        this.duration = this.$youtube.player.duration();
+        this.isPlaying = true;
+
+        let { track, artist } = this.playing;
+        document.title = `${track} - ${artist} | Bruga Music`;
+      });
+    },
     play () {
       if (this.isPlaying) return;
       this.$youtube.player.play();
@@ -87,6 +97,19 @@ export default {
       if (!this.isPlaying) return;
       this.$youtube.player.pause();
       this.isPlaying = false;
+    },
+    playPause() {
+      if (this.isPlaying) {
+        this.pause();
+      } else {
+        this.play();
+      }
+    },
+    playPrevSong () {
+      this.$store.commit('prevSong');
+    },
+    playNextSong () {
+      this.$store.commit('nextSong');
     },
     setPlayerTime (time) {
       this.$youtube.player.goTo(time);
@@ -196,14 +219,23 @@ export default {
     line-height: 24px;
     font-size: 28px;
 
-    .play-pause-button  {
+    .control-button  {
       cursor: pointer;
       color: @color-light-letter;
       transition: all 0.3s ease-in-out;
-    }
 
-    .play-pause-button:hover {
-      color: @color-letter;
+      &:hover {
+        color: @color-letter;
+      }
+
+      &.disabled {
+        color: @color-lighter-letter;
+        pointer-events: none;
+      }
+
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
     }
   }
 

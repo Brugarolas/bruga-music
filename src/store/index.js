@@ -1,65 +1,57 @@
-import Vue from 'vue';
 import Vuex from 'vuex';
-import LastFM from '@/api/lastfm/vue-plugin.js';
-import YouTube from '@/api/youtube/vue-plugin.js';
-
-Vue.use(Vuex);
-
-Vue.use(YouTube);
-Vuex.Store.prototype.$youtube = Vue.prototype.$youtube;
-
-Vue.use(LastFM);
-Vuex.Store.prototype.$lastfm = Vue.prototype.$lastfm;
+import './initialize.js';
 
 const store = new Vuex.Store({
   state: {
-    count: 0,
-    song: {
-      basic: { },
-      meta: { },
-      youtube: { }
-    }
+    playing: 0,
+    songs: []
   },
   getters: {
     hasSong (state) {
-      return state.song.youtube && state.song.youtube.youtubeId;
+      return state.songs && state.songs.length;
+    },
+    hasPrevSong (state) {
+      return state.playing > 0;
+    },
+    hasNextSong (state) {
+      const playingSong = state.playing + 1;
+      const maxSong = state.songs.length;
+
+      return playingSong < maxSong;
     },
     playing (state) {
-      return state.song.youtube;
+      return state.songs[state.playing] || {};
     },
     imagePlaying (state) {
-      if (state.song.basic.image === undefined) return '';
+      const playing = store.getters.playing;
 
-      return state.song.basic.image === '' ? state.song.youtube.thumbnail : state.song.basic.image;
+      return playing ? playing.image || playing.thumbnail || '' : '';
     }
   },
   mutations: {
-    setSongBasicData (state, basic = {}) {
-      state.song.basic = basic;
+    addSong (state, song) {
+      state.songs.push(song);
     },
-    setSongMetaData (state, meta = {}) {
-      state.song.meta = meta;
+    prevSong (state) {
+      if (store.getters.hasPrevSong) {
+        state.playing--;
+      }
     },
-    setSongYouTube (state, youtube = {}) {
-      state.song.youtube = youtube;
+    nextSong (state) {
+      if (store.getters.hasNextSong) {
+        state.playing++;
+      }
     }
   },
   actions: {
-    playSong (context, song) {
-      let { artist, track, image } = song;
-
-      context.commit('setSongBasicData', { artist, track, image });
-
-      this.$lastfm.getTrackInfo(artist, track).then((trackInfo) => {
-        context.commit('setSongMetaData', trackInfo);
-      });
-
-      let query = buildSearchQuery(artist, track);
+    playSong (context, { artist, track, image }) {
+      const query = buildSearchQuery(artist, track);
 
       this.$youtube.search(query).then(results => {
-        var youtubeId = results[0].id.videoId;
-        var thumbnail = results[0].snippet.thumbnails.high.url;
-        context.commit('setSongYouTube', { artist, track, youtubeId, thumbnail });
+        const youtubeId = results[0].id.videoId;
+        const thumbnail = results[0].snippet.thumbnails.high.url;
+
+        context.commit('addSong', { artist, track, image, youtubeId, thumbnail });
       });
     }
   }

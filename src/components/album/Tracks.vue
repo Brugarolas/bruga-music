@@ -25,6 +25,7 @@ export default {
     },
     image: {
       type: String,
+      default: null,
       required: false
     }
   }
