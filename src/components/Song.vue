@@ -83,7 +83,7 @@ export default {
     left: 16px;
     z-index: 3;
     pointer-events: none;
-    transition: all 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 
     &.fa-plus {
       font-size: 36px;

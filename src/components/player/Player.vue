@@ -10,11 +10,7 @@
     </div>
 
     <div class="player-controls-panel">
-      <div class="buttons-panel">
-        <i class="control-button fas fa-step-backward" @click="playPrevSong" :class="{ 'disabled': !hasPrevSong }" />
-        <i class="control-button fas" @click="playPause" :class="[isPlaying ? 'fa-pause' : 'fa-play']" />
-        <i class="control-button fas fa-step-forward" @click="playNextSong" :class="{ 'disabled': !hasNextSong }" />
-      </div>
+      <ButtonsPanel :isPlaying="isPlaying" @play="play" @pause="pause" />
 
       <div class="progress-bar-wrapper">
         <ProgressBar :time="time" :duration="duration" @changeTime="setPlayerTime" />
@@ -26,23 +22,28 @@
     </div>
 
     <div class="player-music-time">
-      <SoundIcon :playing="isPlaying" />
+      <Playlist />
 
-      <TimeDuration :time="time" :duration="duration" />
+      <div class="time-song">
+        <SoundIcon :playing="isPlaying" />
+        <TimeDuration :time="time" :duration="duration" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import ButtonsPanel from './ButtonsPanel.vue';
 import ProgressBar from './ProgressBar.vue';
+import Playlist from './Playlist.vue';
 import SoundIcon from './SoundIcon.vue';
 import TimeDuration from './TimeDuration.vue';
 import SoundControl from './SoundControl.vue';
 
 export default {
   name: 'Player',
-  components: { ProgressBar, SoundIcon, TimeDuration, SoundControl },
+  components: { ButtonsPanel, ProgressBar, Playlist, SoundIcon, TimeDuration, SoundControl },
   data () {
     return {
       time: 0,
@@ -52,7 +53,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['playing', 'imagePlaying', 'hasSong', 'hasPrevSong', 'hasNextSong'])
+    ...mapGetters(['playing', 'imagePlaying', 'hasSong'])
   },
   watch: {
     playing: function (val) {
@@ -97,19 +98,6 @@ export default {
       if (!this.isPlaying) return;
       this.$youtube.player.pause();
       this.isPlaying = false;
-    },
-    playPause() {
-      if (this.isPlaying) {
-        this.pause();
-      } else {
-        this.play();
-      }
-    },
-    playPrevSong () {
-      this.$store.commit('prevSong');
-    },
-    playNextSong () {
-      this.$store.commit('nextSong');
     },
     setPlayerTime (time) {
       this.$youtube.player.goTo(time);
@@ -211,34 +199,6 @@ export default {
   box-sizing: border-box;
   vertical-align: middle;
 
-  .buttons-panel {
-    display: block;
-    width: 100%;
-    text-align: center;
-    box-sizing: border-box;
-    line-height: 24px;
-    font-size: 28px;
-
-    .control-button  {
-      cursor: pointer;
-      color: @color-light-letter;
-      transition: all 0.3s ease-in-out;
-
-      &:hover {
-        color: @color-letter;
-      }
-
-      &.disabled {
-        color: @color-lighter-letter;
-        pointer-events: none;
-      }
-
-      &:not(:last-child) {
-        margin-right: 10px;
-      }
-    }
-  }
-
   .progress-bar-wrapper {
     display: block;
     width: 100%;
@@ -258,11 +218,19 @@ export default {
 }
 
 .player-music-time {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+
   float: right;
   width: 10%;
   box-sizing: border-box;
   vertical-align: middle;
   margin-top: 8px;
+
+  .time-song {
+    margin-left: 20px;
+  }
 }
 </style>

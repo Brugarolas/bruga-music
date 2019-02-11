@@ -19,6 +19,12 @@ const store = new Vuex.Store({
 
       return playingSong < maxSong;
     },
+    playlistStatus (state) {
+      const actualSong = state.playing + 1;
+      const numSongs = state.songs.length;
+
+      return `${actualSong} / ${numSongs}`;
+    },
     playing (state) {
       return state.songs[state.playing] || {};
     },

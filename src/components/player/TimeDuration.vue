@@ -1,5 +1,8 @@
 <template>
-  <span class="time-duration">{{ time | duration }} / {{ duration | duration }}</span>
+  <div class="time-duration">
+    <span>{{ time | duration }}</span>
+    <span> / {{ duration | duration }}</span>
+  </div>
 </template>
 
 <script>
