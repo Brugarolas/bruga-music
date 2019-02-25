@@ -1,7 +1,7 @@
 <template>
   <router-link :to="{ name: 'Artist', params: { name: artist.name } }" :class="'artist'">
     <h2 class="artist-name">{{ artist.name }}</h2>
-    <img :src="imageUrl" class="artist-image">
+    <img :src="artist.image" class="artist-image">
   </router-link>
 </template>
 
@@ -12,11 +12,6 @@ export default {
     artist: {
       type: Object,
       required: true
-    }
-  },
-  computed: {
-    imageUrl () {
-      return this.artist.image[2]['#text'];
     }
   }
 };

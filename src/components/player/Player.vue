@@ -10,7 +10,7 @@
     </div>
 
     <div class="player-controls-panel">
-      <ButtonsPanel :isPlaying="isPlaying" @play="play" @pause="pause" />
+      <ButtonsPanel :is-playing="isPlaying" @play="play" @pause="pause" />
 
       <div class="progress-bar-wrapper">
         <ProgressBar :time="time" :duration="duration" @changeTime="setPlayerTime" />

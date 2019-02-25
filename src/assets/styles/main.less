@@ -23,6 +23,7 @@ body {
   padding-bottom: 100px;
   position: relative;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 h1, h2 {
   font-weight: normal;
@@ -112,26 +113,6 @@ img {
   height: 84px;
   width: 100%;
   z-index: 2;
-}
-
-.float-box {
-  display: flow-root;
-
-  &::after {
-    content: '';
-    clear: both;
-    display: table;
-  }
-}
-
-.margin-top {
-  margin-top: 15px;
-}
-.margin-top-l {
-  margin-top: 25px;
-}
-.margin-top-xl {
-  margin-top: 40px;
 }
 
 @import (less) "./details.less";

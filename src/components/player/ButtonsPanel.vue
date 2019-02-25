@@ -25,10 +25,10 @@ export default {
       this.$emit(this.isPlaying ? 'pause' : 'play');
     },
     playPrevSong () {
-      this.$store.commit('prevSong');
+      this.$store.dispatch('playPrevSong');
     },
     playNextSong () {
-      this.$store.commit('nextSong');
+      this.$store.dispatch('playNextSong');
     }
   }
 };

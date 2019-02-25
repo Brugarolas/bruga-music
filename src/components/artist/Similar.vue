@@ -1,5 +1,5 @@
 <template>
-  <div v-if="ready" class="similar">
+  <div class="similar">
     <h4 class="title">Similar Artists</h4>
 
     <ul class="artist-list">
@@ -25,11 +25,8 @@ export default {
     }
   },
   computed: {
-    ready () {
-      return this.artist && this.artist.similar && this.artist.similar.artist && this.artist.similar.artist.length > 0;
-    },
     similars () {
-      return this.artist.similar.artist;
+      return this.artist.similar;
     }
   }
 };

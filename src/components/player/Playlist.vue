@@ -1,8 +1,10 @@
 <template>
-  <div class="playlist">
-    <i class="playlist-icon fas fa-list-ul"></i>
-    <div class="playlist-info">{{ playlistStatus }}</div>
-  </div>
+  <router-link :to="{ name: 'Playlist', params: {} }">
+    <div class="playlist">
+      <i class="playlist-icon fas fa-list-ul"></i>
+      <div class="playlist-info">{{ playlistStatus }}</div>
+    </div>
+  </router-link>
 </template>
 
 <script>
@@ -38,6 +40,7 @@ export default {
     display: block;
     font-family: "Open Sans", sans-serif;
     font-size: 16px;
+    color: #495057;
     margin-top: 2px;
     font-weight: 400;
   }

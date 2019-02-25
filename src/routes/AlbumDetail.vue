@@ -4,37 +4,40 @@
 
     <div v-if="initialized" class="card">
       <div class="main-info float-box">
-        <img :src="imageUrl" class="image">
+        <GoBackButton />
+
+        <img :src="album.image" class="image">
         <h1 class="name">{{ album.name }}</h1>
 
         <div class="extra">
           <span class="extra-title">Listeners</span>
-          <span class="extra-info">{{ album.listeners | humanNumber }}</span>
+          <span class="extra-info">{{ album.stats.listeners | humanNumber }}</span>
         </div>
 
         <div class="extra">
           <span class="extra-title">Scrobblings</span>
-          <span class="extra-info">{{ album.playcount | humanNumber }}</span>
+          <span class="extra-info">{{ album.stats.playcount | humanNumber }}</span>
         </div>
 
         <div class="tags">
-          <Tags v-if="hasTags" :tags="tags" />
+          <Tags v-if="hasTags" :tags="album.tags" />
         </div>
       </div>
 
       <div class="float-box">
         <Wiki :album="album" />
 
-        <Tracks v-if="hasTracks" :tracks="tracks" :image="imageUrl" />
+        <Tracks v-if="hasTracks" :tracks="album.tracks" :image="album.image" />
       </div>
 
-      <a :href="moreLink" target="_blank">More information</a>
+      <a :href="album.moreLink" target="_blank">More information</a>
     </div>
   </section>
 </template>
 
 <script>
 import Spinner from '@/components/Spinner.vue';
+import GoBackButton from '@/components/common/GoBackButton.vue';
 import Tags from '@/components/Tags.vue';
 import Wiki from '@/components/album/Wiki.vue';
 import Tracks from '@/components/album/Tracks.vue';
@@ -42,7 +45,7 @@ import Tracks from '@/components/album/Tracks.vue';
 export default {
   name: 'AlbumDetail',
   components: {
-    Spinner, Tags, Wiki, Tracks
+    Spinner, GoBackButton, Tags, Wiki, Tracks
   },
   data () {
     return {
@@ -56,23 +59,11 @@ export default {
     };
   },
   computed: {
-    imageUrl () {
-      return this.loading ? '' : this.album.image[3]['#text'];
-    },
-    moreLink () {
-      return this.loading ? '' : this.album.url;
-    },
-    tags () {
-      return !this.album.tags || !this.album.tags.tag ? [] : this.album.tags.tag;
-    },
     hasTags () {
-      return this.tags.length > 0;
-    },
-    tracks () {
-      return !this.album.tracks || !this.album.tracks.track ? [] : this.album.tracks.track;
+      return this.album.tags && this.album.tags.length > 0;
     },
     hasTracks () {
-      return this.tracks.length > 0;
+      return this.album.tracks && this.album.tracks.length > 0;
     }
   },
   activated () {
@@ -86,7 +77,6 @@ export default {
   },
   methods: {
     load () {
-      console.log(this.$route.params);
       this.name.artist = this.$route.params.name;
       this.name.album = this.$route.params.album;
       this.searchAlbum();
@@ -108,7 +98,7 @@ export default {
       });
     }
   }
-}
+};
 </script>
 
 <style lang="less">

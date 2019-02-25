@@ -2,15 +2,19 @@
 
 .card {
   display: block;
-  background-color: #fff;
+  position: relative;
+  box-sizing: border-box;
+  width: 80%;
   margin: 25px 10%;
   padding: 25px 5%;
+  background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 0 1/4rem 1/8rem rgba(0, 0, 0, 0.05);
 }
 
 .main-info {
   font-family: 'Roboto', sans-serif;
+  position: relative;
   display: block;
   text-align: left;
   margin-bottom: 20px;
@@ -112,4 +116,24 @@
   width: 25%;
   box-sizing: border-box;
   float: right;
+}
+
+.float-box {
+  display: flow-root;
+
+  &::after {
+    content: '';
+    clear: both;
+    display: table;
+  }
+}
+
+.margin-top {
+  margin-top: 15px;
+}
+.margin-top-l {
+  margin-top: 25px;
+}
+.margin-top-xl {
+  margin-top: 40px;
 }

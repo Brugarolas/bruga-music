@@ -19,6 +19,15 @@ const store = new Vuex.Store({
 
       return playingSong < maxSong;
     },
+    searchSongByNameAndArtist (state) {
+      return (name, artist) => state.songs.find(song => song.track === name && song.artist === artist);
+    },
+    searchSongIndexByNameAndArtist (state) {
+      return (name, artist) => state.songs.findIndex(song => song.track === name && song.artist === artist);
+    },
+    playlist (state) {
+      return state.songs;
+    },
     playlistStatus (state) {
       const actualSong = state.playing + 1;
       const numSongs = state.songs.length;
@@ -39,18 +48,21 @@ const store = new Vuex.Store({
       state.songs.push(song);
     },
     prevSong (state) {
-      if (store.getters.hasPrevSong) {
-        state.playing--;
-      }
+      state.playing--;
     },
     nextSong (state) {
-      if (store.getters.hasNextSong) {
-        state.playing++;
-      }
+      state.playing++;
+    },
+    playSong (state, num) {
+      state.playing = num;
     }
   },
   actions: {
-    playSong (context, { artist, track, image }) {
+    addOrPlaySong (context, { artist, track, image }) {
+      if (context.getters.searchSongByNameAndArtist(track, artist)) {
+        return;
+      }
+
       const query = buildSearchQuery(artist, track);
 
       this.$youtube.search(query).then(results => {
@@ -59,6 +71,23 @@ const store = new Vuex.Store({
 
         context.commit('addSong', { artist, track, image, youtubeId, thumbnail });
       });
+    },
+    changePlayingSong (context, { artist, track }) {
+      const index = context.getters.searchSongIndexByNameAndArtist(track, artist);
+
+      if (index !== -1) {
+        context.commit('playSong', index);
+      }
+    },
+    playPrevSong (context) {
+      if (context.getters.hasPrevSong) {
+        context.commit('prevSong');
+      }
+    },
+    playNextSong (context) {
+      if (context.getters.hasNextSong) {
+        context.commit('nextSong');
+      }
     }
   }
 });

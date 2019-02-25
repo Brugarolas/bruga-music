@@ -1,3 +1,4 @@
+import Adapt from './adapt.js';
 import config from './config.js';
 import nanoid from 'nanoid';
 import { sanitize } from '@/utils/aux-methods.js';
@@ -11,7 +12,7 @@ const getTopArtists = async (country) => {
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
-  return checkMbids(json.topartists.artist);
+  return Adapt.adaptArtists(checkMbids(json.topartists.artist));
 };
 
 const getArtistInfo = async (artist) => {
@@ -19,7 +20,7 @@ const getArtistInfo = async (artist) => {
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
-  return json.artist;
+  return Adapt.adaptArtists(json.artist);
 };
 
 const getArtistTopTags = async (artist, num) => {
@@ -29,7 +30,7 @@ const getArtistTopTags = async (artist, num) => {
   const json = await response.json();
 
   let tags = json.toptags.tag;
-  return num ? tags.slice(0, num) : tags;
+  return Adapt.adaptTags(num ? tags.slice(0, num) : tags);
 };
 
 const getArtistTopAlbums = async (artist) => {
@@ -39,7 +40,7 @@ const getArtistTopAlbums = async (artist) => {
   const json = await response.json();
 
   let albums = json.topalbums.album;
-  return filterUndefined(albums);
+  return Adapt.adaptAlbums(filterUndefined(albums));
 };
 
 const getArtistTopTracks = async (artist) => {
@@ -47,7 +48,7 @@ const getArtistTopTracks = async (artist) => {
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
-  return json.toptracks.track;
+  return Adapt.adaptTracks(json.toptracks.track);
 };
 
 const getAlbumInfo = async(artist, album) => {
@@ -55,7 +56,7 @@ const getAlbumInfo = async(artist, album) => {
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
-  return json.album;
+  return Adapt.adaptAlbums(json.album);
 }
 
 const getTrackInfo = async (artist, track) => {

@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     ready () {
-      return !!this.albums;
+      return Boolean(this.albums);
     },
     visibleAlbums () {
       return this.showMore ? this.albums : this.albums.slice(0, 6);

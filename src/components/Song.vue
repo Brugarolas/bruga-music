@@ -1,7 +1,7 @@
 <template>
-  <a class="track" @click="selectSong">
-    <img :src="imageUrl" class="track-image">
-    <i class="track-play fas" :class="[hasSong ? 'fa-plus' : 'fa-play']" />
+  <a class="track" @click="selectSong" :class="{ 'track-in-playlist': inPlaylist, 'track-selected': selected  }">
+    <img :src="track.image" class="track-image">
+    <i class="track-play fas" :class="faIcon" />
     <h2 class="track-title">{{ title }}</h2>
   </a>
 </template>
@@ -12,6 +12,17 @@ import { str } from '@/utils/aux-methods.js';
 
 export default {
   name: 'Song',
+  data () {
+    return {
+      inPlaylist: false
+    }
+  },
+  mounted () {
+    this.updateSelected();
+  },
+  updated () {
+    this.updateSelected();
+  },
   props: {
     track: {
       type: Object,
@@ -24,30 +35,58 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['hasSong']),
+    ...mapGetters(['hasSong', 'playing']),
+    name () {
+      return this.track.name;
+    },
     artist () {
       let artist = this.track.artist;
       return typeof artist === 'object' ? artist.name : artist;
     },
-    title () {
-      return this.artist + ' - ' + this.track.name;
+    selected () {
+      let playing = this.playing;
+      return this.name === playing.track && this.artist === playing.artist;
     },
-    imageUrl () {
-      return this.image ? this.image : this.track.image[1]['#text'];
+    title () {
+      return this.artist + ' - ' + this.name;
+    },
+    faIcon () {
+      if (this.selected) {
+        return 'fa-play';
+      }
+      if (this.inPlaylist) {
+        return 'fa-check';
+      }
+      return this.hasSong ? 'fa-plus' : 'fa-play';
     }
   },
   methods: {
     selectSong () {
-      this.$store.dispatch('playSong', { 'artist': str(this.artist), 'track': str(this.track.name), 'image': this.imageUrl });
+      if (this.selected) {
+        return;
+      }
+
+      if (this.inPlaylist) {
+        this.$store.dispatch('changePlayingSong', { 'artist': str(this.artist), 'track': str(this.name)});
+      } else {
+        this.$store.dispatch('addOrPlaySong', { 'artist': str(this.artist), 'track': str(this.name), 'image': this.imageUrl });
+        this.inPlaylist = true;
+      }
+    },
+    updateSelected () {
+      this.inPlaylist = Boolean(this.$store.getters.searchSongByNameAndArtist(str(this.name), str(this.artist)));
     }
   }
 };
 </script>
 
 <style lang="less">
+@import (reference, less) "../assets/styles/colors.less";
+
 .track {
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
   margin: 5px 75px;
   text-align: left;
   cursor: pointer;
@@ -93,10 +132,25 @@ export default {
   }
 
   &:hover {
-    background-color: #ccc2;
+    background-color: @color-background-dark;
 
     .track-play {
       opacity: 0.90;
+    }
+  }
+
+  &.track-in-playlist {
+    background-color: @color-background-dark;
+
+    .track-title {
+      font-weight: 600;
+      color: @color-letter;
+    }
+    .track-image {
+      transform: none;
+    }
+    .track-play {
+      opacity: 1;
     }
   }
 }

@@ -4,7 +4,9 @@
 
     <div v-if="initialized" class="card">
       <div class="main-info float-box">
-        <img :src="imageUrl" class="image">
+        <GoBackButton />
+
+        <img :src="artist.image" class="image">
         <h1 class="name">{{ artist.name }}</h1>
 
         <div class="extra">
@@ -18,7 +20,7 @@
         </div>
 
         <div class="tags">
-          <Tags v-if="hasTags" :tags="tags" />
+          <Tags v-if="hasTags" :tags="artist.tags" />
           <TopTags v-if="!hasTags" :artist-name="name" />
         </div>
       </div>
@@ -37,13 +39,14 @@
         </div>
       </div>
 
-      <a :href="moreLink" target="_blank">More information</a>
+      <a :href="artist.moreLink" target="_blank">More information</a>
     </div>
   </section>
 </template>
 
 <script>
 import Spinner from '@/components/Spinner.vue';
+import GoBackButton from '@/components/common/GoBackButton.vue';
 import Biography from '@/components/artist/Biography.vue';
 import Tags from '@/components/Tags.vue';
 import TopTags from '@/components/artist/TopTags.vue';
@@ -54,7 +57,7 @@ import Similar from '@/components/artist/Similar.vue';
 export default {
   name: 'ArtistDetail',
   components: {
-    Spinner, Biography, Tags, TopTags, TopTracks, Albums, Similar
+    Spinner, GoBackButton, Biography, Tags, TopTags, TopTracks, Albums, Similar
   },
   data () {
     return {
@@ -65,17 +68,8 @@ export default {
     };
   },
   computed: {
-    imageUrl () {
-      return this.loading ? '' : this.artist.image[4]['#text'];
-    },
-    moreLink () {
-      return this.loading ? '' : this.artist.bio.links.link.href;
-    },
-    tags () {
-      return !this.artist.tags || !this.artist.tags.tag ? [] : this.artist.tags.tag;
-    },
     hasTags () {
-      return this.tags.length > 0;
+      return this.artist.tags && this.artist.tags.length > 0;
     }
   },
   activated () {

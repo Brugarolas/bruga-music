@@ -1,7 +1,7 @@
 <template>
-  <router-link :to="{ name: 'Album', params: { name: album.artist.name, album: album.name } }" :class="'album'">
+  <router-link :to="{ name: 'Album', params: { name: album.artist, album: album.name } }" :class="'album'">
     <h2 class="album-name">{{ title }}</h2>
-    <img :src="imageUrl" class="album-image">
+    <img :src="album.image" class="album-image">
   </router-link>
 </template>
 
@@ -21,9 +21,6 @@ export default {
   computed: {
     title () {
       return (this.ignoreArtist ? '' : this.album.artist + ' - ') + this.album.name;
-    },
-    imageUrl () {
-      return this.album.image[2]['#text'];
     }
   }
 };
