@@ -8,7 +8,7 @@ const store = new Vuex.Store({
   },
   getters: {
     hasSong (state) {
-      return state.songs && state.songs.length;
+      return state.songs && state.songs.length > 0;
     },
     hasPrevSong (state) {
       return state.playing > 0;
