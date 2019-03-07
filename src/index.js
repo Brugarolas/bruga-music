@@ -18,9 +18,10 @@ Vue.use(DurationFilter);
 Vue.use(VolumeFilter);
 Vue.use(AsyncComputed);
 
-const router = new VueRouter({ routes, mode: 'history' });
+const publicPath = PUBLIC_PATH || '/'; // eslint-disable-line no-undef
+const router = new VueRouter({ routes, base: publicPath, mode: 'history' });
 
-const app = new Vue({ // eslint-disable-line
+const app = new Vue({ // eslint-disable-line no-unused-vars
   el: '#app',
   render: h => h(App),
   router,

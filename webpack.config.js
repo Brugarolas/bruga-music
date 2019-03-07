@@ -1,3 +1,4 @@
+const { DefinePlugin } = require('webpack');
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -76,9 +77,12 @@ module.exports = {
     ]
   },
   plugins: [
+    new DefinePlugin({
+      'PUBLIC_PATH': JSON.stringify(PUBLIC_PATH ? `/${PUBLIC_PATH}/` : '/')
+    }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'style/bundle.css?[hash]'
+      filename: 'styles/bundle.css?[hash]'
     }),
     new RemoteFilePlugin([
       {
