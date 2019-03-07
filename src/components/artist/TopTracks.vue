@@ -4,7 +4,7 @@
 
     <ul class="track-list">
       <li v-for="track in tracks" :key="track.mbid" class="track-wrapper">
-        <Song :track="track" />
+        <Song :show-artist="false" :track="track" />
       </li>
     </ul>
   </div>

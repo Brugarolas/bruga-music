@@ -45,7 +45,7 @@ export default {
   .icon-cancel {
     font-size: 24px;
     color: @color-red;
-    opacity: 0.5;
+    opacity: 0.35;
     transition: all 0.3s ease-in-out;
   }
 

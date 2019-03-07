@@ -1,5 +1,5 @@
 <template>
-  <a class="track" @click="selectSong" :class="{ 'track-in-playlist': inPlaylist, 'track-selected': selected  }">
+  <a class="track" @click="selectSong" :class="{ 'track-in-playlist': inPlaylist, 'track-selected': selected }">
     <img :src="track.image" class="track-image">
     <i class="track-play fas" :class="faIcon" />
     <h2 class="track-title">{{ title }}</h2>
@@ -12,27 +12,20 @@ import { str } from '@/utils/aux-methods.js';
 
 export default {
   name: 'Song',
-  data () {
-    return {
-      inPlaylist: false
-    }
-  },
-  mounted () {
-    this.updateSelected();
-  },
-  updated () {
-    this.updateSelected();
-  },
   props: {
     track: {
       type: Object,
       required: true
     },
-    image: {
-      type: String,
-      default: null,
-      required: false
+    showArtist: {
+      type: Boolean,
+      default: true
     }
+  },
+  data () {
+    return {
+      inPlaylist: false
+    };
   },
   computed: {
     ...mapGetters(['hasSong', 'playing']),
@@ -48,7 +41,10 @@ export default {
       return this.name === playing.track && this.artist === playing.artist;
     },
     title () {
-      return this.artist + ' - ' + this.name;
+      if (!this.showArtist) {
+        return this.name;
+      }
+      return `${this.artist} - ${this.name}`;
     },
     faIcon () {
       if (this.selected) {
@@ -60,6 +56,12 @@ export default {
       return this.hasSong ? 'fa-plus' : 'fa-play';
     }
   },
+  mounted () {
+    this.updateSelected();
+  },
+  updated () {
+    this.updateSelected();
+  },
   methods: {
     selectSong () {
       if (this.selected) {
@@ -67,9 +69,9 @@ export default {
       }
 
       if (this.inPlaylist) {
-        this.$store.dispatch('changePlayingSong', { 'artist': str(this.artist), 'track': str(this.name)});
+        this.$store.dispatch('changePlayingSong', { 'artist': str(this.artist), 'track': str(this.name) });
       } else {
-        this.$store.dispatch('addOrPlaySong', { 'artist': str(this.artist), 'track': str(this.name), 'image': this.imageUrl });
+        this.$store.dispatch('addOrPlaySong', { 'artist': str(this.artist), 'track': str(this.name), 'image': this.track.image });
         this.inPlaylist = true;
       }
     },

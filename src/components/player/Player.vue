@@ -5,7 +5,7 @@
     </div>
 
     <div class="player-title">
-      <span class="artist">{{ playing.artist }}</span>
+      <router-link class="artist" :to="{ name: 'Artist', params: { name: playing.artist } }">{{ playing.artist }}</router-link>
       <span class="track">{{ playing.track }}</span>
     </div>
 
@@ -139,98 +139,108 @@ export default {
     clear: both;
     display: table;
   }
-}
 
-.player-image-wrapper {
-  display: inline-block;
-  float: left;
-  vertical-align: middle;
-  box-sizing: border-box;
-  width: 60px;
-
-  .player-image {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.10);
-    background-color: #ccc;
+  .player-image-wrapper {
     display: inline-block;
-    object-fit: cover;
-  }
-}
-
-.player-title {
-  display: inline-block;
-  text-align: left;
-  float: left;
-  padding-left: 20px;
-  width: calc(35% - 60px);
-  min-height: 5px;
-  box-sizing: border-box;
-  vertical-align: middle;
-
-  .artist, .track {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    display: block;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .artist {
-    font-family: "Roboto", sans-serif;
-    font-size: 25px;
-    font-weight: 800;
-  }
-  .track {
-    font-family: "Open Sans", sans-serif;
-    font-size: 21px;
-    font-weight: 300;
-  }
-}
-
-.player-controls-panel {
-  display: inline-block;
-  float: left;
-  width: 30%;
-  box-sizing: border-box;
-  vertical-align: middle;
-
-  .progress-bar-wrapper {
-    display: block;
-    width: 100%;
-    padding: 0 5px;
+    float: left;
+    vertical-align: middle;
     box-sizing: border-box;
+    width: 60px;
+
+    .player-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.10);
+      background-color: #ccc;
+      display: inline-block;
+      object-fit: cover;
+    }
   }
-}
 
-.player-sound-panel {
-  display: inline-block;
-  float: left;
-  width: 25%;
-  text-align: center;
-  box-sizing: border-box;
-  vertical-align: middle;
-  margin-top: 10px;
-}
+  .player-title {
+    display: inline-block;
+    text-align: left;
+    float: left;
+    padding-left: 20px;
+    width: calc(35% - 60px);
+    min-height: 5px;
+    box-sizing: border-box;
+    vertical-align: middle;
 
-.player-music-time {
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: end;
-  align-items: center;
+    .artist, .track {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      display: block;
 
-  float: right;
-  width: 10%;
-  box-sizing: border-box;
-  vertical-align: middle;
-  margin-top: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
-  .time-song {
-    margin-left: 20px;
+      &:hover {
+        background: none;
+        cursor: default;
+      }
+    }
+
+    .artist {
+      font-family: "Roboto", sans-serif;
+      color: @color-letter;
+      font-size: 25px;
+      font-weight: 800;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .track {
+      font-family: "Open Sans", sans-serif;
+      font-size: 21px;
+      font-weight: 300;
+    }
+  }
+
+  .player-controls-panel {
+    display: inline-block;
+    float: left;
+    width: 30%;
+    box-sizing: border-box;
+    vertical-align: middle;
+
+    .progress-bar-wrapper {
+      display: block;
+      width: 100%;
+      padding: 0 5px;
+      box-sizing: border-box;
+    }
+  }
+
+  .player-sound-panel {
+    display: inline-block;
+    float: left;
+    width: 25%;
+    text-align: center;
+    box-sizing: border-box;
+    vertical-align: middle;
+    margin-top: 10px;
+  }
+
+  .player-music-time {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+
+    float: right;
+    width: 10%;
+    box-sizing: border-box;
+    vertical-align: middle;
+    margin-top: 8px;
+
+    .time-song {
+      margin-left: 20px;
+    }
   }
 }
 </style>

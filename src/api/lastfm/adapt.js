@@ -1,9 +1,18 @@
+/* Aux funcs */
 const findImage = (imageArray, size) => {
   const selected = imageArray.find(image => image.size === size) || imageArray[imageArray.length - 1];
 
   return selected['#text'];
 };
 
+const getNameFromArtist = (track) => {
+  if (typeof track.artist === 'string') {
+    return track.artist;
+  }
+  return track.artist.name;
+};
+
+/* Adapt funcs */
 const artistsArray = (artists) => {
   return artists.map(artist => {
     const item = {
@@ -54,8 +63,6 @@ const albumsArray = (albums) => {
 };
 
 const albumDetail = (album) => {
-  console.log(album);
-
   const detail = {
     mbid: album.mbid,
     name: album.name,
@@ -86,7 +93,7 @@ const albumDetail = (album) => {
 const tracksArray = (tracks, image) => {
   return tracks.map(track => ({
     mbid: track.mbid,
-    artist: track.artist.name,
+    artist: getNameFromArtist(track),
     name: track.name,
     image: image || findImage(track.image, 'medium')
   }));
@@ -98,7 +105,7 @@ const trackDetail = (track) => {
   return track;
 };
 
-/* API */
+/* Public API */
 const adaptArtists = (artists) => {
   return Array.isArray(artists) ? artistsArray(artists) : artistDetail(artists);
 };

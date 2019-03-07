@@ -64,7 +64,7 @@ const getTrackInfo = async (artist, track) => {
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
-  return json.track;
+  return Adapt.adaptTracks(json.track);
 };
 
 const getSearchFunction = (type) => {
@@ -88,7 +88,7 @@ const searchTrack = async (search) => {
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
-  return checkMbids(json.results.trackmatches.track);
+  return Adapt.adaptTracks(checkMbids(json.results.trackmatches.track));
 };
 
 const searchAlbum = async (search) => {
@@ -96,7 +96,7 @@ const searchAlbum = async (search) => {
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
-  return checkMbids(filterUndefined(json.results.albummatches.album));
+  return Adapt.adaptAlbums(checkMbids(filterUndefined(json.results.albummatches.album)));
 };
 
 const searchArtist = async (search) => {
@@ -104,7 +104,7 @@ const searchArtist = async (search) => {
 
   const response = await fetch(url, { cache: 'force-cache' });
   const json = await response.json();
-  return checkMbids(sortWithoutImages(filterMbids(json.results.artistmatches.artist)));
+  return Adapt.adaptArtists(checkMbids(sortWithoutImages(filterMbids(json.results.artistmatches.artist))));
 };
 
 /* Aux API methods */
