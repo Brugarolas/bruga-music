@@ -56,9 +56,14 @@ export default {
     ...mapGetters(['playing', 'imagePlaying', 'hasSong'])
   },
   watch: {
-    playing: function (val) {
-      if (this.actual !== this.playing.youtubeId) {
-        this.load(this.playing.youtubeId);
+    playing: function (playing) {
+      if (!playing) {
+        console.log('No song!');
+        return;
+      }
+
+      if (this.actual !== playing.youtubeId) {
+        this.load(playing.youtubeId);
       }
     }
   },

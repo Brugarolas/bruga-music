@@ -25,6 +25,12 @@ const store = new Vuex.Store({
     searchSongIndexByNameAndArtist (state) {
       return (name, artist) => state.songs.findIndex(song => song.track === name && song.artist === artist);
     },
+    searchSongByYoutubeId (state) {
+      return (youtubeId) => state.songs.find(song => song.youtubeId === youtubeId);
+    },
+    searchSongIndexByYoutubeId (state) {
+      return (youtubeId) => state.songs.findIndex(song => song.youtubeId === youtubeId);
+    },
     playlist (state) {
       return state.songs;
     },
@@ -46,6 +52,12 @@ const store = new Vuex.Store({
   mutations: {
     addSong (state, song) {
       state.songs.push(song);
+    },
+    removeSong (state, index) {
+      if (index === state.playing) {
+        state.playing--;
+      }
+      state.songs.splice(index, 1);
     },
     prevSong (state) {
       state.playing--;
@@ -72,11 +84,22 @@ const store = new Vuex.Store({
         context.commit('addSong', { artist, track, image, youtubeId, thumbnail });
       });
     },
-    changePlayingSong (context, { artist, track }) {
-      const index = context.getters.searchSongIndexByNameAndArtist(track, artist);
+    changePlayingSong (context, { artist, track, youtubeId }) {
+      const index = youtubeId
+        ? context.getters.searchSongIndexByYoutubeId(youtubeId)
+        : context.getters.searchSongIndexByNameAndArtist(track, artist);
 
       if (index !== -1) {
         context.commit('playSong', index);
+      }
+    },
+    deleteSong (context, { artist, track, youtubeId }) {
+      const index = youtubeId
+        ? context.getters.searchSongIndexByYoutubeId(youtubeId)
+        : context.getters.searchSongIndexByNameAndArtist(track, artist);
+
+      if (index !== -1) {
+        context.commit('removeSong', index);
       }
     },
     playPrevSong (context) {

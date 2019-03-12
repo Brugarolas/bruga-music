@@ -5,15 +5,22 @@
     <h2 class="track-title">
       <span class="track-artist">{{ track.artist }}</span><span class="track-name">{{ track.track }}</span>
     </h2>
+    <DeleteButton @click="deleteSong" />
   </a>
 </template>
 
 <script>
+import DeleteButton from './DeleteButton.vue';
 import { mapGetters } from 'vuex';
-import { str } from '@/utils/aux-methods.js';
 
 export default {
   name: 'PlaylistSong',
+  components: { DeleteButton },
+  data () {
+    return {
+      deleting: false
+    };
+  },
   props: {
     track: {
       type: Object,
@@ -28,11 +35,16 @@ export default {
   },
   methods: {
     selectSong () {
-      if (this.selected) {
+      if (this.selected || this.deleting) {
         return;
       }
 
-      this.$store.dispatch('changePlayingSong', { 'artist': str(this.track.artist), 'track': str(this.track.track) });
+      this.$store.dispatch('changePlayingSong', { youtubeId: this.track.youtubeId });
+    },
+    deleteSong () {
+      this.deleting = true;
+
+      this.$store.dispatch('deleteSong', { youtubeId: this.track.youtubeId });
     }
   }
 };
