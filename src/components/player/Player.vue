@@ -79,7 +79,7 @@ export default {
 
     this.$youtube.player.setEndSongEvent(() => {
       this.isPlaying = false;
-      this.$store.commit('nextSong');
+      this.$store.dispatch('playNextSong');
     });
   },
   methods: {

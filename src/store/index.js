@@ -54,7 +54,7 @@ const store = new Vuex.Store({
       state.songs.push(song);
     },
     removeSong (state, index) {
-      if (index === state.playing) {
+      if (index === state.playing && state.playing > 0) {
         state.playing--;
       }
       state.songs.splice(index, 1);

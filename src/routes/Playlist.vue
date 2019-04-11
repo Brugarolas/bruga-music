@@ -23,11 +23,18 @@ export default {
     CloseButton, AnimatedEllipsis, Song
   },
   computed: {
-    ...mapGetters(['playing', 'playlist'])
+    ...mapGetters(['playing', 'playlist', 'hasSong'])
   },
   methods: {
     close () {
       this.$router.go(-1);
+    }
+  },
+  watch: {
+    hasSong: function (hasSong) {
+      if (!hasSong) {
+        this.close();
+      }
     }
   }
 };
