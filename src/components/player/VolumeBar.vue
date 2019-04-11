@@ -1,14 +1,14 @@
 <template>
   <div class="volume-bar">
-    <div class="volume-bar-html">
-      <div :class="{ muted: muted }" class="volume-background" @click="setPlayerVolume" @mousemove="setHoverVolume" />
-      <div :style="{ width: percentage + '%' }" class="volume-progress" />
-      <div :style="{ width: hover.percentage + '%' }" :data-tooltip="hover.volume | volume" class="volume-hover" />
-    </div>
+    <div :class="{ muted: muted }" class="volume-background" @click="setPlayerVolume" @mousemove="setHoverVolume" />
+    <div :style="{ width: percentage + '%' }" class="volume-progress" />
+    <div :style="{ width: hover.percentage + '%' }" :data-tooltip="hover.volume | volume" class="volume-hover" />
   </div>
 </template>
 
 <script>
+import onResize from '@/utils/resize-events.js';
+
 export default {
   name: 'VolumeBar',
   props: {
@@ -27,7 +27,8 @@ export default {
         volume: 0,
         timeout: undefined,
         lastPositionX: undefined
-      }
+      },
+      resizeTaskId: undefined
     };
   },
   computed: {
@@ -39,8 +40,18 @@ export default {
     this.$bus.$on('api-change-volume', volume => {
       this.volume = volume;
     });
+
+    this.resizeTaskId = onResize.addEvent(() => {
+      this.reset();
+    });
+  },
+  beforeDestroy () {
+    onResize.removeEvent(this.resizeTaskId);
   },
   methods: {
+    reset () {
+      this.rect = undefined;
+    },
     setPlayerVolume (event) {
       if (this.muted) return;
 
@@ -87,11 +98,6 @@ export default {
 <style lang="less">
 @import (reference, less) "../../assets/styles/colors.less";
 
-.volume-bar {
-  display: inline-block;
-  width: 100%;
-}
-
 .volume-bar-aux() {
   position: absolute;
   top: 0;
@@ -103,7 +109,7 @@ export default {
   transition: all 0.1s linear;
 }
 
-.volume-bar-html {
+.volume-bar {
   position: relative;
   display: inline-block;
   width: 100%;
@@ -139,6 +145,7 @@ export default {
       opacity: 0;
       transition: all 0.1s linear;
       box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.10);
+      z-index: 5;
     }
   }
 
