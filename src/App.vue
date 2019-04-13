@@ -63,6 +63,14 @@ export default {
 
       next();
     });
+  },
+  mounted () {
+    /* Stop loader if two seconds have passed
+     * Loader should be stopped in each route when all AJAX are completed
+     * This is here in case I forgot to stop loader on routes (or AJAX fails or something)
+     * If loader is already stopped this sould do nothing
+     */
+    window.stopLoadingWithDelay(4000);
   }
 };
 </script>

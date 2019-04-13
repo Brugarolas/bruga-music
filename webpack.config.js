@@ -59,6 +59,16 @@ module.exports = {
         }
       },
       {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            interpolate: true,
+            attrs: []
+          }
+        }
+      },
+      {
         test: /\.(png|jpg|gif)$/,
         loader: 'file-loader',
         options: {

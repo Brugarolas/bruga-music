@@ -38,6 +38,8 @@ export default {
         this.results = artists;
         this.type = 'artist';
         this.loading = false;
+
+        window.stopLoadingWithDelay(100);
       });
     },
     onSearch (search, type = 'track') {

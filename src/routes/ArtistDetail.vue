@@ -97,6 +97,8 @@ export default {
         this.artist = artist;
         this.loading = false;
         this.initialized = true;
+
+        window.stopLoadingWithDelay(100);
       });
     }
   }
