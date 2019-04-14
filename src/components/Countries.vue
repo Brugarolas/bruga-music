@@ -1,5 +1,5 @@
 <template>
-  <Selector :starting="'spain'" :elements="countries" @change="changeCountry" />
+  <Selector :elements="countries" :initial="initialCountry" @change="changeCountry" />
 </template>
 
 <script>
@@ -10,6 +10,7 @@ export default {
   components: { Selector },
   data () {
     return {
+      initialCountry: 'spain',
       countries: [
         { name: 'Argentina', value: 'argentina' },
         { name: 'Colombia', value: 'colombia' },

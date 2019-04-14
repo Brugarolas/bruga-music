@@ -125,16 +125,6 @@
   float: right;
 }
 
-.float-box {
-  display: flow-root;
-
-  &::after {
-    content: '';
-    clear: both;
-    display: table;
-  }
-}
-
 .margin-top {
   margin-top: 15px;
 }
@@ -143,4 +133,35 @@
 }
 .margin-top-xl {
   margin-top: 40px;
+}
+
+.float-box::after {
+  content: '';
+  clear: both;
+  display: table;
+}
+
+@supports (display: flow-root) {
+  .float-box {
+    display: flow-root;
+
+    &::after {
+      display: none;
+    }
+  }
+}
+
+@supports (display: flex) {
+  .flex-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-width: 100%;
+    padding-left: 0;
+
+    .flex-no-borders {
+      margin: 0;
+    }
+  }
 }

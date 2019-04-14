@@ -1,6 +1,6 @@
 <template>
   <section class="view">
-    <Search @search="onSearch" />
+    <Search @search="search" @resetSearch="reset" />
 
     <Result :loading="loading" :results="results" :type="type" :show-default-search="!hasSearch" @changeCountry="searchTopArtistByCountry" />
   </section>
@@ -39,14 +39,10 @@ export default {
         this.type = 'artist';
         this.loading = false;
 
-        window.stopLoadingWithDelay(100);
+        window.stopLoadingWithDelay();
       });
     },
-    onSearch (search, type = 'track') {
-      if (search === '') {
-        this.searchTopArtistByCountry(this.country);
-        return;
-      }
+    search (search, type = 'track') {
       this.loading = true;
 
       let searchFunction = LastFM.getSearchFunction(type);
@@ -57,6 +53,9 @@ export default {
         this.hasSearch = true;
         this.loading = false;
       });
+    },
+    reset () {
+      this.searchTopArtistByCountry(this.country);
     }
   }
 };

@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <header class="header float-box">
-      <router-link :to="{ name: 'Main', params: {} }"><i class="header-icon fas fa-music" /></router-link>
-      <span class="header-title">Bruga Music</span>
-      <div class="author">Made with <i class="heart fas fa-heart" /> by Andrés Brugarolas</div>
-    </header>
+    <Header />
     <main class="main">
       <transition :name="transitionName" :mode="transitionMode">
         <keep-alive :max="5">
@@ -20,6 +16,7 @@
 </template>
 
 <script>
+import Header from '@/components/static/Header.vue';
 import Player from '@/components/player/Player.vue';
 const DEFAULT_TRANSITION = 'slide-left';
 const DEFAULT_TRANSITION_MODE = 'out-in';
@@ -27,7 +24,7 @@ const DEFAULT_TRANSITION_MODE = 'out-in';
 export default {
   name: 'App',
   components: {
-    Player
+    Header, Player
   },
   data () {
     return {

@@ -6,20 +6,20 @@
 
     <h2 v-if="!showDefaultSearch" class="search-title">{{ type }}s</h2>
 
-    <ul v-if="isArtist" class="artist-list">
-      <li v-for="artist in artists" :key="artist.mbid" class="artist-wrapper">
+    <ul v-if="isArtist" class="artist-list flex-list">
+      <li v-for="artist in artists" :key="artist.mbid" class="artist-wrapper flex-no-borders">
         <Artist :artist="artist" />
       </li>
     </ul>
 
-    <ul v-if="isAlbum" class="album-list">
-      <li v-for="album in albums" :key="album.id" class="album-wrapper">
+    <ul v-if="isAlbum" class="album-list flex-list">
+      <li v-for="album in albums" :key="album.id" class="album-wrapper flex-no-borders">
         <Album :album="album" />
       </li>
     </ul>
 
-    <ul v-if="isTrack" class="track-list">
-      <li v-for="track in tracks" :key="track.mbid" class="track-wrapper">
+    <ul v-if="isTrack" class="track-list flex-list">
+      <li v-for="track in tracks" :key="track.mbid" class="track-wrapper flex-no-borders">
         <Song :track="track" />
       </li>
     </ul>
@@ -87,10 +87,12 @@ export default {
 <style lang="less">
 .search-title {
   text-transform: capitalize;
+  margin-bottom: 0;
 
   &.default {
     text-transform: none;
     margin-bottom: 0;
+    line-height: 90%;
   }
 }
 .results-wrapper {

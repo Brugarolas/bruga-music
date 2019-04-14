@@ -1,7 +1,7 @@
 <template>
   <div class="player" :class="{ 'hidden': !hasSong }">
     <div class="player-image-wrapper">
-      <img :src="imagePlaying" class="player-image">
+      <img :src="imageSong" class="player-image">
     </div>
 
     <div class="player-title">
@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import ButtonsPanel from './ButtonsPanel.vue';
 import ProgressBar from './ProgressBar.vue';
 import Playlist from './Playlist.vue';
@@ -53,7 +52,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['playing', 'imagePlaying', 'hasSong'])
+    hasSong () {
+      return this.$store.getters.hasSong;
+    },
+    playing () {
+      return this.$store.getters.playing;
+    },
+    imageSong () {
+      return this.$store.getters.imagePlaying;
+    }
   },
   watch: {
     playing: function (playing) {

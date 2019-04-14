@@ -1,5 +1,5 @@
 <template>
-  <div class="selector-wrapper">
+  <div class="selector-wrapper" :class="[extraClass]">
     <select v-model="selected" class="selector" @change="change">
       <option v-for="element in elements" :key="element.value" :value="element.value">{{ element.name }}</option>
     </select>
@@ -15,18 +15,24 @@ export default {
       type: Array,
       required: true
     },
-    starting: {
+    initial: {
       type: String,
-      required: true
+      default: undefined
+    },
+    extraClass: {
+      type: String,
+      default: undefined
     }
   },
   data () {
     return {
-      selected: ''
+      selected: undefined
     };
   },
   mounted () {
-    this.selected = this.starting;
+    if (this.initial) {
+      this.selected = this.initial;
+    }
   },
   methods: {
     change: function (event) {
@@ -47,10 +53,11 @@ export default {
   background-color: @color-white;
   border-bottom: 2px solid @main-light-color;
   transition: all .3s ease-in-out;
+  border-radius: 4px;
 
   .selector {
     display: inline-block;
-    padding: 2px 24px 2px 12px;
+    padding: 4px 24px 5px 12px;
     cursor: pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
