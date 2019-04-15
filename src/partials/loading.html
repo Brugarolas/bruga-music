@@ -1,8 +1,8 @@
 <style type="text/css">
-  :root {
+  :root:not(.loaded) {
     overflow: hidden;
   }
-  #loading {
+  #background {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,11 +11,27 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    z-index: 9;
+    z-index: 1;
+    transition: opacity .55s ease-in-out;
+    opacity: 1;
+  }
+  #background.pushed {
+    z-index: 0;
+    opacity: 0.9;
+  }
+  #app {
+    z-index: 1;
     transition: opacity .55s ease-in-out;
     opacity: 0;
   }
-  #loading.visible {
+  #app.visible {
+    opacity: 1;
+  }
+  #loader-spinner {
+    transition: opacity .55s ease-in-out;
+    opacity: 0;
+  }
+  #loader-spinner.visible {
     opacity: 1;
   }
   #svg-gradient {
@@ -58,31 +74,60 @@
   </g>
 </svg>
 
-<div id="loader-spinner">${ require('./spinners/bouncing-balls.html') }</div>
+<div id="loader-spinner" class="visible">${ require('./spinners/bouncing-balls.html') }</div>
 
 <script type="text/javascript">
 const reqAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.setTimeout;
 
-window.stopLoading = () => {
-  const loadingWrapper = document.getElementById('loading');
+window.addClassAnimationFrame = (element, clasz) => {
+  reqAnimationFrame(() => {
+    element.classList.add(clasz);
+  });
+};
 
-  if (!loadingWrapper) {
+window.stopSpinner = (spinner) => {
+  if (window.removeSpinner) {
+    return window.removeSpinner(spinner);
+  }
+
+  reqAnimationFrame(() => {
+    spinner.classList.remove('visible');
+  });
+  return Promise.resolve();
+};
+
+window.transformLoadingIntoBackground = () => {
+  const root = document.querySelector(':root');
+  if (root.classList.contains('loaded')) {
     return;
   }
 
-  const stopLoading = () => { loadingWrapper.remove(); };
-  const fadeLoading = () => {
-    loadingWrapper.className = undefined;
+  const spinner = document.getElementById('loader-spinner');
+  const background = document.getElementById('background');
+  const appWrapper = document.getElementById('app');
 
-    setTimeout(() => {
-      reqAnimationFrame(stopLoading);
-    }, 560);
+  const pushBackground = () => {
+    background.classList.add('pushed');
+    appWrapper.classList.add('visible');
+    root.classList.add('loading');
   };
 
-  reqAnimationFrame(fadeLoading);
+  const finishLoading = () => {
+    root.classList.add('loaded');
+    root.classList.remove('loading');
+    spinner.remove();
+  };
+
+  window.stopSpinner(spinner).then(() => {
+    reqAnimationFrame(pushBackground);
+
+    setTimeout(() => {
+      reqAnimationFrame(finishLoading);
+    }, 560);
+  });
 };
 
-window.stopLoadingWithDelay = (delay = 200) => {
-  setTimeout(window.stopLoading, delay);
+window.stopLoadingWithDelay = (delay = 100) => {
+  setTimeout(window.transformLoadingIntoBackground, delay);
 };
 </script>

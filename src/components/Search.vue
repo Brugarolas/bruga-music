@@ -1,5 +1,5 @@
 <template>
-  <form class="search-wrapper" @submit.prevent="onSubmit">
+  <form class="search-wrapper card" @submit.prevent="onSubmit">
     <InputText name="search" placeholder="Search tracks or artists…" @change="setSearch" @reset="reset" />
 
     <Selector extra-class="type-wrapper" :elements="types" :initial="startingType" @change="changeType" />
@@ -72,10 +72,8 @@ export default {
 @import (reference, less) "../assets/styles/colors.less";
 
 .search-wrapper {
-  display: block;
-  position: relative;
+  margin-top: 5px;
   padding: 10px 20px;
-  font-family: 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
 
   .type-wrapper {
     display: inline-block;

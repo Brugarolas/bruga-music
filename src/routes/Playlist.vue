@@ -1,5 +1,5 @@
 <template>
-  <section class="card small">
+  <section class="card card__small">
     <CloseButton :click="close" />
     <h2 class="track-list-header"><AnimatedEllipsis :play="true" text="Playing" /></h2>
 

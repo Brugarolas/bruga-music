@@ -1,5 +1,5 @@
 <template>
-  <div class="results-wrapper">
+  <div class="card card__big margin-top-xxl">
     <Spinner v-if="loading" />
 
     <h2 v-if="showDefaultSearch" class="search-title default">Showing top {{ type }}s in <Countries @change="changeCountry" /></h2>
@@ -94,10 +94,6 @@ export default {
     margin-bottom: 0;
     line-height: 90%;
   }
-}
-.results-wrapper {
-  display: block;
-  position: relative;
 }
 .track-wrapper {
   display: block;

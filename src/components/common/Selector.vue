@@ -51,13 +51,14 @@ export default {
   display: inline-block;
   cursor: pointer;
   background-color: @color-white;
+  border: 1px solid fade(@main-light-color, 20%);
   border-bottom: 2px solid @main-light-color;
   transition: all .3s ease-in-out;
   border-radius: 4px;
 
   .selector {
     display: inline-block;
-    padding: 4px 24px 5px 12px;
+    padding: 4px 24px 4px 12px;
     cursor: pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -73,8 +74,8 @@ export default {
   }
   .selector-icon {
     position: absolute;
-    font-size: 20px;
-    top: 4px;
+    font-size: 21px;
+    top: 5px;
     right: 8px;
     color: @main-light-color;
     transition: all .3s ease-in-out;
@@ -82,6 +83,7 @@ export default {
   }
 
   &:hover {
+    border-color: fade(@main-color, 20%);
     border-bottom-color: @main-color;
 
     .selector-icon {

@@ -9,13 +9,19 @@
   padding: 25px 5%;
   background-color: #fff;
   border-radius: 4px;
-  box-shadow: 0 0 1/4rem 1/8rem rgba(0, 0, 0, 0.05);
+  box-shadow: @default-shadow;
 
-  &.small {
+  &__small {
     width: 50%;
     margin-left: 25%;
     margin-right: 25%;
     padding: 1%;
+  }
+
+  &__big {
+    width: 96%;
+    margin: 25px 2%;
+    padding: 2%;
   }
 }
 
@@ -133,6 +139,9 @@
 }
 .margin-top-xl {
   margin-top: 40px;
+}
+.margin-top-xxl {
+  margin-top: 55px;
 }
 
 .float-box::after {

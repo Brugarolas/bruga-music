@@ -96,7 +96,7 @@ export default {
         this.loading = false;
         this.initialized = true;
 
-        window.stopLoadingWithDelay(100);
+        window.stopLoadingWithDelay();
       });
     }
   }

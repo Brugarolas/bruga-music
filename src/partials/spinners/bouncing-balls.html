@@ -8,13 +8,17 @@
     font-size: 50px;
     text-align: center;
     color: #aaa;
+    opacity: 1;
     mix-blend-mode: soft-light;
-    transition: top 0.7s ease-in-out;
+    transition: top 0.7s ease-in-out, opacity 0.55s ease-in-out;
     font-family: Helvetica, Verdana, Arial, sans-serif;
     font-variant: small-caps;
     font-weight: 600;
     letter-spacing: 4px;
     text-shadow: 2px 2px 2px #2224;
+  }
+  .loader-title.hidden {
+    opacity: 0;
   }
   @media (max-width: 720px) {
     .loader-title {
@@ -61,6 +65,10 @@
     animation-delay: 0;
   }
 
+  .bouncing-balls .ball.hidden {
+    visibility: hidden;
+  }
+
   @-webkit-keyframes bounceDelay {
     0%, 80%, 100% {
       -webkit-transform: scale(0);
@@ -93,3 +101,35 @@
 </div>
 
 <div class="loader-title">Bruga Music</div>
+
+<script type="text/javascript">
+window.removeSpinner = (spinnerWrapper) => {
+  spinnerWrapper = spinnerWrapper || document.getElementById('loader-spinner');
+  const balls = spinnerWrapper.querySelectorAll('.ball');
+  const title = spinnerWrapper.querySelector('.loader-title');
+
+  let animatedBalls = balls.length;
+  let resolveTask;
+  const task = new Promise(function (resolve, reject) {
+    resolveTask = resolve;
+  });
+
+  const hideAnimationOnEnd = (animationIteration) => {
+    const element = animationIteration.target;
+    window.addClassAnimationFrame(element, 'hidden');
+    element.removeEventListener('animationiteration', hideAnimationOnEnd, false);
+
+    animatedBalls--;
+    if (animatedBalls <= 0) {
+      resolveTask();
+    }
+  };
+
+  balls.forEach(ball => {
+    ball.addEventListener('animationiteration', hideAnimationOnEnd, false);
+  });
+  window.addClassAnimationFrame(title, 'hidden');
+
+  return task;
+};
+</script>
