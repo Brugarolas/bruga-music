@@ -11,6 +11,8 @@
     "gh-pages": "cross-env NODE_ENV=production PUBLIC_PATH=bruga-music webpack -p --progress --hide-modules"
   },
   "dependencies": {
+    "core-js": "^3.0.1",
+    "@babel/runtime-corejs3": "^7.4.3",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.1.0",
@@ -34,7 +36,7 @@
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
-    "@babel/polyfill": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.4.3",
     "babel-preset-minify": "^0.5.0",
     "less": "^3.9.0",
     "cross-env": "^5.2.0",
@@ -46,8 +48,8 @@
     "vue-template-compiler": "^2.6.10",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.6.0",
-    "html-webpack-include-assets-plugin": "^1.0.7",
     "remote-file-webpack-plugin": "^1.0.2",
+    "html-webpack-include-assets-plugin": "^1.0.10",
     "webpack": "^4.29.6",
     "webpack-dev-server": "^3.3.1",
     "webpack-cli": "^3.3.0",

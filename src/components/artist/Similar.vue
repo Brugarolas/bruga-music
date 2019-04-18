@@ -2,10 +2,8 @@
   <div class="similar">
     <h4 class="title">Similar Artists</h4>
 
-    <ul class="artist-list">
-      <li v-for="similar in similars" :key="similar.name" class="artist-wrapper">
-        <Artist :artist="similar" />
-      </li>
+    <ul class="artist-list flex-list">
+      <Artist v-for="similar in similars" :key="similar.mbid" :artist="similar" extra-class="similar-artist" />
     </ul>
   </div>
 </template>
@@ -33,27 +31,31 @@ export default {
 </script>
 
 <style lang="less">
-.similar {
-  .artist-wrapper {
-    display: block;
-    padding: 0;
+.artist-wrapper.similar-artist {
+  margin: 0;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
   }
 
-  .artist {
-    .name {
-      font-size: 18px;
-      letter-spacing: 0.5px;
-    }
-
-    .image {
-      width: 87px;
-      height: 87px;
-      border-radius: 50%;
-    }
+  .artist .artist-name {
+    font-size: 18px;
   }
 
-  .artist-wrapper:first-child .artist .artist-name {
-    margin-top: 0;
+  @supports (display: flex) {
+    .artist {
+      height: 212px;
+
+      .artist-image {
+        width: 156px;
+        height: 156px;
+      }
+
+      .artist-name {
+        width: 156px;
+        max-height: 45px;
+      }
+    }
   }
 }
 </style>

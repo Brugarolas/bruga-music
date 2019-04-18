@@ -7,7 +7,7 @@
   width: 80%;
   margin: 25px 10%;
   padding: 25px 5%;
-  background-color: #fff;
+  background-color: @color-card-background;
   border-radius: 4px;
   box-shadow: @default-shadow;
 
@@ -21,7 +21,11 @@
   &__big {
     width: 96%;
     margin: 25px 2%;
-    padding: 2%;
+    padding: 25px;
+  }
+
+  &__transparent {
+    background-color: @color-card-transparent;
   }
 }
 
@@ -39,7 +43,6 @@
     border-radius: 50%;
     cursor: inherit;
     float: left;
-    background-color: #ccc;
     box-sizing: border-box;
   }
 
@@ -165,7 +168,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-around;
     max-width: 100%;
     padding-left: 0;
 

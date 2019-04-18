@@ -5,8 +5,8 @@
     </div>
 
     <div class="player-title">
-      <router-link class="artist" :to="{ name: 'Artist', params: { name: playing.artist } }">{{ playing.artist }}</router-link>
-      <span class="track">{{ playing.track }}</span>
+      <router-link class="player-title-artist" :to="{ name: 'Artist', params: { name: playing.artist } }">{{ playing.artist }}</router-link>
+      <span class="player-title-track">{{ playing.track }}</span>
     </div>
 
     <div class="player-controls-panel">
@@ -180,25 +180,20 @@ export default {
     box-sizing: border-box;
     vertical-align: middle;
 
-    .artist, .track {
+    .player-title-artist, .player-title-track {
+      display: block;
       width: 100%;
       margin: 0;
       padding: 0;
-      display: block;
+      color: @color-gray;
 
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-
-      &:hover {
-        background: none;
-        cursor: default;
-      }
     }
 
-    .artist {
+    .player-title-artist {
       font-family: "Roboto", sans-serif;
-      color: @color-letter;
       font-size: 25px;
       font-weight: 800;
 
@@ -206,7 +201,7 @@ export default {
         cursor: pointer;
       }
     }
-    .track {
+    .player-title-track {
       font-family: "Open Sans", sans-serif;
       font-size: 21px;
       font-weight: 300;

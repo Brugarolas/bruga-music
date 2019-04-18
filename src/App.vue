@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <main class="main">
+    <main class="main loading-scale">
       <transition :name="transitionName" :mode="transitionMode">
         <keep-alive :max="5">
           <router-view />

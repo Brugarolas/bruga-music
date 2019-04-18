@@ -54,7 +54,10 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           presets: [
-            [ '@babel/env', { targets: { browsers: [ 'last 2 versions' ] }, useBuiltIns: 'usage', modules: false } ]
+            [ '@babel/env', { targets: { browsers: [ 'last 2 versions' ] }, useBuiltIns: 'usage', corejs: 3, modules: false } ]
+          ],
+          plugins: [
+            [ '@babel/transform-runtime', { corejs: 3 } ]
           ]
         }
       },

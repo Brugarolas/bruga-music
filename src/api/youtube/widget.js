@@ -7,7 +7,7 @@
 /* Own Player Loader */
 const youtubeApiPromise = new Promise((resolve, reject) => {
   window.onYouTubeIframeAPIReady = function () {
-    var player = new window.YT.Player('ytPlayer', {
+    const player = new window.YT.Player('ytPlayer', {
       // videoId: 'M7lc1UVf-VE',
       host: 'https://www.youtube.com',
       height: '360',
@@ -61,7 +61,9 @@ const getCurrentNonce = () => {
 const loadScript = (attributes) => {
   let newScript = document.createElement('script');
   for (let attribute in attributes) {
-    if (attributes[attribute]) newScript[attribute] = attributes[attribute];
+    if (attributes[attribute]) {
+      newScript[attribute] = attributes[attribute];
+    }
   }
 
   let firstScript = document.getElementsByTagName('script')[0];
@@ -73,8 +75,8 @@ window.YT = window.YT || { loading: 0, loaded: 0 };
 window.YTConfig = window.YTConfig || { 'host': 'https://www.youtube.com' };
 
 const loadYouTubeWidgetPlayer = () => {
-  let asyncFunctionality = [ () => { window.YT.Loaded = 1; } ];
-  window.YT.ready = deferExecution(() => window.YT.Loaded, asyncFunctionality);
+  let asyncFunctionality = [ () => { window.YT.loaded = 1; } ];
+  window.YT.ready = deferExecution(() => window.YT.loaded, asyncFunctionality);
   window.onYTReady = executeFunctions(asyncFunctionality);
 
   window.YT.setConfig = createConfigurator(window.YTConfig);
@@ -82,16 +84,20 @@ const loadYouTubeWidgetPlayer = () => {
   loadScript({
     type: 'text/javascript',
     id: 'www-widgetapi-script',
-    src: 'https://s.ytimg.com/yts/jsbin/www-widgetapi-vflkA4wlR/www-widgetapi.js',
+    src: 'https://s.ytimg.com/yts/jsbin/www-widgetapi-vflVx0w83/www-widgetapi.js',
     async: true,
     nonce: getCurrentNonce()
   });
 };
 
-if (!window.YT.loading) {
-  window.YT.loading = 1;
-  loadYouTubeWidgetPlayer();
-}
+const initYouTubeAPI = () => {
+  if (!window.YT.loading) {
+    window.YT.loading = 1;
+    loadYouTubeWidgetPlayer();
+  }
+};
+
+initYouTubeAPI();
 
 // Exports
 export default youtubeApiPromise;

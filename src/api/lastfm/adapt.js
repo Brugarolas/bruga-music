@@ -5,11 +5,11 @@ const findImage = (imageArray, size) => {
   return selected['#text'];
 };
 
-const getNameFromArtist = (track) => {
-  if (typeof track.artist === 'string') {
-    return track.artist;
+const getNameFromArtist = (artist) => {
+  if (typeof artist === 'string') {
+    return artist;
   }
-  return track.artist.name;
+  return artist.name;
 };
 
 /* Adapt funcs */
@@ -57,7 +57,7 @@ const artistDetail = (artist) => {
 const albumsArray = (albums) => {
   return albums.map(album => ({
     name: album.name,
-    artist: album.artist.name,
+    artist: getNameFromArtist(album.artist),
     image: findImage(album.image, 'large')
   }));
 };
@@ -93,7 +93,7 @@ const albumDetail = (album) => {
 const tracksArray = (tracks, image) => {
   return tracks.map(track => ({
     mbid: track.mbid,
-    artist: getNameFromArtist(track),
+    artist: getNameFromArtist(track.artist),
     name: track.name,
     image: image || findImage(track.image, 'medium')
   }));

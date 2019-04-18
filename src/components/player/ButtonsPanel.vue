@@ -21,7 +21,7 @@ export default {
     ...mapGetters(['hasPrevSong', 'hasNextSong'])
   },
   methods: {
-    playPause() {
+    playPause () {
       this.$emit(this.isPlaying ? 'pause' : 'play');
     },
     playPrevSong () {
@@ -45,17 +45,17 @@ export default {
   line-height: 24px;
   font-size: 28px;
 
-  .control-button  {
+  .control-button {
     cursor: pointer;
-    color: @color-light-letter;
+    color: @color-gray;
     transition: all 0.3s ease-in-out;
 
     &:hover {
-      color: @color-letter;
+      color: @color-dark-gray;
     }
 
     &.disabled {
-      color: @color-lighter-letter;
+      color: @color-lighter-gray;
       pointer-events: none;
     }
 

@@ -1,8 +1,10 @@
 <template>
-  <router-link :to="{ name: 'Album', params: { name: album.artist, album: album.name } }" :class="'album'">
-    <h2 class="album-name">{{ title }}</h2>
-    <img :src="album.image" class="album-image">
-  </router-link>
+  <component :is="tagName" class="album-wrapper" :class="[extraClass]">
+    <router-link :to="{ name: 'Album', params: { name: album.artist, album: album.name } }" :class="'album'">
+      <img :src="album.image" class="album-image">
+      <h2 class="album-name">{{ title }}</h2>
+    </router-link>
+  </component>
 </template>
 
 <script>
@@ -16,6 +18,14 @@ export default {
     ignoreArtist: {
       type: Boolean,
       default: false
+    },
+    tagName: {
+      type: String,
+      default: 'li'
+    },
+    extraClass: {
+      type: String,
+      default: undefined
     }
   },
   computed: {
@@ -27,40 +37,50 @@ export default {
 </script>
 
 <style lang="less">
-  .album-list {
-    text-align: center;
-  }
+@import (reference, less) "../assets/styles/colors.less";
 
-  .album {
-    width: 200px;
-    padding: 5px;
-    margin: 10px 0 5px 0;
+@album-width: 180px;
+@image-size: 156px;
+@border-radius: 4px;
+
+.album-wrapper {
+  margin: 12px;
+}
+
+.album {
+  width: @album-width;
+  padding: 5px;
+  margin: 10px 0 5px 0;
+  display: inline-block;
+  box-sizing: border-box;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+
+  .album-image {
     display: inline-block;
-    box-sizing: border-box;
-    background-color: #ccc0;
-    transition: all 0.3s ease-in-out;
+    width: @image-size;
+    height: @image-size;
+    margin: 0 auto;
+    border-radius: @border-radius;
+    object-fit: cover;
 
-    .album-name {
-      display: block;
-      text-align: center;
-      width: 100%;
-      font-size: 20px;
-      max-height: 50px;
-      overflow: hidden;
-    }
-
-    .album-image {
-      display: inline-block;
-      border-radius: 4px;
-      width: 156px;
-      height: 156px;
-      margin: 0 22px;
-      background-color: #ccc;
-      object-fit: cover;
-    }
-
-    &:hover {
-      background-color: #ccc2;
+    &[src=""] {
+      background-color: @color-background-transparent;
     }
   }
+
+  .album-name {
+    display: block;
+    width: @image-size;
+    font-size: 16px;
+    max-height: 40px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  &:hover {
+    transform: scale3d(1.05, 1.05, 1);
+  }
+}
 </style>

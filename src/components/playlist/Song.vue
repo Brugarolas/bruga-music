@@ -84,7 +84,7 @@ export default {
   }
 
   &.track-selected {
-    background-color: @color-background-dark;
+    background-color: @color-background-transparent;
 
     .track-play {
       opacity: 1;

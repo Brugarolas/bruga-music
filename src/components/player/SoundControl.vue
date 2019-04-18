@@ -67,31 +67,31 @@ export default {
       content: ' ';
       position: absolute;
       display: block;
-      background-color: @color-light-letter;
+      background-color: @color-gray;
       width: 3px;
       height: 35px;
       top: -8px;
       right: 10px;
       transform: rotate(45deg);
       border-radius: 5px;
-      border: 2px solid @color-light-letter;
+      border: 2px solid @color-gray;
       transition: all 0.3s ease-in-out;
     }
 
     .volume-icon {
       font-size: 28px;
       cursor: pointer;
-      color: @color-light-letter;
+      color: @color-gray;
       transition: all 0.3s ease-in-out;
     }
 
     &.muted:hover::after {
-      background-color: @color-letter;
-      border-color: @color-letter;
+      background-color: @color-dark-gray;
+      border-color: @color-dark-gray;
     }
 
     &:hover .volume-icon {
-      color: @color-letter;
+      color: @color-dark-gray;
     }
   }
 

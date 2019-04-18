@@ -101,7 +101,8 @@ export default {
     margin: 0;
     margin-left: 10px;
     vertical-align: 65%;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 300;
     width: calc(100% - 80px);
     overflow: hidden;
     white-space: nowrap;
@@ -134,7 +135,7 @@ export default {
   }
 
   &:hover {
-    background-color: @color-background-dark;
+    background-color: @color-background-transparent;
 
     .track-play {
       opacity: 0.90;
@@ -142,7 +143,7 @@ export default {
   }
 
   &.track-in-playlist {
-    background-color: @color-background-dark;
+    background-color: @color-background-transparent;
 
     .track-title {
       font-weight: 600;

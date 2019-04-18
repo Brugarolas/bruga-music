@@ -2,10 +2,8 @@
   <div v-if="ready" class="albums margin-top-xl">
     <h4 class="title">Albums</h4>
 
-    <ul class="album-list">
-      <li v-for="album in visibleAlbums" :key="album.id" class="album-wrapper">
-        <Album :album="album" :ignore-artist="true" />
-      </li>
+    <ul class="album-list flex-list">
+      <Album v-for="album in visibleAlbums" :key="album.id" :album="album" :ignore-artist="true" />
 
       <li v-if="showSeeMore" class="see-more" @click="seeMore">
         <h2 class="see-more-text">See more</h2>

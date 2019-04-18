@@ -2,21 +2,25 @@
 @main-dark-color: darken(@main-color, 20%);
 @main-light-color: lighten(@main-color, 25%);
 
-@color-letter: #495057;
-@color-light-letter: #6d7379; //opacity 0.80
-@color-lighter-letter: lighten(@color-light-letter, 20);
-@color-shadow: rgba(0, 0, 0, 0.25);
-@color-shadow-dark: rgba(0, 0, 0, 0.40);
-@color-background: #f8f9fa;
-@color-background-dark: #ccc2;
+@color-header-background: #191a28;
+@color-card-background: #2a2a2e;
+@color-card-transparent: fade(@color-header-background, 32%);
+@color-background-transparent: #ccc2;
 
-@color-gray: #ccc;
+@color-letter: #fff;
+@color-light-letter: #eee;
+
+@color-gray: #495057;
 @color-light-gray: lighten(@color-gray, 20%);
+@color-lighter-gray: lighten(@color-gray, 40%);
 @color-dark-gray: darken(@color-gray, 40%);
 
 @color-music: #1565c0;
 @color-white: #fff;
-@color-red: #e53935;
+@color-red: #c83430;
 @color-heart: #d90000;
 
+@color-shadow-light: rgba(0, 0, 0, 0.10);
+@color-shadow: rgba(0, 0, 0, 0.20);
 @default-shadow: 0 0 1/4rem 1/8rem @color-shadow;
+@background-shadow: 0 1/4rem 1/8rem 0 @color-shadow;

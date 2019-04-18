@@ -7,15 +7,11 @@
     <h2 v-if="!showDefaultSearch" class="search-title">{{ type }}s</h2>
 
     <ul v-if="isArtist" class="artist-list flex-list">
-      <li v-for="artist in artists" :key="artist.mbid" class="artist-wrapper flex-no-borders">
-        <Artist :artist="artist" />
-      </li>
+      <Artist v-for="artist in artists" :key="artist.mbid" :artist="artist" />
     </ul>
 
     <ul v-if="isAlbum" class="album-list flex-list">
-      <li v-for="album in albums" :key="album.id" class="album-wrapper flex-no-borders">
-        <Album :album="album" />
-      </li>
+      <Album v-for="album in albums" :key="album.id" :album="album" />
     </ul>
 
     <ul v-if="isTrack" class="track-list flex-list">

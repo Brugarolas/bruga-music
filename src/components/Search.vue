@@ -23,8 +23,8 @@ export default {
       old: { search: '', type: 'track' },
       types: [
         { name: 'Tracks', value: 'track' },
-        { name: 'Artists', value: 'artist' },
-        { name: 'Albums', value: 'album' }
+        { name: 'Albums', value: 'album' },
+        { name: 'Artists', value: 'artist' }
       ]
     };
   },

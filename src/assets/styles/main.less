@@ -10,14 +10,12 @@
 body {
   padding: 0;
   margin: 0;
-  color: @color-letter;
-  background-color: @color-background;
 }
 .main {
   font-family: 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
   text-align: center;
   .fontFixes();
-  color: #2c3e50;
+  color: @color-white;
   margin-top: 68px;
   padding-top: 30px;
   padding-bottom: 100px;
@@ -37,17 +35,8 @@ li {
   margin: 0 10px;
 }
 a {
-  color: @main-color;
+  color: @color-white;
   text-decoration: none;
-}
-img {
-  cursor: pointer;
-  display: inline-block;
-  transition: all .3s ease-in-out;
-
-  &:hover {
-    transform: scale(1.1);
-  }
 }
 
 .footer {
@@ -63,3 +52,4 @@ img {
 }
 
 @import (less) "./details.less";
+@import (less) "./loading.less";

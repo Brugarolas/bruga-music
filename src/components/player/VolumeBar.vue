@@ -117,7 +117,7 @@ export default {
   .volume-background {
     .volume-bar-aux();
     width: 100%;
-    background-color: @color-gray;
+    background-color: lighten(@color-gray, 50%);
 
     &:not(.muted) {
       cursor: pointer;
@@ -133,8 +133,8 @@ export default {
       font-family: 'Open Sans', sans-serif;
       font-size: 14px;
       content: attr(data-tooltip);
-      background: #464646;
-      color: #fff;
+      background: @color-gray;
+      color: @color-white;
       width: 50px;
       padding: 4px 0;
       text-align: center;
@@ -144,19 +144,19 @@ export default {
       right: -25px;
       opacity: 0;
       transition: all 0.1s linear;
-      box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.10);
+      box-shadow: 0 0 2px 2px @color-shadow-light;
       z-index: 5;
     }
   }
 
   .volume-progress {
     .volume-bar-aux();
-    background-color: @color-dark-gray;
+    background-color: @color-light-gray;
     pointer-events: none;
 
     &::after {
       content: '';
-      background-color: @color-dark-gray;
+      background-color: @color-light-gray;
       width: 11px;
       height: 11px;
       position: absolute;
@@ -165,7 +165,7 @@ export default {
       border-radius: 50%;
       opacity: 0;
       transition: all 0.1s linear;
-      box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.10);
+      box-shadow: 0 0 1px 1px @color-shadow-light;
     }
   }
 

@@ -1,8 +1,10 @@
 <template>
-  <router-link class="artist" :to="{ name: 'Artist', params: { name: artist.name } }">
-    <h2 class="artist-name flex-no-borders">{{ artist.name }}</h2>
-    <img :src="artist.image" class="artist-image">
-  </router-link>
+  <component :is="tagName" class="artist-wrapper" :class="[extraClass]">
+    <router-link class="artist" :to="{ name: 'Artist', params: { name: artist.name } }">
+      <img :src="artist.image" class="artist-image">
+      <h2 class="artist-name">{{ artist.name }}</h2>
+    </router-link>
+  </component>
 </template>
 
 <script>
@@ -12,14 +14,29 @@ export default {
     artist: {
       type: Object,
       required: true
+    },
+    tagName: {
+      type: String,
+      default: 'li'
+    },
+    extraClass: {
+      type: String,
+      default: undefined
     }
   }
 };
 </script>
 
 <style lang="less">
+@import (reference, less) "../assets/styles/colors.less";
+
 @artist-width: 200px;
-@image-size: 156px;
+@image-size: 174px;
+@border-radius: 8px;
+
+.artist-wrapper {
+  margin: 18px;
+}
 
 .artist {
   width: @artist-width;
@@ -27,29 +44,33 @@ export default {
   margin: 10px 0 5px 0;
   display: inline-block;
   box-sizing: border-box;
-  background-color: #ccc0;
-  transition: all 0.3s ease-in-out;
-
-  .artist-name {
-    display: block;
-    width: 100%;
-    font-size: 20px;
-    max-height: 50px;
-    overflow: hidden;
-  }
+  transition: transform .3s ease-in-out;
+  overflow: hidden;
 
   .artist-image {
     display: inline-block;
-    border-radius: 4px;
     width: @image-size;
     height: @image-size;
     margin: 0 auto;
-    background-color: #ccc;
+    border-radius: @border-radius;
     object-fit: cover;
+
+    &[src=""] {
+      background-color: @color-background-transparent;
+    }
+  }
+
+  .artist-name {
+    display: block;
+    width: @image-size;
+    font-size: 20px;
+    max-height: 50px;
+    overflow: hidden;
+    margin: 0 auto;
   }
 
   &:hover {
-    background-color: #ccc2;
+    transform: scale3d(1.05, 1.05, 1);
   }
 }
 
@@ -58,13 +79,14 @@ export default {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: flex-end;
-    height: 240px;
+    justify-content: flex-start;
+    width: auto;
+    height: 236px;
     padding: 0;
     margin: 0;
 
     .artist-name {
-      min-height: 48px;
+      margin-top: 10px;
     }
   }
 }

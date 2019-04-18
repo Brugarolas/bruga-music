@@ -1,5 +1,5 @@
 <template>
-  <header class="header float-box">
+  <header class="header float-box loading-translate">
     <router-link :to="{ name: 'Main', params: {} }"><i class="header-icon fas fa-music" /></router-link>
     <span class="header-title">Bruga Music</span>
     <div class="author"><span class="author-text">Made with </span><i class="heart fas fa-heart" /><span class="author-text"> by Andrés Brugarolas</span></div>
@@ -23,8 +23,8 @@ export default {
   left: 0;
   width: 100%;
   padding: 12px 50px;
-  background-color: #191a28; // color: dark-blue
-  box-shadow: 0 1/4rem 1/8rem 0 @color-shadow;
+  background-color: @color-header-background;
+  box-shadow: @background-shadow;
   z-index: 2;
 
   .header-title {

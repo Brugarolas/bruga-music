@@ -28,12 +28,12 @@ export default {
     display: block;
     font-size: 30px;
     cursor: pointer;
-    color: @color-light-letter;
+    color: @color-light-gray;
     transform: scale3d(1.25, 1.1, 1);
     transition: color 0.3s ease-in-out;
 
     &:hover {
-      color: @color-letter;
+      color: @color-gray;
     }
   }
   .playlist-info {
