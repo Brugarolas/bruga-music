@@ -2,6 +2,9 @@
   :root:not(.loaded) {
     overflow: hidden;
   }
+  :root.loaded {
+    overflow-x: hidden;
+  }
   #background {
     position: fixed;
     top: 0;
@@ -74,60 +77,191 @@
   </g>
 </svg>
 
-<div id="loader-spinner" class="visible">${ require('./spinners/bouncing-balls.html') }</div>
+<div id="loader-spinner" class="visible">
+  <style type="text/css">
+    .loader-title {
+      position: absolute;
+      display: block;
+      left: 0;
+      top: 8%;
+      width: 100%;
+      font-size: 50px;
+      text-align: center;
+      color: #bbb;
+      opacity: 1;
+      mix-blend-mode: overlay;
+      transition: top 0.7s ease-in-out, opacity 0.55s ease-in-out;
+      font-family: Helvetica, Verdana, Arial, sans-serif;
+      font-variant: small-caps;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-shadow: 2px 2px 2px #2224;
+    }
+    .loader-title.hidden {
+      opacity: 0;
+    }
+    @media (max-width: 720px) {
+      .loader-title {
+        top: 6%;
+      }
+    }
+    .bouncing-balls {
+      position: absolute;
+      display: inline-block;
+      text-align: center;
+      width: 176px;
+      height: 34px;
+      top: calc(50% - 17px);
+      left: calc(50% - 88px);
+    }
+    .bouncing-balls .ball {
+      display: inline-block;
+      text-align: center;
+      width: 32px;
+      height: 32px;
+      margin-right: 36px;
+      border-radius: 50%;
+      background-color: #ffccbaba;
+      box-shadow: 0 0 8px 2px #2224;
+      mix-blend-mode: soft-light;
+    }
+    .bouncing-balls .ball:last-child {
+      margin-right: 0;
+    }
 
-<script type="text/javascript">
-const reqAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.setTimeout;
+    .bouncing-balls-animation .ball {
+      -webkit-animation: bounceDelay 1.32s infinite ease-in-out both;
+      animation: bounceDelay 1.32s infinite ease-in-out both;
+    }
+    .bouncing-balls-animation .ball:nth-child(1) {
+      -webkit-animation-delay: -0.32s;
+      animation-delay: -0.32s;
+    }
+    .bouncing-balls-animation .ball:nth-child(2) {
+      -webkit-animation-delay: -0.16s;
+      animation-delay: -0.16s;
+    }
+    .bouncing-balls-animation .ball:nth-child(3) {
+      -webkit-animation-delay: 0;
+      animation-delay: 0;
+    }
 
-window.addClassAnimationFrame = (element, clasz) => {
-  reqAnimationFrame(() => {
-    element.classList.add(clasz);
-  });
-};
+    .bouncing-balls .ball.hidden {
+      visibility: hidden;
+    }
 
-window.stopSpinner = (spinner) => {
-  if (window.removeSpinner) {
-    return window.removeSpinner(spinner);
-  }
+    @-webkit-keyframes bounceDelay {
+      0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        opacity: 0.4;
+      }
+      40% {
+        -webkit-transform: scale(1.25);
+        opacity: 0.95;
+      }
+    }
 
-  reqAnimationFrame(() => {
-    spinner.classList.remove('visible');
-  });
-  return Promise.resolve();
-};
+    @keyframes bounceDelay {
+      0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0.4;
+      }
+      40% {
+        -webkit-transform: scale(1.25);
+        transform: scale(1.25);
+        opacity: 0.95;
+      }
+    }
+  </style>
 
-window.transformLoadingIntoBackground = () => {
-  const root = document.querySelector(':root');
-  if (root.classList.contains('loaded')) {
-    return;
-  }
+  <div class="bouncing-balls bouncing-balls-animation">
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+  </div>
 
-  const spinner = document.getElementById('loader-spinner');
-  const background = document.getElementById('background');
-  const appWrapper = document.getElementById('app');
+  <div class="loader-title">Bruga Music</div>
 
-  const pushBackground = () => {
-    background.classList.add('pushed');
-    appWrapper.classList.add('visible');
-    root.classList.add('loading');
-  };
+  <script type="text/javascript">
+  window.stopLoadingWithDelay = (function () {
+    var reqAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.setTimeout;
 
-  const finishLoading = () => {
-    root.classList.add('loaded');
-    root.classList.remove('loading');
-    spinner.remove();
-  };
+    function addClassAnimationFrame (element, clasz) {
+      reqAnimationFrame(function () {
+        element.classList.add(clasz);
+      });
+    }
 
-  window.stopSpinner(spinner).then(() => {
-    reqAnimationFrame(pushBackground);
+    function stopSpinner (spinnerWrapper, callback) {
+      var balls = spinnerWrapper.querySelectorAll('.ball');
+      var title = spinnerWrapper.querySelector('.loader-title');
 
-    setTimeout(() => {
-      reqAnimationFrame(finishLoading);
-    }, 560);
-  });
-};
+      var animatedBalls = balls.length;
 
-window.stopLoadingWithDelay = (delay = 100) => {
-  setTimeout(window.transformLoadingIntoBackground, delay);
-};
-</script>
+      var hideAnimationOnEnd = function (animationIteration) {
+        var element = animationIteration.target;
+        addClassAnimationFrame(element, 'hidden');
+        element.removeEventListener('animationiteration', hideAnimationOnEnd, false);
+
+        animatedBalls--;
+        if (animatedBalls <= 0) {
+          callback();
+        }
+      };
+
+      var i;
+      var n = balls.length;
+      for (i = 0; i < n; ++i) {
+        balls[i].addEventListener('animationiteration', hideAnimationOnEnd, false);
+      }
+
+      addClassAnimationFrame(title, 'hidden');
+    }
+
+    function transformLoadingIntoBackground () {
+      var root = document.querySelector(':root');
+      if (root.classList.contains('loaded')) {
+        return;
+      }
+
+      var spinner = document.getElementById('loader-spinner');
+      var background = document.getElementById('background');
+      var appWrapper = document.getElementById('app');
+
+      var pushBackground = function () {
+        background.classList.add('pushed');
+        appWrapper.classList.add('visible');
+        root.classList.add('loading');
+      };
+
+      var finishLoading = function () {
+        root.classList.add('loaded');
+        root.classList.remove('loading');
+
+        if (spinner.remove) {
+          spinner.remove();
+        } else {
+          spinner.parentNode.removeChild(spinner);
+        }
+      };
+
+      stopSpinner(spinner, function () {
+        reqAnimationFrame(pushBackground);
+
+        setTimeout(function () {
+          reqAnimationFrame(finishLoading);
+        }, 560);
+      });
+    }
+
+    return function (delay) {
+      setTimeout(function () {
+        transformLoadingIntoBackground();
+
+        window.stopLoadingWithDelay = function () { };
+      }, delay || 100);
+    };
+  })();
+  </script>
+</div>
