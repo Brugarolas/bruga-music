@@ -1,3 +1,38 @@
+/*
+ * Hacky solution after Last.FM prohibited artist image usage
+ * @see https://getsatisfaction.com/lastfm/topics/api-announcement-dac8oefw5vrxq
+ */
+const LASTFM_API_RESTRICTS_IMAGES = true;
+const IMAGE_SIZES = {
+  'small': 34,
+  'medium': 64,
+  'large': 174,
+  'extralarge': 240,
+  'mega': 300
+};
+
+const bingImage = (name, size) => {
+  const imageSize = IMAGE_SIZES[size] || 200;
+
+  return `https://tse2.mm.bing.net/th?q=${name}+spotify&w=${imageSize}&h=${imageSize}&c=7&rs=1&p=0&dpr=1&pid=1.7&mkt=en-US&adlt=on`;
+};
+
+const findImageArtistSecure = (item, size) => {
+  if (LASTFM_API_RESTRICTS_IMAGES) {
+    return bingImage(item.name, size);
+  }
+
+  return findImage(item.image, size);
+};
+
+const findImageTrackSecure = (item, size) => {
+  if (LASTFM_API_RESTRICTS_IMAGES) {
+    return bingImage(getNameFromArtist(item.artist), size);
+  }
+
+  return findImage(item.image, size);
+};
+
 /* Aux funcs */
 const findImage = (imageArray, size) => {
   const selected = imageArray.find(image => image.size === size) || imageArray[imageArray.length - 1];
@@ -17,7 +52,7 @@ const artistsArray = (artists) => {
   return artists.map(artist => {
     const item = {
       name: artist.name,
-      image: findImage(artist.image, 'large')
+      image: findImageArtistSecure(artist, 'large')
     };
 
     if (artist.mbid) {
@@ -32,7 +67,7 @@ const artistDetail = (artist) => {
   const detail = {
     name: artist.name,
     stats: artist.stats,
-    image: findImage(artist.image, 'mega'),
+    image: findImageArtistSecure(artist, 'mega'),
     moreLink: artist.url
   };
 
@@ -90,12 +125,12 @@ const albumDetail = (album) => {
   return detail;
 };
 
-const tracksArray = (tracks, image) => {
+const tracksArray = (tracks) => {
   return tracks.map(track => ({
     mbid: track.mbid,
     artist: getNameFromArtist(track.artist),
     name: track.name,
-    image: image || findImage(track.image, 'medium')
+    image: findImageTrackSecure(track, 'medium')
   }));
 };
 
