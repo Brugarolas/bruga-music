@@ -93,7 +93,7 @@ export default {
   text-align: left;
   cursor: pointer;
   border-radius: 4px;
-  background-color: #ccc0;
+  background-color: transparent;
   transition: all 0.3s ease-in-out;
 
   .track-title {
@@ -135,6 +135,7 @@ export default {
   }
 
   &:hover {
+    background-color: @color-background-transparent-ie11;
     background-color: @color-background-transparent;
 
     .track-play {
@@ -143,6 +144,7 @@ export default {
   }
 
   &.track-in-playlist {
+    background-color: @color-background-transparent-ie11;
     background-color: @color-background-transparent;
 
     .track-title {

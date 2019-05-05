@@ -113,9 +113,16 @@
   text-align: justify;
 
   display: inline-block;
-  width: 75%;
+  width: calc(100% - 180px);
   box-sizing: border-box;
   float: left;
+}
+
+.additional-content {
+  display: inline-block;
+  width: 180px;
+  box-sizing: border-box;
+  float: right;
 }
 
 .title {
@@ -125,13 +132,6 @@
   letter-spacing: 0.75px;
   font-weight: 300;
   text-align: center;
-}
-
-.additional-content {
-  display: inline-block;
-  width: 25%;
-  box-sizing: border-box;
-  float: right;
 }
 
 .margin-top {

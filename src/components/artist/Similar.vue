@@ -35,27 +35,29 @@ export default {
   margin: 0;
 
   &:not(:last-child) {
-    margin-bottom: 20px;
+    margin-bottom: 32px;
   }
 
-  .artist .artist-name {
-    font-size: 18px;
-  }
+  .artist {
+    width: 180px;
+    height: auto;
 
-  @supports (display: flex) {
-    .artist {
-      height: 212px;
-
-      .artist-image {
-        width: 156px;
-        height: 156px;
-      }
-
-      .artist-name {
-        width: 156px;
-        max-height: 45px;
-      }
+    .artist-image {
+      width: 156px;
+      height: 156px;
     }
+
+    .artist-name {
+      font-size: 18px;
+      max-height: 45px;
+      width: 156px;
+    }
+  }
+}
+
+@supports (display: flex) {
+  .artist-wrapper.similar-artist .artist {
+    width: auto;
   }
 }
 </style>

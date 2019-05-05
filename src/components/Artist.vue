@@ -31,17 +31,17 @@ export default {
 @import (reference, less) "../assets/styles/colors.less";
 
 @artist-width: 200px;
+@artist-height: 230px;
 @image-size: 174px;
 @border-radius: 8px;
 
 .artist-wrapper {
-  margin: 18px;
+  margin: 10px 18px;
 }
 
 .artist {
   width: @artist-width;
-  padding: 5px;
-  margin: 10px 0 5px 0;
+  height: @artist-height;
   display: inline-block;
   box-sizing: border-box;
   transition: transform .3s ease-in-out;
@@ -64,7 +64,7 @@ export default {
     display: block;
     width: @image-size;
     font-size: 20px;
-    max-height: 50px;
+    max-height: 48px;
     overflow: hidden;
     margin: 0 auto;
   }
@@ -75,18 +75,20 @@ export default {
 }
 
 @supports (display: flex) {
-  .artist {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    width: auto;
-    height: 236px;
-    padding: 0;
-    margin: 0;
+  .artist-wrapper {
+    margin: 18px;
 
-    .artist-name {
-      margin-top: 10px;
+    .artist {
+      display: flex;
+      height: auto;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      width: auto;
+
+      .artist-name {
+        margin-top: 10px;
+      }
     }
   }
 }
