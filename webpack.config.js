@@ -1,10 +1,10 @@
-const { DefinePlugin } = require('webpack');
+const webpack = require('webpack');
 const path = require('path');
+const fs = require('fs');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const RemoteFilePlugin = require('remote-file-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+const { DefinePlugin } = webpack;
 
 const { NODE_ENV, PUBLIC_PATH } = process.env;
 const isProduction = NODE_ENV === 'production';
@@ -24,18 +24,21 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          isProduction ? MiniCssExtractPlugin.loader : 'vue-style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader'
         ]
       },
       {
         test: /\.less$/,
         use: [
-          { loader: isProduction ? MiniCssExtractPlugin.loader : 'vue-style-loader' },
+          { loader: MiniCssExtractPlugin.loader },
           { loader: 'css-loader' },
-          { loader: 'less-loader',
+          {
+            loader: 'less-loader',
             options: {
-              paths: [ path.resolve(__dirname, 'node_modules') ]
+              lessOptions: {
+                paths: [path.resolve(__dirname, 'node_modules')]
+              }
             }
           }
         ]
@@ -54,10 +57,10 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           presets: [
-            [ '@babel/env', { targets: { browsers: [ 'last 2 versions' ] }, useBuiltIns: 'usage', corejs: 3, modules: false } ]
+            ['@babel/env', { targets: { browsers: ['last 2 versions'] }, useBuiltIns: 'usage', corejs: 3, modules: false }]
           ],
           plugins: [
-            [ '@babel/transform-runtime', { corejs: 3 } ]
+            ['@babel/transform-runtime', { corejs: 3 }]
           ]
         }
       },
@@ -66,8 +69,12 @@ module.exports = {
         use: {
           loader: 'html-loader',
           options: {
-            interpolate: true,
-            attrs: []
+            // https://github.com/webpack-contrib/html-loader/issues/291
+            preprocessor: (content, loaderContext) => {
+              const loadFile = (m, src) => fs.readFileSync(path.resolve(loaderContext.context, src), 'utf8');
+
+              return content.replace(/<include src="(.+)"\/?>(?:<\/include>)?/gi, loadFile);
+            }
           }
         }
       },
@@ -91,19 +98,12 @@ module.exports = {
   },
   plugins: [
     new DefinePlugin({
-      'PUBLIC_PATH': JSON.stringify(PUBLIC_PATH ? `/${PUBLIC_PATH}/` : '/')
+      PUBLIC_PATH: JSON.stringify(PUBLIC_PATH ? `/${PUBLIC_PATH}/` : '/')
     }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: 'styles/bundle.css?[hash]'
     }),
-    new RemoteFilePlugin([
-      {
-        url: 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Roboto:100,300,400,500,700,900',
-        filepath: 'styles/fonts.css',
-        cache: true
-      }
-    ]),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: './index.html',
@@ -112,18 +112,11 @@ module.exports = {
         viewport: 'width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no'
       },
       inject: 'body'
-    }),
-    new HtmlWebpackIncludeAssetsPlugin({
-      assets: ['styles/fonts.css'],
-      resolvePaths: true,
-      publicPath: true,
-      append: true,
-      hash: true
     })
   ],
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
+      vue$: 'vue/dist/vue.esm.js',
       '@': path.resolve(__dirname, './src')
     },
     extensions: ['*', '.js', '.vue', '.json']
@@ -145,7 +138,7 @@ if (isProduction) {
 
   // Add babel-minify preset only in production
   const babelRules = module.exports.module.rules.find(rule => rule.loader === 'babel-loader');
-  babelRules.options.presets.unshift([ 'minify', { builtIns: false } ]);
+  babelRules.options.presets.unshift(['minify', { builtIns: false }]);
 }
 
 if (publicPath !== '/') {

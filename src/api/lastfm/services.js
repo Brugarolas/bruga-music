@@ -1,7 +1,7 @@
 import Adapt from './adapt.js';
 import config from './config.js';
 import fetch from '@/api/utils/fetch.js';
-import nanoid from 'nanoid/non-secure';
+import { nanoid } from 'nanoid/non-secure';
 import { sanitize } from '@/utils/aux-methods.js';
 
 const { apiKey, url } = config;

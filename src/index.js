@@ -19,7 +19,14 @@ Vue.use(VolumeFilter);
 Vue.use(AsyncComputed);
 
 const publicPath = PUBLIC_PATH || '/'; // eslint-disable-line no-undef
-const router = new VueRouter({ routes, base: publicPath, mode: 'history' });
+const router = new VueRouter({
+  routes,
+  base: publicPath,
+  mode: 'history',
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 };
+  }
+});
 
 const app = new Vue({ // eslint-disable-line no-unused-vars
   el: '#app',

@@ -67,7 +67,14 @@ export default {
      * This is here in case I forgot to stop loader on routes (or AJAX fails or something)
      * If loader is already stopped this sould do nothing
      */
-    window.stopLoadingWithDelay(4000);
+     if (!window.stopLoadingWithDelay) {
+       return;
+     }
+
+     // wait until all children has been rendered
+     this.$nextTick(() => {
+       window.stopLoadingWithDelay(500);
+     });
   }
 };
 </script>
