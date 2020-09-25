@@ -25,7 +25,7 @@ export default {
   padding: 12px 50px;
   background-color: @color-header-background;
   box-shadow: @background-shadow;
-  z-index: 2;
+  z-index: 5;
 
   .header-title {
     font-family: 'Roboto', sans-serif;
