@@ -6,19 +6,27 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { DefinePlugin } = webpack;
 
-const { NODE_ENV, PUBLIC_PATH, ANALYZER } = process.env;
+const { NODE_ENV, PUBLIC_PATH, ANALYZER, LOCAL } = process.env;
 const isProduction = NODE_ENV === 'production';
+const isLocal = !isProduction && Boolean(LOCAL);
 const isAnalyzer = isProduction && Boolean(ANALYZER);
 const publicPath = isProduction ? '/' + (PUBLIC_PATH ? PUBLIC_PATH + '/' : '') : '/';
 
 module.exports = {
   entry: './src/index.js',
   mode: 'development',
-  stats: { children: false },
+  stats: {
+    assets: true,
+    children: false,
+    colors: true
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: publicPath,
-    filename: 'js/bundle.js?[hash]'
+    filename: 'js/bundle.js?[contenthash]'
+  },
+  optimization: {
+    minimize: true
   },
   module: {
     rules: [
@@ -83,7 +91,7 @@ module.exports = {
         test: /\.(png|jpg|gif)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]',
+          name: '[name].[ext]?[contenthash]',
           outputPath: 'img'
         }
       },
@@ -91,7 +99,7 @@ module.exports = {
         test: /\.(woff|woff2|ttf|eot|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]',
+          name: '[name].[ext]?[contenthash]',
           outputPath: 'fonts'
         }
       }
@@ -103,7 +111,7 @@ module.exports = {
     }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'styles/bundle.css?[hash]'
+      filename: 'styles/bundle.css?[contenthash]'
     }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
@@ -123,18 +131,21 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    overlay: true
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 8080,
+    hot: true,
+    open: true,
+    host: isLocal ? '0.0.0.0' : 'localhost',
+    useLocalIp: isLocal
   },
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: 'eval-source-map'
 };
 
 if (isProduction) {
-  module.exports.devtool = '#source-map';
   module.exports.mode = 'production';
 
   // Add babel-minify preset only in production
@@ -145,9 +156,9 @@ if (isProduction) {
 if (isAnalyzer) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
   module.exports.plugins.push(new BundleAnalyzerPlugin());
-  module.exports.devtool = '';
+  module.exports.devtool = false;
 }
 
 if (publicPath !== '/') {
-  module.exports.devtool = '';
+  module.exports.devtool = false;
 }

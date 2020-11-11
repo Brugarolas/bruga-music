@@ -97,7 +97,7 @@ export default {
         this.duration = this.$youtube.player.duration();
         this.isPlaying = true;
 
-        let { track, artist } = this.playing;
+        const { track, artist } = this.playing;
         document.title = `${track} - ${artist} | Bruga Music`;
       });
     },
@@ -211,7 +211,7 @@ export default {
   .player-controls-panel {
     display: inline-block;
     float: left;
-    width: calc(30% - 72px);
+    width: calc(35% - 72px);
     box-sizing: border-box;
     vertical-align: middle;
 
@@ -226,7 +226,7 @@ export default {
   .player-sound-panel {
     display: inline-block;
     float: left;
-    width: calc(25% - 100px);
+    width: calc(30% - 100px);
     text-align: center;
     box-sizing: border-box;
     vertical-align: middle;

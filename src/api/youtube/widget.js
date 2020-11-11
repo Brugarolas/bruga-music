@@ -13,10 +13,10 @@ const youtubeApiPromise = new Promise((resolve, reject) => {
       height: '360',
       width: '640',
       playerVars: {
-        'rel': 0,
-        'showinfo': 0,
-        'autoplay': 0,
-        'controls': 1
+        rel: 0,
+        showinfo: 0,
+        autoplay: 0,
+        controls: 1
       }
     });
 
@@ -45,7 +45,7 @@ const executeFunctions = (functionStore) => {
 
 const createConfigurator = (configStore) => {
   return (newConfiguration) => {
-    for (let property in newConfiguration) {
+    for (const property in newConfiguration) {
       if (newConfiguration.hasOwnProperty(property)) {
         configStore[property] = newConfiguration[property];
       }
@@ -54,28 +54,31 @@ const createConfigurator = (configStore) => {
 };
 
 const getCurrentNonce = () => {
-  let current = document.currentScript;
+  const current = document.currentScript;
+
   return current ? current.nonce || current.getAttribute('nonce') : undefined;
 };
 
 const loadScript = (attributes) => {
-  let newScript = document.createElement('script');
-  for (let attribute in attributes) {
+  const newScript = document.createElement('script');
+
+  for (const attribute in attributes) {
     if (attributes[attribute]) {
       newScript[attribute] = attributes[attribute];
     }
   }
 
-  let firstScript = document.getElementsByTagName('script')[0];
+  const firstScript = document.getElementsByTagName('script')[0];
   firstScript.parentNode.insertBefore(newScript, firstScript);
 };
 
 /* Google Rewrite */
 window.YT = window.YT || { loading: 0, loaded: 0 };
-window.YTConfig = window.YTConfig || { 'host': 'https://www.youtube.com' };
+window.YTConfig = window.YTConfig || { host: 'https://www.youtube.com' };
 
 const loadYouTubeWidgetPlayer = () => {
-  let asyncFunctionality = [ () => { window.YT.loaded = 1; } ];
+  const asyncFunctionality = [() => { window.YT.loaded = 1; }];
+
   window.YT.ready = deferExecution(() => window.YT.loaded, asyncFunctionality);
   window.onYTReady = executeFunctions(asyncFunctionality);
 
