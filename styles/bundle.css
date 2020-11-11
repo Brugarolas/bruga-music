@@ -488,7 +488,7 @@
 .player .player-controls-panel {
   display: inline-block;
   float: left;
-  width: 30%;
+  width: calc(35% - 72px);
   box-sizing: border-box;
   vertical-align: middle;
 }
@@ -501,7 +501,7 @@
 .player .player-sound-panel {
   display: inline-block;
   float: left;
-  width: 25%;
+  width: calc(30% - 100px);
   text-align: center;
   box-sizing: border-box;
   vertical-align: middle;
@@ -513,7 +513,7 @@
   justify-content: end;
   align-items: center;
   float: right;
-  width: 10%;
+  width: 172px;
   box-sizing: border-box;
   vertical-align: middle;
   margin-top: 8px;
@@ -590,7 +590,7 @@
 }
 
 /*!
- * Font Awesome Free 5.14.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 .fa,
@@ -792,9 +792,6 @@
 }
 .fa-adn:before {
   content: "\f170";
-}
-.fa-adobe:before {
-  content: "\f778";
 }
 .fa-adversal:before {
   content: "\f36a";
@@ -1584,6 +1581,9 @@
 }
 .fa-cloud-upload-alt:before {
   content: "\f382";
+}
+.fa-cloudflare:before {
+  content: "\e07d";
 }
 .fa-cloudscale:before {
   content: "\f383";
@@ -2578,6 +2578,9 @@
 .fa-grunt:before {
   content: "\f3ad";
 }
+.fa-guilded:before {
+  content: "\e07e";
+}
 .fa-guitar:before {
   content: "\f7a6";
 }
@@ -2752,6 +2755,9 @@
 .fa-history:before {
   content: "\f1da";
 }
+.fa-hive:before {
+  content: "\e07f";
+}
 .fa-hockey-puck:before {
   content: "\f453";
 }
@@ -2881,11 +2887,17 @@
 .fa-info-circle:before {
   content: "\f05a";
 }
+.fa-innosoft:before {
+  content: "\e080";
+}
 .fa-instagram:before {
   content: "\f16d";
 }
 .fa-instagram-square:before {
   content: "\e055";
+}
+.fa-instalod:before {
+  content: "\e081";
 }
 .fa-intercom:before {
   content: "\f7af";
@@ -3406,6 +3418,9 @@
 .fa-object-ungroup:before {
   content: "\f248";
 }
+.fa-octopus-deploy:before {
+  content: "\e082";
+}
 .fa-odnoklassniki:before {
   content: "\f263";
 }
@@ -3543,6 +3558,9 @@
 }
 .fa-pepper-hot:before {
   content: "\f816";
+}
+.fa-perbyte:before {
+  content: "\e083";
 }
 .fa-percent:before {
   content: "\f295";
@@ -4714,6 +4732,9 @@
 .fa-umbrella-beach:before {
   content: "\f5ca";
 }
+.fa-uncharted:before {
+  content: "\e084";
+}
 .fa-underline:before {
   content: "\f0cd";
 }
@@ -4867,6 +4888,12 @@
 .fa-venus-mars:before {
   content: "\f228";
 }
+.fa-vest:before {
+  content: "\e085";
+}
+.fa-vest-patches:before {
+  content: "\e086";
+}
 .fa-viacoin:before {
   content: "\f237";
 }
@@ -4957,6 +4984,9 @@
 .fa-warehouse:before {
   content: "\f494";
 }
+.fa-watchman-monitoring:before {
+  content: "\e087";
+}
 .fa-water:before {
   content: "\f773";
 }
@@ -5031,6 +5061,9 @@
 }
 .fa-wizards-of-the-coast:before {
   content: "\f730";
+}
+.fa-wodu:before {
+  content: "\e088";
 }
 .fa-wolf-pack-battalion:before {
   content: "\f514";
@@ -5130,7 +5163,7 @@
   width: auto;
 }
 /*!
- * Font Awesome Free 5.14.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -5138,8 +5171,8 @@
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url(/bruga-music/fonts/fa-solid-900.eot?dfaa060a451d978c25655eb19bd949e9);
-  src: url(/bruga-music/fonts/fa-solid-900.eot?dfaa060a451d978c25655eb19bd949e9?#iefix) format('embedded-opentype'), url(/bruga-music/fonts/fa-solid-900.woff2?4055b0575d40bfb3c7e89c7d6b5e959d) format('woff2'), url(/bruga-music/fonts/fa-solid-900.woff?22aa6d4357cf74671bc40dbb9bc36d79) format('woff'), url(/bruga-music/fonts/fa-solid-900.ttf?a480ec972cb6bce3053367cb26d11f42) format('truetype'), url(/bruga-music/fonts/fa-solid-900.svg?3e2bc2ffd29f01066d23733ca81d2bac#fontawesome) format('svg');
+  src: url(/bruga-music/fonts/fa-solid-900.eot?3a24a60e7f9c6574864a38814fa07533);
+  src: url(/bruga-music/fonts/fa-solid-900.eot?3a24a60e7f9c6574864a38814fa07533?#iefix) format('embedded-opentype'), url(/bruga-music/fonts/fa-solid-900.woff2?3ceb50e7bcafb577367c21b53064e00c) format('woff2'), url(/bruga-music/fonts/fa-solid-900.woff?46fdbd2d897f8824e63c8862af60b24c) format('woff'), url(/bruga-music/fonts/fa-solid-900.ttf?10ecefc282f2761808bf26cb335511d5) format('truetype'), url(/bruga-music/fonts/fa-solid-900.svg?371dbce0dd46bd4d2033eb2334f28580#fontawesome) format('svg');
 }
 .fa,
 .fas {
