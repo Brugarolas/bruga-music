@@ -211,7 +211,7 @@ export default {
   .player-controls-panel {
     display: inline-block;
     float: left;
-    width: 30%;
+    width: calc(30% - 72px);
     box-sizing: border-box;
     vertical-align: middle;
 
@@ -226,7 +226,7 @@ export default {
   .player-sound-panel {
     display: inline-block;
     float: left;
-    width: 25%;
+    width: calc(25% - 100px);
     text-align: center;
     box-sizing: border-box;
     vertical-align: middle;
@@ -240,7 +240,7 @@ export default {
     align-items: center;
 
     float: right;
-    width: 10%;
+    width: 172px;
     box-sizing: border-box;
     vertical-align: middle;
     margin-top: 8px;
