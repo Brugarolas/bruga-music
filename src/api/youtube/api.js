@@ -2,7 +2,7 @@ import fetch from '@/api/utils/fetch.js';
 import player from './player.js';
 
 const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
-const API_KEY = 'AIzaSyAq4ALvqOE08oCXDMyHy9XdbvpNsuuZrpA';
+const API_KEY = 'AIzaSyC06v4WdyeLlP0tHM7FyMyESHEHIvISCLU';
 
 /* API */
 const search = async (query) => {
@@ -15,7 +15,7 @@ const search = async (query) => {
 };
 
 /* AUX API Methods */
-const buildQueryUrl = (query) => buildUrl(BASE_URL, { part: 'snippet', 'key': API_KEY, q: query, 'maxResults': 5 });
+const buildQueryUrl = (query) => buildUrl(BASE_URL, { part: 'snippet', key: API_KEY, q: query, maxResults: 5 });
 
 const buildUrl = (url, params) => `${url}?${paramsToUrl(params)}`;
 
