@@ -6,8 +6,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack serve",
-    "start:local": "cross-env NODE_ENV=development LOCAL=true webpack serve",
+    "start": "cross-env NODE_ENV=development webpack serve --hot",
+    "start:local": "cross-env NODE_ENV=development LOCAL=true webpack serve --hot",
     "start:static": "npm run build && http-server ./dist",
     "build": "cross-env NODE_ENV=production webpack --progress --performance",
     "build:gh-pages": "cross-env NODE_ENV=production PUBLIC_PATH=bruga-music webpack --progress --performance",
