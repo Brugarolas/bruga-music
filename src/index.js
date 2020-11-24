@@ -10,27 +10,39 @@ import VolumeFilter from '@/utils/volume-filter.js';
 import AsyncComputed from 'vue-async-computed';
 import store from '@/store/index.js';
 
-Vue.use(VueRouter);
-Vue.use(GlobalBus);
-Vue.use(LowerCaseFilter);
-Vue.use(HumanNumberFilter);
-Vue.use(DurationFilter);
-Vue.use(VolumeFilter);
-Vue.use(AsyncComputed);
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
 
-const publicPath = PUBLIC_PATH || '/'; // eslint-disable-line no-undef
-const router = new VueRouter({
-  routes,
-  base: publicPath,
-  mode: 'history',
-  scrollBehavior (to, from, savedPosition) {
-    return { x: 0, y: 0 };
-  }
-});
+    loadApp();
+  });
+}
 
-const app = new Vue({ // eslint-disable-line no-unused-vars
-  el: '#app',
-  render: h => h(App),
-  router,
-  store
-});
+const loadApp = () => {
+  Vue.use(VueRouter);
+  Vue.use(GlobalBus);
+  Vue.use(LowerCaseFilter);
+  Vue.use(HumanNumberFilter);
+  Vue.use(DurationFilter);
+  Vue.use(VolumeFilter);
+  Vue.use(AsyncComputed);
+
+  const publicPath = PUBLIC_PATH || '/'; // eslint-disable-line no-undef
+  const router = new VueRouter({
+    routes,
+    base: publicPath,
+    mode: 'history',
+    scrollBehavior (to, from, savedPosition) {
+      return { x: 0, y: 0 };
+    }
+  });
+
+  const app = new Vue({ // eslint-disable-line no-unused-vars
+    el: '#app',
+    render: h => h(App),
+    router,
+    store
+  });
+};
