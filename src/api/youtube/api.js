@@ -1,5 +1,5 @@
 import fetch from '@/api/utils/fetch.js';
-import player from './player.js';
+import Player from './player.js';
 
 const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
 const API_KEY = 'AIzaSyC06v4WdyeLlP0tHM7FyMyESHEHIvISCLU';
@@ -24,4 +24,4 @@ const paramsToUrl = (params = {}) => Object.entries(params).map((param) => param
 const paramToUrl = (name, value) => name + (value ? '=' + value : '');
 
 /* Exports */
-export default { search, player };
+export default { search, Player };

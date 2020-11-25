@@ -9,7 +9,7 @@ YouTubeSearcher.install = (Vue, options) => {
 
   Vue.prototype.$youtube.search = youtube.search;
 
-  Vue.prototype.$youtube.player = youtube.player;
+  Vue.prototype.$youtube.player = new youtube.Player();
 };
 
 export default YouTubeSearcher;

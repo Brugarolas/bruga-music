@@ -5,24 +5,38 @@
 */
 
 /* Own Player Loader */
-const youtubeApiPromise = new Promise((resolve, reject) => {
-  window.onYouTubeIframeAPIReady = function () {
-    const player = new window.YT.Player('ytPlayer', {
-      // videoId: 'M7lc1UVf-VE',
-      host: 'https://www.youtube.com',
-      height: '360',
-      width: '640',
-      playerVars: {
-        rel: 0,
-        showinfo: 0,
-        autoplay: 0,
-        controls: 1
-      }
-    });
+let widgetPlayer;
 
-    player.addEventListener('onReady', () => { resolve(player); });
-  };
-});
+const loadYoutubePlayerWidget = () => {
+  return new Promise((resolve, reject) => {
+    if (widgetPlayer) {
+      return resolve(widgetPlayer);
+    }
+
+    initYouTubeAPI();
+
+    window.onYouTubeIframeAPIReady = function () {
+      const player = new window.YT.Player('ytPlayer', {
+        // videoId: 'M7lc1UVf-VE',
+        host: 'https://www.youtube.com',
+        height: '360',
+        width: '640',
+        playerVars: {
+          rel: 0,
+          showinfo: 0,
+          autoplay: 0,
+          controls: 1
+        }
+      });
+
+      player.addEventListener('onReady', (event) => {
+        widgetPlayer = event.target;
+
+        resolve(event.target);
+      });
+    };
+  });
+};
 
 /* Aux Google Rewrite */
 const deferExecution = (isLoaded, functionStore) => {
@@ -87,7 +101,7 @@ const loadYouTubeWidgetPlayer = () => {
   loadScript({
     type: 'text/javascript',
     id: 'www-widgetapi-script',
-    src: 'https://s.ytimg.com/yts/jsbin/www-widgetapi-vflVx0w83/www-widgetapi.js',
+    src: 'https://www.youtube.com/s//player/77da52cd/www-widgetapi.vflset/www-widgetapi.js',
     async: true,
     nonce: getCurrentNonce()
   });
@@ -100,7 +114,5 @@ const initYouTubeAPI = () => {
   }
 };
 
-initYouTubeAPI();
-
 // Exports
-export default youtubeApiPromise;
+export default loadYoutubePlayerWidget;

@@ -1,4 +1,4 @@
-import youtubeApiPromise from './widget.js';
+import loadYoutubePlayerWidget from './widget.js';
 
 /* YouTube Player */
 
@@ -29,12 +29,14 @@ class YouTubePlayer {
   /* Public API */
 
   load (videoId, autoplay = false) {
-    return new Promise((resolve, reject) => {
-      this._resolve = resolve;
-      this._resolveEvent = autoplay ? YouTubeState.Playing : YouTubeState.Cued;
+    return this._loadAPI().then(() => {
+      return new Promise((resolve, reject) => {
+        this._resolve = resolve;
+        this._resolveEvent = autoplay ? YouTubeState.Playing : YouTubeState.Cued;
 
-      let loadVideo = autoplay ? this._player.loadVideoById : this._player.cueVideoById;
-      loadVideo.bind(this._player)(videoId, 0, 'large');
+        const loadVideo = autoplay ? this._player.loadVideoById : this._player.cueVideoById;
+        loadVideo.bind(this._player)(videoId, 0, 'large');
+      });
     });
   }
 
@@ -93,6 +95,16 @@ class YouTubePlayer {
 
   /* Hidden API */
 
+  _loadAPI () {
+    if (this._player) {
+      return Promise.resolve();
+    }
+
+    return loadYoutubePlayerWidget().then(apiPlayer => {
+      this._setAPI(apiPlayer);
+    });
+  }
+
   _setAPI (player) {
     this._player = player;
     this._player.addEventListener('onReady', this._emptyResolve.bind(this));
@@ -141,10 +153,4 @@ class YouTubePlayer {
 }
 
 // Exports
-const player = new YouTubePlayer();
-
-youtubeApiPromise.then(apiPlayer => {
-  player._setAPI(apiPlayer);
-});
-
-export default player;
+export default YouTubePlayer;
