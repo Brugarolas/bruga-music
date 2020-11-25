@@ -138,7 +138,7 @@ module.exports = {
       background_color: '#d45534',
       theme_color: '#7a3368',
       inject: true,
-      fingerprints: true,
+      fingerprints: false,
       ios: true,
       icons: [{
         src: path.resolve('src/assets/logo.png'),
@@ -161,6 +161,8 @@ module.exports = {
       skipWaiting: true,
       babelPresetEnvTargets: babelTargets,
       cleanupOutdatedCaches: true,
+      sourcemap: false,
+      inlineWorkboxRuntime: true,
       include: [/\.html$/, /\.js$/, /\.css$/, /\.jpg$/, /\.png$/, /\.ico$/, /\.woff$/, /\.woff2$/, /\.ttf$/, /\.eot$/, /\.svg$/]
     })
   ],
