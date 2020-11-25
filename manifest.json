@@ -1,77 +1,77 @@
 {
   "icons": [
     {
-      "src": "/icons/android/icon_256x256.a35f0e4a2ec858e185b29eaf83bfc168.png",
+      "src": "/bruga-music/icons/android/icon_256x256.png",
       "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "/icons/android/icon_192x192.17d34862a62bf16ec6a173a3ef54843d.png",
+      "src": "/bruga-music/icons/android/icon_192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icons/android/icon_144x144.bdd075fe43df60846be515dddd6165fe.png",
+      "src": "/bruga-music/icons/android/icon_144x144.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "/icons/android/icon_96x96.1ab53f497c26e56c2f3248c9d9f990a3.png",
+      "src": "/bruga-music/icons/android/icon_96x96.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "/icons/android/icon_72x72.76f4aacaefbc37aae522d6d2d86fd6e3.png",
+      "src": "/bruga-music/icons/android/icon_72x72.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "/icons/android/icon_48x48.2680b1cc0e74990c741af57e2984f3d4.png",
+      "src": "/bruga-music/icons/android/icon_48x48.png",
       "sizes": "48x48",
       "type": "image/png"
     },
     {
-      "src": "/icons/android/icon_36x36.6371261773c9b496da46d48bc15c2ba6.png",
+      "src": "/bruga-music/icons/android/icon_36x36.png",
       "sizes": "36x36",
       "type": "image/png"
     },
     {
-      "src": "/icons/ios/icon_256x256.a35f0e4a2ec858e185b29eaf83bfc168.png",
+      "src": "/bruga-music/icons/ios/icon_256x256.png",
       "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "/icons/ios/icon_256x256.a35f0e4a2ec858e185b29eaf83bfc168.png",
+      "src": "/bruga-music/icons/ios/icon_256x256.png",
       "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "/icons/ios/icon_192x192.17d34862a62bf16ec6a173a3ef54843d.png",
+      "src": "/bruga-music/icons/ios/icon_192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icons/ios/icon_144x144.bdd075fe43df60846be515dddd6165fe.png",
+      "src": "/bruga-music/icons/ios/icon_144x144.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "/icons/ios/icon_96x96.1ab53f497c26e56c2f3248c9d9f990a3.png",
+      "src": "/bruga-music/icons/ios/icon_96x96.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "/icons/ios/icon_72x72.76f4aacaefbc37aae522d6d2d86fd6e3.png",
+      "src": "/bruga-music/icons/ios/icon_72x72.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "/icons/ios/icon_48x48.2680b1cc0e74990c741af57e2984f3d4.png",
+      "src": "/bruga-music/icons/ios/icon_48x48.png",
       "sizes": "48x48",
       "type": "image/png"
     },
     {
-      "src": "/icons/ios/icon_36x36.6371261773c9b496da46d48bc15c2ba6.png",
+      "src": "/bruga-music/icons/ios/icon_36x36.png",
       "sizes": "36x36",
       "type": "image/png"
     }
