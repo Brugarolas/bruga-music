@@ -53,7 +53,13 @@ export default {
   },
   computed: {
     hasSong () {
-      return this.$store.getters.hasSong;
+      const hasSong = this.$store.getters.hasSong;
+
+      if (hasSong) {
+        this.$emit('show-player');
+      }
+
+      return hasSong;
     },
     playing () {
       return this.$store.getters.playing;
@@ -139,7 +145,7 @@ export default {
   padding: 12px 50px;
   background-color: @color-white;
   box-shadow: 0 -1/4rem 1/8rem 0 @color-shadow;
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
   transform: none;
 
   &.hidden {

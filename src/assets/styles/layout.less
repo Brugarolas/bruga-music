@@ -1,0 +1,26 @@
+.scrolling-parent {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  flex-flow: column;
+}
+.scrolling-element {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scroll-behavior: smooth;
+  flex: 1;
+}
+
+.full-height-viewport {
+  /* https://dev.to/peiche/100vh-behavior-on-chrome-2hm8 */
+  min-height: calc(100vh - var(--viewport-height, 56px));
+}
+.max-height-viewport {
+  /* https://dev.to/peiche/100vh-behavior-on-chrome-2hm8 */
+  max-height: calc(100vh - var(--viewport-height, 56px));
+}
+.set-margin-top-android-viewport-fix {
+  margin-top: var(--viewport-height, 56px);
+}
