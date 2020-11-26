@@ -140,6 +140,7 @@ module.exports = {
       inject: true,
       fingerprints: false,
       ios: true,
+      publicPath,
       icons: [{
         src: path.resolve('src/assets/logo.png'),
         sizes: [36, 48, 72, 96, 144, 192, 256],
@@ -163,6 +164,7 @@ module.exports = {
       cleanupOutdatedCaches: true,
       sourcemap: false,
       inlineWorkboxRuntime: true,
+      swDest: '/js/service-worker.js',
       include: [/\.html$/, /\.js$/, /\.css$/, /\.jpg$/, /\.png$/, /\.ico$/, /\.woff$/, /\.woff2$/, /\.ttf$/, /\.eot$/, /\.svg$/]
     })
   ],

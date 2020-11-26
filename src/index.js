@@ -10,10 +10,12 @@ import VolumeFilter from '@/utils/volume-filter.js';
 import AsyncComputed from 'vue-async-computed';
 import store from '@/store/index.js';
 
+const publicPath = PUBLIC_PATH || '/'; // eslint-disable-line no-undef
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
+      navigator.serviceWorker.register(`${publicPath}js/service-worker.js`);
     }
 
     loadApp();
@@ -29,7 +31,6 @@ const loadApp = () => {
   Vue.use(VolumeFilter);
   Vue.use(AsyncComputed);
 
-  const publicPath = PUBLIC_PATH || '/'; // eslint-disable-line no-undef
   const router = new VueRouter({
     routes,
     base: publicPath,
