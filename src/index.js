@@ -12,16 +12,6 @@ import store from '@/store/index.js';
 
 const publicPath = PUBLIC_PATH || '/'; // eslint-disable-line no-undef
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register(`${publicPath}js/service-worker.js`);
-    }
-
-    loadApp();
-  });
-}
-
 const loadApp = () => {
   Vue.use(VueRouter);
   Vue.use(GlobalBus);
@@ -47,3 +37,11 @@ const loadApp = () => {
     store
   });
 };
+
+window.addEventListener('load', () => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(`${publicPath}js/service-worker.js`);
+  }
+
+  loadApp();
+});
