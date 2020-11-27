@@ -4,11 +4,11 @@
  */
 const LASTFM_API_RESTRICTS_IMAGES = true;
 const IMAGE_SIZES = {
-  'small': 34,
-  'medium': 64,
-  'large': 174,
-  'extralarge': 240,
-  'mega': 300
+  small: 34,
+  medium: 64,
+  large: 174,
+  extralarge: 240,
+  mega: 300
 };
 
 const bingImage = (name, size) => {
@@ -72,8 +72,8 @@ const artistDetail = (artist) => {
   };
 
   if (artist.bio && (artist.bio.summary || artist.bio.content)) {
-    let bio = artist.bio.summary || artist.bio.content;
-    let index = bio.indexOf(' <a');
+    const bio = artist.bio.summary || artist.bio.content;
+    const index = bio.indexOf(' <a');
 
     detail.biography = bio.substring(0, index);
   }
@@ -116,8 +116,8 @@ const albumDetail = (album) => {
   }
 
   if (album.wiki && (album.wiki.summary || album.wiki.content)) {
-    let bio = album.wiki.summary || album.wiki.bio.content;
-    let index = bio.indexOf(' <a');
+    const bio = album.wiki.summary || album.wiki.bio.content;
+    const index = bio.indexOf(' <a');
 
     detail.wiki = bio.substring(0, index);
   }
@@ -135,6 +135,7 @@ const tracksArray = (tracks) => {
 };
 
 const trackDetail = (track) => {
+  // TODO
   console.log(track);
 
   return track;

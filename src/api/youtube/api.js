@@ -1,4 +1,5 @@
-import fetch from '@/api/utils/fetch.js';
+import fetch from '@/api/utils/fetch-cache.js';
+import { WEEK } from '@/utils/unit-times-in-ms.js';
 import Player from './player.js';
 
 const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
@@ -8,7 +9,7 @@ const API_KEY = 'AIzaSyC06v4WdyeLlP0tHM7FyMyESHEHIvISCLU';
 const search = async (query) => {
   const url = buildQueryUrl(query);
 
-  const response = await fetch(url, { cache: 'force-cache' });
+  const response = await fetch(url, { cache: 'default', localCache: WEEK * 2 });
   const json = await response.json();
 
   return json.items;
