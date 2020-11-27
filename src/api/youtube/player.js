@@ -1,4 +1,5 @@
 import loadYoutubePlayerWidget from './widget.js';
+import disablePageVisibility from '@/utils/disable-page-visibility-api';
 
 /* YouTube Player */
 
@@ -11,6 +12,18 @@ const YouTubeState = {
   Buffering: 3,
   Cued: 5
 };
+
+// TODO remove
+const YouTubeStatesReverted = [
+  'None',
+  'Unstarted',
+  'Ended',
+  'Playing',
+  'Paused',
+  'Buffering',
+  'Unknown',
+  'Cued'
+];
 
 class YouTubePlayer {
   constructor (player) {
@@ -100,6 +113,9 @@ class YouTubePlayer {
       return Promise.resolve();
     }
 
+    // Disable page visibility API so YouTube don't stop playing when minimized on mobile devices
+    disablePageVisibility();
+
     return loadYoutubePlayerWidget().then(apiPlayer => {
       this._setAPI(apiPlayer);
     });
@@ -114,6 +130,24 @@ class YouTubePlayer {
   }
 
   _onStateChange (state) {
+    // TODO delete, is testing
+    const infoContainer = document.getElementById('log-messages');
+    const infoElement = document.createElement('div');
+    const mainInfo = document.createElement('h3');
+    const logInfo = document.createElement('p');
+
+    mainInfo.textContent = `${state.data} - ${YouTubeStatesReverted[state.data + 2]}`;
+    logInfo.textContent = JSON.stringify(state).replace(/\"/g, '\''); // eslint-disable-line no-useless-escape
+
+    infoElement.appendChild(mainInfo);
+    infoElement.appendChild(logInfo);
+    infoElement.appendChild(document.createElement('br'));
+
+    infoContainer.appendChild(infoElement);
+
+    console.log(mainInfo.textContent);
+
+    // Real
     if (state.data === this._resolveEvent) {
       this._resolve();
       this._resetResolve();

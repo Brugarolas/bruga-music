@@ -7,6 +7,8 @@
           <router-view />
         </keep-alive>
       </transition>
+
+      <div id="log-messages" style="padding: 20px 0;" />
     </main>
 
     <Footer />
