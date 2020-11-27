@@ -11,7 +11,8 @@
     "start:static": "npm run build && http-server ./dist",
     "build": "cross-env NODE_ENV=production webpack --progress --performance",
     "build:gh-pages": "cross-env NODE_ENV=production PUBLIC_PATH=bruga-music webpack --progress --performance",
-    "build:analyzer": "cross-env NODE_ENV=production ANALYZER=true webpack --progress --performance"
+    "build:analyzer": "cross-env NODE_ENV=production ANALYZER=true webpack --progress --performance",
+    "utils:outdated": "npm outdated"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.12.5",
@@ -29,7 +30,7 @@
     "node": ">=10.13.0"
   },
   "devDependencies": {
-    "babel-loader": "^8.2.1",
+    "babel-loader": "^8.2.2",
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
@@ -47,7 +48,7 @@
     "html-webpack-plugin": "^4.5.0",
     "workbox-webpack-plugin": "^5.1.4",
     "webpack-pwa-manifest": "^4.3.0",
-    "webpack": "^5.6.0",
+    "webpack": "^5.8.0",
     "webpack-bundle-analyzer": "^4.1.0",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.0",
@@ -55,7 +56,6 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-vue": "^7.1.0",
     "eslint-config-standard": "^16.0.2",
