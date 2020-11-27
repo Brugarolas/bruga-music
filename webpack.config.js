@@ -182,7 +182,8 @@ module.exports = {
     hot: true,
     open: true,
     host: isLocal ? '0.0.0.0' : 'localhost',
-    useLocalIp: isLocal
+    useLocalIp: isLocal,
+    disableHostCheck: true // for ngrok
   },
   performance: {
     hints: false
