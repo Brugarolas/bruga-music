@@ -2,7 +2,7 @@ import fetch from '@/api/utils/fetch.js';
 import player from './player.js';
 
 const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
-const API_KEY = 'AIzaSyAq4ALvqOE08oCXDMyHy9XdbvpNsuuZrpA';
+const API_KEY = 'AIzaSyA0rdTCiTeNH6D6HVriTNPhbJetMcHQs84';
 
 /* API */
 const search = async (query) => {
