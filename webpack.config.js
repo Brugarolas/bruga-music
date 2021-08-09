@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { DefinePlugin } = webpack;
@@ -13,11 +13,21 @@ const publicPath = isProduction ? '/' + (PUBLIC_PATH ? PUBLIC_PATH + '/' : '') :
 module.exports = {
   entry: './src/index.js',
   mode: 'development',
-  stats: { children: false },
+  stats: {
+    children: false
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: publicPath,
-    filename: 'js/bundle.js?[hash]'
+    filename: 'js/bundle.js?[contenthash]'
+  },
+  optimization: {
+    minimize: true,
+    removeEmptyChunks: true,
+    mergeDuplicateChunks: true,
+    flagIncludedChunks: true, // https://webpack.js.org/configuration/optimization/#optimizationflagincludedchunks
+    providedExports: true,
+    usedExports: 'global'
   },
   module: {
     rules: [
@@ -82,7 +92,7 @@ module.exports = {
         test: /\.(png|jpg|gif)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]',
+          name: '[name].[ext]?[contenthash]',
           outputPath: 'img'
         }
       },
@@ -90,7 +100,7 @@ module.exports = {
         test: /\.(woff|woff2|ttf|eot|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]',
+          name: '[name].[ext]?[contenthash]',
           outputPath: 'fonts'
         }
       }
@@ -102,16 +112,22 @@ module.exports = {
     }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'styles/bundle.css?[hash]'
+      filename: 'styles/bundle.css?[contenthash]'
     }),
     new HtmlWebpackPlugin({
+      title: 'Bruga Music',
       template: './src/index.html',
       filename: './index.html',
       favicon: './src/assets/logo.png',
       meta: {
         viewport: 'width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no'
       },
-      inject: 'body'
+      inject: true,
+      publicPath: 'auto',
+      scriptLoading: 'defer',
+      hash: true,
+      minify: true,
+      cache: true
     })
   ],
   resolve: {
@@ -129,11 +145,11 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: 'eval-source-map'
 };
 
 if (isProduction) {
-  module.exports.devtool = '#source-map';
+  module.exports.devtool = false;
   module.exports.mode = 'production';
 
   // Add babel-minify preset only in production

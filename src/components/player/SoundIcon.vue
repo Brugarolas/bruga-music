@@ -74,7 +74,7 @@ export default {
   &.stopped .bar {
     animation: none;
     opacity: 0.35;
-    bottom: unit((@max-height - @min-height) / 2, px);
+    bottom: (@max-height - @min-height) / 2;
   }
 }
 
