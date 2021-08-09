@@ -1,6 +1,6 @@
 @import (once, inline) "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Roboto:100,300,400,500,700,900";
-@import (less) "@fortawesome/fontawesome-free/less/fontawesome.less";
-@import (less) "@fortawesome/fontawesome-free/less/solid.less";
+@import (less) "~@fortawesome/fontawesome-free/less/fontawesome.less";
+@import (less) "~@fortawesome/fontawesome-free/less/solid.less";
 
 @import (less, reference) "./colors.less";
 
@@ -8,23 +8,29 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 body {
   padding: 0;
   margin: 0;
-}
-.main {
-  display: block; // IE11 fix
-  font-family: 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
-  text-align: center;
-  .fontFixes();
-  color: @color-white;
-  margin-top: 68px;
-  padding-top: 30px;
-  padding-bottom: 100px;
-  position: relative;
   box-sizing: border-box;
   overflow-x: hidden;
+  overflow-y: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-overflow-scrolling: touch;
+  min-height: 100%;
+  scroll-behavior: smooth;
+  /* https://css-tricks.com/the-notch-and-css/ */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  /* https://dev.to/peiche/100vh-behavior-on-chrome-2hm8 */
+  --viewport-height: 0px;
 }
+
+// TODO Refactor this
+// TODO Add margin/padding bottom to all views
 h1, h2 {
   font-weight: normal;
 }
@@ -41,17 +47,6 @@ a {
   text-decoration: none;
 }
 
-.footer {
-  font-family: 'Open Sans', sans-serif;
-  display: block;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  box-sizing: border-box;
-  height: 84px;
-  width: 100%;
-  z-index: 2;
-}
-
 @import (less) "./details.less";
 @import (less) "./loading.less";
+@import (less) "./layout.less";

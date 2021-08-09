@@ -72,7 +72,6 @@ export default {
 @import (reference, less) "../assets/styles/colors.less";
 
 .search-wrapper {
-  margin-top: 5px;
   padding: 10px 20px;
 
   .type-wrapper {

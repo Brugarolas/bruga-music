@@ -53,7 +53,13 @@ export default {
   },
   computed: {
     hasSong () {
-      return this.$store.getters.hasSong;
+      const hasSong = this.$store.getters.hasSong;
+
+      if (hasSong) {
+        this.$emit('show-player');
+      }
+
+      return hasSong;
     },
     playing () {
       return this.$store.getters.playing;
@@ -97,7 +103,7 @@ export default {
         this.duration = this.$youtube.player.duration();
         this.isPlaying = true;
 
-        let { track, artist } = this.playing;
+        const { track, artist } = this.playing;
         document.title = `${track} - ${artist} | Bruga Music`;
       });
     },
@@ -139,7 +145,7 @@ export default {
   padding: 12px 50px;
   background-color: @color-white;
   box-shadow: 0 -1/4rem 1/8rem 0 @color-shadow;
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
   transform: none;
 
   &.hidden {
@@ -211,7 +217,7 @@ export default {
   .player-controls-panel {
     display: inline-block;
     float: left;
-    width: 30%;
+    width: calc(35% - 72px);
     box-sizing: border-box;
     vertical-align: middle;
 
@@ -226,7 +232,7 @@ export default {
   .player-sound-panel {
     display: inline-block;
     float: left;
-    width: 25%;
+    width: calc(30% - 100px);
     text-align: center;
     box-sizing: border-box;
     vertical-align: middle;
@@ -240,7 +246,7 @@ export default {
     align-items: center;
 
     float: right;
-    width: 10%;
+    width: 172px;
     box-sizing: border-box;
     vertical-align: middle;
     margin-top: 8px;

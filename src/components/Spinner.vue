@@ -5,6 +5,7 @@
 </template>
 
 <script>
+// TODO add transition fade to Spinner instead of a simple v-if
 export default {
   name: 'Spinner'
 };
@@ -13,13 +14,14 @@ export default {
 <style lang="less">
 .loader-wrapper {
   display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  position: fixed;
   top: 0;
+  right: 0;
   left: 0;
-  /* background-color: #0001; */
-  border-radius: 8px;
+  bottom: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: #0001;
   z-index: 4;
 }
 .loader, .loader:after {

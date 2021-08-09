@@ -17,15 +17,12 @@ export default {
 
 .header {
   display: block;
-  position: absolute;
+  position: relative;
   box-sizing: border-box;
-  top: 0;
-  left: 0;
-  width: 100%;
   padding: 12px 50px;
   background-color: @color-header-background;
   box-shadow: @background-shadow;
-  z-index: 2;
+  z-index: 5;
 
   .header-title {
     font-family: 'Roboto', sans-serif;

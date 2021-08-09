@@ -5,24 +5,38 @@
 */
 
 /* Own Player Loader */
-const youtubeApiPromise = new Promise((resolve, reject) => {
-  window.onYouTubeIframeAPIReady = function () {
-    const player = new window.YT.Player('ytPlayer', {
-      // videoId: 'M7lc1UVf-VE',
-      host: 'https://www.youtube.com',
-      height: '360',
-      width: '640',
-      playerVars: {
-        'rel': 0,
-        'showinfo': 0,
-        'autoplay': 0,
-        'controls': 1
-      }
-    });
+let widgetPlayer;
 
-    player.addEventListener('onReady', () => { resolve(player); });
-  };
-});
+const loadYoutubePlayerWidget = () => {
+  return new Promise((resolve, reject) => {
+    if (widgetPlayer) {
+      return resolve(widgetPlayer);
+    }
+
+    initYouTubeAPI();
+
+    window.onYouTubeIframeAPIReady = function () {
+      const player = new window.YT.Player('ytPlayer', {
+        // videoId: 'M7lc1UVf-VE',
+        host: 'https://www.youtube.com',
+        height: '360',
+        width: '640',
+        playerVars: {
+          rel: 0,
+          showinfo: 0,
+          autoplay: 0,
+          controls: 1
+        }
+      });
+
+      player.addEventListener('onReady', (event) => {
+        widgetPlayer = event.target;
+
+        resolve(event.target);
+      });
+    };
+  });
+};
 
 /* Aux Google Rewrite */
 const deferExecution = (isLoaded, functionStore) => {
@@ -45,7 +59,7 @@ const executeFunctions = (functionStore) => {
 
 const createConfigurator = (configStore) => {
   return (newConfiguration) => {
-    for (let property in newConfiguration) {
+    for (const property in newConfiguration) {
       if (newConfiguration.hasOwnProperty(property)) {
         configStore[property] = newConfiguration[property];
       }
@@ -54,28 +68,31 @@ const createConfigurator = (configStore) => {
 };
 
 const getCurrentNonce = () => {
-  let current = document.currentScript;
+  const current = document.currentScript;
+
   return current ? current.nonce || current.getAttribute('nonce') : undefined;
 };
 
 const loadScript = (attributes) => {
-  let newScript = document.createElement('script');
-  for (let attribute in attributes) {
+  const newScript = document.createElement('script');
+
+  for (const attribute in attributes) {
     if (attributes[attribute]) {
       newScript[attribute] = attributes[attribute];
     }
   }
 
-  let firstScript = document.getElementsByTagName('script')[0];
+  const firstScript = document.getElementsByTagName('script')[0];
   firstScript.parentNode.insertBefore(newScript, firstScript);
 };
 
 /* Google Rewrite */
 window.YT = window.YT || { loading: 0, loaded: 0 };
-window.YTConfig = window.YTConfig || { 'host': 'https://www.youtube.com' };
+window.YTConfig = window.YTConfig || { host: 'https://www.youtube.com' };
 
 const loadYouTubeWidgetPlayer = () => {
-  let asyncFunctionality = [ () => { window.YT.loaded = 1; } ];
+  const asyncFunctionality = [() => { window.YT.loaded = 1; }];
+
   window.YT.ready = deferExecution(() => window.YT.loaded, asyncFunctionality);
   window.onYTReady = executeFunctions(asyncFunctionality);
 
@@ -97,7 +114,5 @@ const initYouTubeAPI = () => {
   }
 };
 
-initYouTubeAPI();
-
 // Exports
-export default youtubeApiPromise;
+export default loadYoutubePlayerWidget;

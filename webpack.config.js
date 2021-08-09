@@ -4,17 +4,25 @@ const fs = require('fs');
 const { VueLoaderPlugin } = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const { GenerateSW } = require('workbox-webpack-plugin');
 const { DefinePlugin } = webpack;
 
-const { NODE_ENV, PUBLIC_PATH } = process.env;
+const { NODE_ENV, PUBLIC_PATH, ANALYZER, LOCAL } = process.env;
 const isProduction = NODE_ENV === 'production';
+const isLocal = !isProduction && Boolean(LOCAL);
+const isAnalyzer = isProduction && Boolean(ANALYZER);
 const publicPath = isProduction ? '/' + (PUBLIC_PATH ? PUBLIC_PATH + '/' : '') : '/';
+
+const babelTargets = ['> 1%', 'last 2 versions', 'not ie <= 11', 'not dead'];
 
 module.exports = {
   entry: './src/index.js',
   mode: 'development',
   stats: {
-    children: false
+    assets: true,
+    children: false,
+    colors: true
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -67,7 +75,7 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           presets: [
-            ['@babel/env', { targets: { browsers: ['last 2 versions'] }, useBuiltIns: 'usage', corejs: 3, modules: false }]
+            ['@babel/env', { targets: { browsers: babelTargets }, useBuiltIns: false, modules: false }]
           ],
           plugins: [
             ['@babel/transform-runtime', { corejs: 3 }]
@@ -120,14 +128,54 @@ module.exports = {
       filename: './index.html',
       favicon: './src/assets/logo.png',
       meta: {
-        viewport: 'width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no'
+        viewport: 'width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no, viewport-fit=cover'
       },
       inject: true,
       publicPath: 'auto',
       scriptLoading: 'defer',
+      inject: 'body',
       hash: true,
       minify: true,
       cache: true
+    }),
+    new WebpackPwaManifest({
+      name: 'Bruga Music',
+      orientation: 'portrait',
+      display: 'standalone',
+      start_url: '.',
+      short_name: 'Bruga Music',
+      description: 'Music app made with Vue, Vuex and Vue Router ',
+      background_color: '#d45534',
+      theme_color: '#7a3368',
+      inject: true,
+      fingerprints: false,
+      ios: true,
+      publicPath,
+      icons: [{
+        src: path.resolve('src/assets/logo.png'),
+        sizes: [36, 48, 72, 96, 144, 192, 256],
+        destination: path.join('icons', 'ios'),
+        ios: true
+      }, {
+        src: path.resolve('src/assets/logo.png'),
+        size: 256,
+        destination: path.join('icons', 'ios'),
+        ios: 'startup'
+      }, {
+        src: path.resolve('src/assets/logo.png'),
+        sizes: [36, 48, 72, 96, 144, 192, 256],
+        destination: path.join('icons', 'android')
+      }]
+    }),
+    new GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
+      babelPresetEnvTargets: babelTargets,
+      cleanupOutdatedCaches: true,
+      sourcemap: false,
+      inlineWorkboxRuntime: true,
+      swDest: '/js/service-worker.js',
+      include: [/\.html$/, /\.js$/, /\.css$/, /\.jpg$/, /\.png$/, /\.ico$/, /\.woff$/, /\.woff2$/, /\.ttf$/, /\.eot$/, /\.svg$/]
     })
   ],
   resolve: {
@@ -138,9 +186,14 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    overlay: true
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 8080,
+    hot: true,
+    open: true,
+    host: isLocal ? '0.0.0.0' : 'localhost',
+    useLocalIp: isLocal,
+    disableHostCheck: true // for ngrok
   },
   performance: {
     hints: false
@@ -157,6 +210,12 @@ if (isProduction) {
   babelRules.options.presets.unshift(['minify', { builtIns: false }]);
 }
 
+if (isAnalyzer) {
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  module.exports.plugins.push(new BundleAnalyzerPlugin());
+  module.exports.devtool = false;
+}
+
 if (publicPath !== '/') {
-  module.exports.devtool = '';
+  module.exports.devtool = false;
 }

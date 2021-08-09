@@ -1,8 +1,9 @@
 import Adapt from './adapt.js';
 import config from './config.js';
-import fetch from '@/api/utils/fetch.js';
+import fetch from '@/api/utils/fetch-cache.js';
 import { nanoid } from 'nanoid/non-secure';
 import { sanitize } from '@/utils/aux-methods.js';
+import { DAY, WEEK, MONTH, YEAR } from '@/utils/unit-times-in-ms.js';
 
 const { apiKey, url } = config;
 const format = 'json';
@@ -11,7 +12,7 @@ const format = 'json';
 const getTopArtists = async (country) => {
   const url = buildApiUrl('geo.gettopartists', { 'country': country });
 
-  const response = await fetch(url, { cache: 'force-cache' });
+  const response = await fetch(url, { cache: 'default', localCache: WEEK * 2 });
   const json = await response.json();
   return Adapt.adaptArtists(checkMbids(json.topartists.artist));
 };
@@ -19,7 +20,7 @@ const getTopArtists = async (country) => {
 const getArtistInfo = async (artist) => {
   const url = buildApiUrl('artist.getinfo', { 'artist': sanitize(artist) });
 
-  const response = await fetch(url, { cache: 'force-cache' });
+  const response = await fetch(url, { cache: 'default', localCache: MONTH });
   const json = await response.json();
   return Adapt.adaptArtists(json.artist);
 };
@@ -27,7 +28,7 @@ const getArtistInfo = async (artist) => {
 const getArtistTopTags = async (artist, num) => {
   const url = buildApiUrl('artist.gettoptags', { 'artist': sanitize(artist) });
 
-  const response = await fetch(url, { cache: 'force-cache' });
+  const response = await fetch(url, { cache: 'default', localCache: MONTH * 6 });
   const json = await response.json();
 
   let tags = json.toptags.tag;
@@ -37,7 +38,7 @@ const getArtistTopTags = async (artist, num) => {
 const getArtistTopAlbums = async (artist) => {
   const url = buildApiUrl('artist.gettopalbums', { 'artist': sanitize(artist) });
 
-  const response = await fetch(url, { cache: 'force-cache' });
+  const response = await fetch(url, { cache: 'default', localCache: MONTH * 6 });
   const json = await response.json();
 
   let albums = json.topalbums.album;
@@ -47,7 +48,7 @@ const getArtistTopAlbums = async (artist) => {
 const getArtistTopTracks = async (artist) => {
   const url = buildApiUrl('artist.gettoptracks', { 'artist': sanitize(artist), 'limit': 10 });
 
-  const response = await fetch(url, { cache: 'force-cache' });
+  const response = await fetch(url, { cache: 'default', localCache: WEEK * 2 });
   const json = await response.json();
   return Adapt.adaptTracks(json.toptracks.track);
 };
@@ -55,7 +56,7 @@ const getArtistTopTracks = async (artist) => {
 const getAlbumInfo = async(artist, album) => {
   const url = buildApiUrl('album.getinfo', { 'artist': sanitize(artist), 'album': sanitize(album) } )
 
-  const response = await fetch(url, { cache: 'force-cache' });
+  const response = await fetch(url, { cache: 'default', localCache: MONTH * 6 });
   const json = await response.json();
   return Adapt.adaptAlbums(json.album);
 }
@@ -63,7 +64,7 @@ const getAlbumInfo = async(artist, album) => {
 const getTrackInfo = async (artist, track) => {
   const url = buildApiUrl('track.getinfo', { 'artist': sanitize(artist), 'track': sanitize(track) });
 
-  const response = await fetch(url, { cache: 'force-cache' });
+  const response = await fetch(url, { cache: 'default', localCache: YEAR });
   const json = await response.json();
   return Adapt.adaptTracks(json.track);
 };
@@ -87,7 +88,7 @@ const getSearchFunction = (type) => {
 const searchTrack = async (search) => {
   const url = buildApiUrl('track.search', { 'track': search });
 
-  const response = await fetch(url, { cache: 'force-cache' });
+  const response = await fetch(url, { cache: 'default', localCache: DAY * 5 });
   const json = await response.json();
   return Adapt.adaptTracks(checkMbids(json.results.trackmatches.track));
 };
@@ -95,7 +96,7 @@ const searchTrack = async (search) => {
 const searchAlbum = async (search) => {
   const url = buildApiUrl('album.search', { 'album': search });
 
-  const response = await fetch(url, { cache: 'force-cache' });
+  const response = await fetch(url, { cache: 'default', localCache: DAY * 5 });
   const json = await response.json();
   return Adapt.adaptAlbums(checkMbids(filterUndefined(json.results.albummatches.album)));
 };
@@ -103,7 +104,7 @@ const searchAlbum = async (search) => {
 const searchArtist = async (search) => {
   const url = buildApiUrl('artist.search', { 'artist': search });
 
-  const response = await fetch(url, { cache: 'force-cache' });
+  const response = await fetch(url, { cache: 'default', localCache: DAY * 5 });
   const json = await response.json();
   return Adapt.adaptArtists(checkMbids(sortWithoutImages(filterMbids(json.results.artistmatches.artist))));
 };

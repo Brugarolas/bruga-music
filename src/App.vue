@@ -1,30 +1,31 @@
 <template>
-  <div id="app">
+  <div id="app" class="full-height-viewport max-height-viewport scrolling-parent">
     <Header />
-    <main class="main loading-scale">
+    <main class="main loading-scale scrolling-element">
       <transition :name="transitionName" :mode="transitionMode">
         <keep-alive :max="5">
           <router-view />
         </keep-alive>
       </transition>
+
+      <div id="log-messages" style="padding: 20px 0;" />
     </main>
-    <footer class="footer">
-      <Player />
-      <div id="ytPlayer" />
-    </footer>
+
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from '@/components/static/Header.vue';
-import Player from '@/components/player/Player.vue';
+import Footer from '@/components/static/Footer.vue';
+
 const DEFAULT_TRANSITION = 'slide-left';
 const DEFAULT_TRANSITION_MODE = 'out-in';
 
 export default {
   name: 'App',
   components: {
-    Header, Player
+    Header, Footer
   },
   data () {
     return {
@@ -62,19 +63,31 @@ export default {
     });
   },
   mounted () {
+    /* Set viewport height size only in Android for CSS .full-height-viewport-android class
+     * https://dev.to/peiche/100vh-behavior-on-chrome-2hm8
+     */
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const isAndroid = userAgent.includes('android');
+
+    if (isAndroid) {
+      const body = document.body || document.querySelector('body');
+
+      body.style.setProperty('--viewport-height', '56px');
+    }
+
     /* Stop loader if two seconds have passed
      * Loader should be stopped in each route when all AJAX are completed
      * This is here in case I forgot to stop loader on routes (or AJAX fails or something)
      * If loader is already stopped this sould do nothing
      */
-     if (!window.stopLoadingWithDelay) {
-       return;
-     }
+    if (!window.stopLoadingWithDelay) {
+      return;
+    }
 
-     // wait until all children has been rendered
-     this.$nextTick(() => {
-       window.stopLoadingWithDelay(500);
-     });
+    // Wait until all children has been rendered
+    this.$nextTick(() => {
+      window.stopLoadingWithDelay(500);
+    });
   }
 };
 </script>
@@ -126,9 +139,15 @@ export default {
   }
 }
 
-#ytPlayer {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
+.main {
+  display: block; // IE11 fix
+  font-family: 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
+  text-align: center;
+  .fontFixes();
+  color: @color-white;
+  position: relative;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  padding-top: 48px;
 }
 </style>
