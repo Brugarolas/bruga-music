@@ -1,0 +1,34 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": [
+    "stylelint-declaration-block-no-ignored-properties",
+    "stylelint-selector-bem-pattern",
+    "stylelint-selector-no-empty",
+    "stylelint-declaration-strict-value",
+    "stylelint-high-performance-animation",
+    "stylelint-group-selectors",
+    "stylelint-use-nesting",
+    "stylelint-no-nested-media",
+    "stylelint-selector-tag-no-without-class"
+  ],
+  "rules": {
+    "plugin/declaration-block-no-ignored-properties": true,
+    "plugin/selector-bem-pattern": {
+      "componentName": "[A-Z]+",
+      "componentSelectors": {
+        "initial": "^\\.{componentName}(?:-[a-z]+)?$",
+        "combined": "^\\.combined-{componentName}-[a-z]+$"
+      },
+      "utilitySelectors": "^\\.util-[a-z]+$"
+    },
+    "plugin/stylelint-selector-no-empty": true,
+    "scale-unlimited/declaration-strict-value": [
+      ["color", "background-color"]
+    ],
+    "plugin/no-low-performance-animation-properties": true,
+    "plugin/stylelint-group-selectors": true,
+    "csstools/use-nesting": "always",
+    "pitcher/no-nested-media": true,
+    "plugin/selector-tag-no-without-class": ["div", "span"]
+  }
+}

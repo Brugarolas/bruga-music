@@ -1,9 +1,22 @@
 {
   "root": true,
-  "plugins": [
-    "vue"
-  ],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@babel/eslint-parser",
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "globalReturn": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "commonjs": true,
+    "es2021": true
+  },
   "extends": [
+    "eslint:recommended",
     "semistandard",
     "plugin:vue/recommended"
   ],
@@ -25,25 +38,8 @@
       }
     }],
     "vue/singleline-html-element-content-newline": 0,
-    "node/no-unsupported-features/es-syntax": ["error", {
-        "version": ">=8.0.0",
-        "ignores": [
-          "modules"
-        ]
-    }],
-    "node/no-unpublished-require": 0
-  },
-  "env": {
-    "browser": true,
-    "node": true,
-    "commonjs": true,
-    "es6": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 8,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "globalReturn": true
-    }
+    "node/no-unsupported-features/es-syntax": 0,
+    "node/no-unpublished-require": 0,
+    "node/no-unsupported-features": 0
   }
 }

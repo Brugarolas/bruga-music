@@ -130,10 +130,9 @@ module.exports = {
       meta: {
         viewport: 'width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no, viewport-fit=cover'
       },
-      inject: true,
+      inject: 'body',
       publicPath: 'auto',
       scriptLoading: 'defer',
-      inject: 'body',
       hash: true,
       minify: true,
       cache: true
