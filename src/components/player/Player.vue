@@ -141,7 +141,6 @@ export default {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-
   padding: 12px 50px;
   background-color: @color-white;
   box-shadow: 0 -1/4rem 1/8rem 0 @color-shadow;
@@ -169,7 +168,7 @@ export default {
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.10);
+      box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
       background-color: #ccc;
       display: inline-block;
       object-fit: cover;
@@ -186,13 +185,13 @@ export default {
     box-sizing: border-box;
     vertical-align: middle;
 
-    .player-title-artist, .player-title-track {
+    .player-title-artist,
+    .player-title-track {
       display: block;
       width: 100%;
       margin: 0;
       padding: 0;
       color: @color-gray;
-
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -207,6 +206,7 @@ export default {
         cursor: pointer;
       }
     }
+
     .player-title-track {
       font-family: "Open Sans", sans-serif;
       font-size: 21px;
@@ -244,7 +244,6 @@ export default {
     flex-direction: row;
     justify-content: end;
     align-items: center;
-
     float: right;
     width: 172px;
     box-sizing: border-box;

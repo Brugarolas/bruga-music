@@ -24,11 +24,14 @@ export default {
   background-color: #0001;
   z-index: 4;
 }
-.loader, .loader:after {
+
+.loader,
+.loader::after {
   border-radius: 50%;
   width: 10em;
   height: 10em;
 }
+
 .loader {
   position: absolute;
   margin: 0;
@@ -44,25 +47,29 @@ export default {
   -ms-transform: translateZ(0);
   transform: translateZ(0);
   overflow: hidden;
-  box-shadow: 0px 0px 12px 0px #000, inset 0px 0px 6px #000;
+  box-shadow: 0 0 12px 0 #000, inset 0 0 6px #000;
   -webkit-animation: load8 1.25s infinite linear;
   animation: load8 1.25s infinite linear;
 }
+
 @-webkit-keyframes load8 {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
 @keyframes load8 {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);

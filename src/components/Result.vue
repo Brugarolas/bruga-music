@@ -91,6 +91,7 @@ export default {
     line-height: 90%;
   }
 }
+
 .track-wrapper {
   display: block;
   margin: 0;

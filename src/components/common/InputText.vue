@@ -81,9 +81,11 @@ export default {
   width: 320px;
   border: 2px solid @main-light-color;
   border-radius: 4px;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
-  &:hover, &:focus, &.completed {
+  &:hover,
+  &:focus,
+  &.completed {
     border-color: @main-color;
   }
 }
@@ -97,13 +99,12 @@ export default {
   height: 23px;
   padding-left: 2px;
   cursor: pointer;
-
   position: absolute;
   right: 6px;
   top: 4px;
   visibility: hidden;
   opacity: 0;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   .button-reset {
     display: inline-block;

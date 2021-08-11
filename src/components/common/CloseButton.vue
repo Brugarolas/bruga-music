@@ -31,7 +31,7 @@ export default {
   cursor: pointer;
 
   /* Disables hightlight */
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;
 
   /* Corrects inability to style clickable `input` types in iOS */
@@ -47,10 +47,10 @@ export default {
     color: @color-red;
     opacity: 0.35;
     transition: all 0.3s ease-in-out;
-  }
 
-  &:hover .icon-cancel {
-    opacity: 1;
+    @nest &:hover & {
+      opacity: 1;
+    }
   }
 }
 </style>

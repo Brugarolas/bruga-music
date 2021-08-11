@@ -95,11 +95,11 @@ export default {
       opacity: 0.5;
       transition: all 0.3s ease-in-out;
       overflow: hidden;
-    }
 
-    &:hover .see-more-icon {
-      opacity: 0.75;
-      transform: scale(1.1);
+      @nest &:hover & {
+        opacity: 0.75;
+        transform: scale(1.1);
+      }
     }
   }
 </style>

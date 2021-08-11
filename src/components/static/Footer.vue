@@ -48,12 +48,13 @@ export default {
   box-sizing: border-box;
   width: 100%;
   z-index: 2;
+
   --footer-height: auto;
 
   height: var(--footer-height, 89px);
 
   &.animate-height {
-    transition: height .3s ease-in-out;
+    transition: height 0.3s ease-in-out;
     will-change: height;
   }
 }

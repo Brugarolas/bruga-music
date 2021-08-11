@@ -27,6 +27,7 @@ export default {
   .header-title {
     font-family: 'Roboto', sans-serif;
     .fontFixes();
+
     color: @color-white;
     font-size: 24px;
     margin-left: 8px;
@@ -40,8 +41,8 @@ export default {
     background-color: @main-color;
     padding: 10px 11px 10px 9px;
     border-radius: 4px;
-    text-shadow: 2px 2px 0px @main-dark-color;
-    transition: all .3s ease-in-out;
+    text-shadow: 2px 2px 0 @main-dark-color;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
       transform: scale(1.1);
@@ -61,6 +62,7 @@ export default {
     .author-text {
       opacity: 0.5;
     }
+
     .heart {
       color: @color-heart;
       font-size: 20px;

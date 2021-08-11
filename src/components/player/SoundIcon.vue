@@ -35,6 +35,7 @@ export default {
 
 /* Define two variables as the loop limits */
 @from : 1;
+
 @to : 10;
 
 /* Array */
@@ -53,7 +54,6 @@ export default {
 
 /* Create a Parametric mixin and add a guard operation */
 .loop(@index) when(@index =< @to) {
-
   /* As the mixin is called CSS is outputted */
   &:nth-child(@{index}) {
     left: unit((@index - 1) * (@width + 1), px);
@@ -92,12 +92,13 @@ export default {
 
 @keyframes sound {
   0% {
-    opacity: .35;
+    opacity: 0.35;
     height: @max-height;
   }
+
   100% {
     opacity: 1;
     height: @min-height;
-    }
+  }
 }
 </style>

@@ -102,7 +102,6 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-
   display: block;
   height: 7px;
   border-radius: 4px;
@@ -116,6 +115,7 @@ export default {
 
   .volume-background {
     .volume-bar-aux();
+
     width: 100%;
     background-color: lighten(@color-gray, 50%);
 
@@ -126,6 +126,7 @@ export default {
 
   .volume-hover {
     .volume-bar-aux();
+
     background: transparent;
     pointer-events: none;
 
@@ -151,6 +152,7 @@ export default {
 
   .volume-progress {
     .volume-bar-aux();
+
     background-color: @color-light-gray;
     pointer-events: none;
 
@@ -177,10 +179,10 @@ export default {
         background-color: @color-music;
         opacity: 1;
       }
-    }
 
-    & + .volume-progress + .volume-hover::before {
-      opacity: 1;
+      & + .volume-hover::before {
+        opacity: 1;
+      }
     }
   }
 }

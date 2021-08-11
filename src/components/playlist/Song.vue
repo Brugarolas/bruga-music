@@ -58,10 +58,10 @@ export default {
 
   .track-play {
     opacity: 0;
-  }
 
-  &:hover .track-play {
-    opacity: 0.9;
+    @nest &:hover & {
+      opacity: 0.9;
+    }
   }
 
   .track-title {
@@ -94,6 +94,5 @@ export default {
       font-size: 21px;
     }
   }
-
 }
 </style>

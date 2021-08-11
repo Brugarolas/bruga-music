@@ -58,7 +58,7 @@ export default {
   padding: 5px 20px;
   color: @color-white;
   letter-spacing: 0.75px;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
     border-color: @main-dark-color;
@@ -68,7 +68,7 @@ export default {
   &:active {
     background-color: @main-light-color;
     border-color: @main-light-color;
-    transition: all .1s ease-in-out;
+    transition: all 0.1s ease-in-out;
   }
 
   &::after {
@@ -81,7 +81,7 @@ export default {
     top: 50%;
     left: 50%;
     border: 2px solid @main-light-color;
-    transform: translate(-50% , -50%);
+    transform: translate(-50%, -50%);
     opacity: 0;
     pointer-events: none;
     box-sizing: content-box;
@@ -90,13 +90,13 @@ export default {
   &:hover::after {
     padding: 0;
     border-color: @main-dark-color;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     opacity: 1;
   }
 
   &:active::after {
     border-color: @main-light-color;
-    transition: all .1s ease-in-out;
+    transition: all 0.1s ease-in-out;
   }
 }
 </style>

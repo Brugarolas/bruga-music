@@ -53,7 +53,7 @@ export default {
   background-color: @color-white;
   border: 1px solid fade(@main-light-color, 20%);
   border-bottom: 2px solid @main-light-color;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   border-radius: 4px;
 
   .selector {
@@ -72,13 +72,14 @@ export default {
       display: none; /* hide the default arrow in ie10 and ie11 */
     }
   }
+
   .selector-icon {
     position: absolute;
     font-size: 21px;
     top: 5px;
     right: 8px;
     color: @main-light-color;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     pointer-events: none;
   }
 

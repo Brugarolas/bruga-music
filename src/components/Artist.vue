@@ -44,7 +44,7 @@ export default {
   height: @artist-height;
   display: inline-block;
   box-sizing: border-box;
-  transition: transform .3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
   overflow: hidden;
 
   .artist-image {

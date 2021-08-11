@@ -21,7 +21,7 @@ export default {
   top: calc((100% - 72px) / 2);
   left: -4%;
   cursor: pointer;
-  opacity: .35;
+  opacity: 0.35;
   transition: opacity 0.3s ease-in-out;
 
   &:hover {

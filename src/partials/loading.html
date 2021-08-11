@@ -2,9 +2,11 @@
   :root:not(.loaded) {
     overflow: hidden;
   }
+
   :root.loaded {
     overflow-x: hidden;
   }
+
   #background {
     position: fixed;
     top: 0;
@@ -15,34 +17,41 @@
     padding: 0;
     overflow: hidden;
     z-index: 1;
-    transition: opacity .55s ease-in-out;
+    transition: opacity 0.55s ease-in-out;
     opacity: 1;
+
+    &.pushed {
+      z-index: -1;
+      opacity: 0.9;
+      pointer-events: none;
+    }
   }
-  #background.pushed {
-    z-index: -1;
-    opacity: 0.9;
-    pointer-events: none;
-  }
+
   #app {
     z-index: 1;
-    transition: opacity .55s ease-in-out;
+    transition: opacity 0.55s ease-in-out;
     opacity: 0;
+
+    &.visible {
+      opacity: 1;
+    }
   }
-  #app.visible {
-    opacity: 1;
-  }
+
   #loader-spinner {
-    transition: opacity .55s ease-in-out;
+    transition: opacity 0.55s ease-in-out;
     opacity: 0;
+
+    &.visible {
+      opacity: 1;
+    }
   }
-  #loader-spinner.visible {
-    opacity: 1;
-  }
+
   #svg-gradient {
     width: 0;
     height: 0;
     position: absolute;
   }
+
   #svg-background {
     position: fixed;
     top: 0;
@@ -50,17 +59,20 @@
     height: 100%;
     width: 100%;
   }
+
   .polygon-base {
     opacity: 1;
   }
+
   .polygon-multiply {
     display: none; /* Not visible in old browsers */
   }
+
   @supports (mix-blend-mode: multiply) { /* Good browsers */
     .polygon-multiply {
       display: block;
       mix-blend-mode: multiply;
-      opacity: .1;
+      opacity: 0.1;
     }
   }
 </style>
@@ -102,15 +114,15 @@
       font-weight: 600;
       letter-spacing: 4px;
       text-shadow: 2px 2px 2px #982726; /* IE fix */
-    }
-    .loader-title.hidden {
-      opacity: 0;
-    }
-    @media (max-width: 720px) {
-      .loader-title {
+      &.hidden {
+        opacity: 0;
+      }
+
+      @media (max-width: 720px) {
         top: 6%;
       }
     }
+
     @supports (mix-blend-mode: overlay) { /* Good browsers */
       .loader-title {
         color: #bbb;
@@ -127,20 +139,22 @@
       height: 34px;
       top: calc(50% - 17px);
       left: calc(50% - 88px);
+
+      & .ball {
+        display: inline-block;
+        text-align: center;
+        width: 32px;
+        height: 32px;
+        margin-right: 36px;
+        border-radius: 50%;
+        background-color: #be484d; /* IE fix */
+        box-shadow: 0 0 6px 1px #8c2332; /* IE fix */
+        &:last-child {
+          margin-right: 0;
+        }
+      }
     }
-    .bouncing-balls .ball {
-      display: inline-block;
-      text-align: center;
-      width: 32px;
-      height: 32px;
-      margin-right: 36px;
-      border-radius: 50%;
-      background-color: #be484d; /* IE fix */
-      box-shadow: 0px 0px 6px 1px #8c2332; /* IE fix */
-    }
-    .bouncing-balls .ball:last-child {
-      margin-right: 0;
-    }
+
     @supports (mix-blend-mode: soft-light) { /* Good browsers */
       .bouncing-balls .ball {
         background-color: #ffccbaba;
@@ -150,20 +164,23 @@
     }
 
     .bouncing-balls-animation .ball {
-      -webkit-animation: bounceDelay 1.32s infinite ease-in-out both;
+      -webkit-animation: bouncedelay 1.32s infinite ease-in-out both;
       animation: bounceDelay 1.32s infinite ease-in-out both;
-    }
-    .bouncing-balls-animation .ball:nth-child(1) {
-      -webkit-animation-delay: -0.32s;
-      animation-delay: -0.32s;
-    }
-    .bouncing-balls-animation .ball:nth-child(2) {
-      -webkit-animation-delay: -0.16s;
-      animation-delay: -0.16s;
-    }
-    .bouncing-balls-animation .ball:nth-child(3) {
-      -webkit-animation-delay: 0;
-      animation-delay: 0;
+
+      &:nth-child(1) {
+        -webkit-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+      }
+
+      &:nth-child(2) {
+        -webkit-animation-delay: -0.16s;
+        animation-delay: -0.16s;
+      }
+
+      &:nth-child(3) {
+        -webkit-animation-delay: 0;
+        animation-delay: 0;
+      }
     }
 
     .bouncing-balls .ball.hidden {
@@ -171,10 +188,13 @@
     }
 
     @-webkit-keyframes bounceDelay {
-      0%, 80%, 100% {
+      0%,
+      80%,
+      100% {
         -webkit-transform: scale(0);
         opacity: 0.4;
       }
+
       40% {
         -webkit-transform: scale(1.25);
         opacity: 0.95;
@@ -182,11 +202,14 @@
     }
 
     @keyframes bounceDelay {
-      0%, 80%, 100% {
+      0%,
+      80%,
+      100% {
         -webkit-transform: scale(0);
         transform: scale(0);
         opacity: 0.4;
       }
+
       40% {
         -webkit-transform: scale(1.25);
         transform: scale(1.25);

@@ -144,6 +144,7 @@ export default {
   font-family: 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
   text-align: center;
   .fontFixes();
+
   color: @color-white;
   position: relative;
   box-sizing: border-box;

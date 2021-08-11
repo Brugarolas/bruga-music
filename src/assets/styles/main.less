@@ -1,7 +1,6 @@
 @import (once, inline) "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Roboto:100,300,400,500,700,900";
 @import (less) "~@fortawesome/fontawesome-free/less/fontawesome.less";
 @import (less) "~@fortawesome/fontawesome-free/less/solid.less";
-
 @import (less, reference) "./colors.less";
 
 .fontFixes() {
@@ -23,25 +22,31 @@ body {
   -webkit-overflow-scrolling: touch;
   min-height: 100%;
   scroll-behavior: smooth;
+
   /* https://css-tricks.com/the-notch-and-css/ */
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+
   /* https://dev.to/peiche/100vh-behavior-on-chrome-2hm8 */
-  --viewport-height: 0px;
+  --viewport-height: 0;
 }
 
 // TODO Refactor this
 // TODO Add margin/padding bottom to all views
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
+
 ul {
   list-style-type: none;
   padding: 0;
 }
+
 li {
   display: inline-block;
   margin: 0 10px;
 }
+
 a {
   color: @color-white;
   text-decoration: none;

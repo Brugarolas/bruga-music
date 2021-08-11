@@ -27,24 +27,26 @@ export default {
     animation: dot 1.3s infinite;
 
     &.one {
-      animation-delay: 0.0s;
+      animation-delay: 0s;
     }
+
     &.two {
       animation-delay: 0.2s;
     }
+
     &.three {
       animation-delay: 0.3s;
     }
-  }
 
-  &.stop-animation .dot {
-    animation: none;
+    @nest &.stop-animation & {
+      animation: none;
+    }
   }
 }
 
 @keyframes dot {
-      0% { opacity: 0; }
-     50% { opacity: 0; }
-    100% { opacity: 1; }
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
 </style>

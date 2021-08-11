@@ -36,6 +36,7 @@ export default {
       color: @color-gray;
     }
   }
+
   .playlist-info {
     display: block;
     font-family: "Open Sans", sans-serif;

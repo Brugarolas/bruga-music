@@ -108,6 +108,7 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+
   .track-image {
     display: inline-block;
     border-radius: 4px;
@@ -116,6 +117,7 @@ export default {
     background-color: #ccc;
     object-fit: cover;
   }
+
   .track-play {
     position: absolute;
     font-size: 28px;
@@ -139,7 +141,7 @@ export default {
     background-color: @color-background-transparent;
 
     .track-play {
-      opacity: 0.90;
+      opacity: 0.9;
     }
   }
 
@@ -151,9 +153,11 @@ export default {
       font-weight: 600;
       color: @color-letter;
     }
+
     .track-image {
       transform: none;
     }
+
     .track-play {
       opacity: 1;
     }

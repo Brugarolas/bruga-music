@@ -122,7 +122,6 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-
   display: block;
   height: 7px;
   border-radius: 4px;
@@ -136,6 +135,7 @@ export default {
 
   .duracion-background {
     .duration-bar();
+
     width: 100%;
     background-color: lighten(@color-gray, 50%);
     cursor: pointer;
@@ -143,6 +143,7 @@ export default {
 
   .duration-hover {
     .duration-bar();
+
     background: transparent;
     pointer-events: none;
 
@@ -168,6 +169,7 @@ export default {
 
   .duration-progress {
     .duration-bar();
+
     background-color: @color-light-gray;
     pointer-events: none;
 
@@ -194,10 +196,10 @@ export default {
         background-color: @color-red;
         opacity: 1;
       }
-    }
 
-    & + .duration-progress + .duration-hover::before {
-      opacity: 1;
+      & + .duration-hover::before {
+        opacity: 1;
+      }
     }
   }
 }
