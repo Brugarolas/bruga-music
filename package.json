@@ -14,7 +14,9 @@
     "build:analyzer": "cross-env NODE_ENV=production ANALYZER=true webpack --progress --performance",
     "lint": "npm run lint:eslint && npm run lint:stylelint",
     "lint:eslint": "eslint babel.config.js webpack.config.js src/**/*.{js,vue}",
+    "lint:eslint:fix": "eslint babel.config.js webpack.config.js src/**/*.{js,vue} --fix",
     "lint:stylelint": "stylelint \"src/**/*.{less,html,vue}\"",
+    "lint:stylelint:fix": "stylelint \"src/**/*.{less,html,vue}\" --fix",
     "utils:outdated": "npm outdated",
     "utils:updates": "ncu",
     "utils:upgrades": "ncu -u"
