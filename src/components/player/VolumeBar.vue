@@ -81,7 +81,7 @@ export default {
       this.hover.percentage = (this.hover.volume * 100).toFixed(2);
     },
     calcVolume (eventPositionX) {
-      let pos = eventPositionX - this.position.x;
+      const pos = eventPositionX - this.position.x;
       return (pos / this.position.width).toFixed(2);
     },
     calcElementPosition (event) {

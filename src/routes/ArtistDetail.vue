@@ -59,6 +59,11 @@ export default {
   components: {
     Spinner, GoBackButton, Biography, Tags, TopTags, TopTracks, Albums, Similar
   },
+  beforeRouteUpdate (to, from, next) {
+    this.name = to.params.name;
+    this.searchArtist();
+    next();
+  },
   data () {
     return {
       name: '',
@@ -74,11 +79,6 @@ export default {
   },
   activated () {
     this.load();
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.name = to.params.name;
-    this.searchArtist();
-    next();
   },
   methods: {
     load () {

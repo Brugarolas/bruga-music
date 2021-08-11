@@ -47,6 +47,12 @@ export default {
   components: {
     Spinner, GoBackButton, Tags, Wiki, Tracks
   },
+  beforeRouteUpdate (to, from, next) {
+    this.name.artist = to.params.name;
+    this.name.album = to.params.album;
+    this.searchAlbum();
+    next();
+  },
   data () {
     return {
       name: {
@@ -68,12 +74,6 @@ export default {
   },
   activated () {
     this.load();
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.name.artist = to.params.name;
-    this.name.album = to.params.album;
-    this.searchAlbum();
-    next();
   },
   methods: {
     load () {

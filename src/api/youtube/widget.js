@@ -58,9 +58,11 @@ const executeFunctions = (functionStore) => {
 };
 
 const createConfigurator = (configStore) => {
+  const hasOwnProperty = Object.prototype.hasOwnProperty;
+
   return (newConfiguration) => {
     for (const property in newConfiguration) {
-      if (newConfiguration.hasOwnProperty(property)) {
+      if (hasOwnProperty.call(newConfiguration, property)) {
         configStore[property] = newConfiguration[property];
       }
     }

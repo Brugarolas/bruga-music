@@ -1,5 +1,5 @@
 <template>
-  <a class="track" @click="selectSong" :class="{ 'track-in-playlist': inPlaylist, 'track-selected': selected }">
+  <a class="track" :class="{ 'track-in-playlist': inPlaylist, 'track-selected': selected }" @click="selectSong">
     <img :src="track.image" class="track-image">
     <i class="track-play fas" :class="faIcon" />
     <h2 class="track-title">{{ title }}</h2>
@@ -33,11 +33,11 @@ export default {
       return this.track.name;
     },
     artist () {
-      let artist = this.track.artist;
+      const artist = this.track.artist;
       return typeof artist === 'object' ? artist.name : artist;
     },
     selected () {
-      let playing = this.playing;
+      const playing = this.playing;
       return this.name === playing.track && this.artist === playing.artist;
     },
     title () {
@@ -69,9 +69,9 @@ export default {
       }
 
       if (this.inPlaylist) {
-        this.$store.dispatch('changePlayingSong', { 'artist': str(this.artist), 'track': str(this.name) });
+        this.$store.dispatch('changePlayingSong', { artist: str(this.artist), track: str(this.name) });
       } else {
-        this.$store.dispatch('addOrPlaySong', { 'artist': str(this.artist), 'track': str(this.name), 'image': this.track.image });
+        this.$store.dispatch('addOrPlaySong', { artist: str(this.artist), track: str(this.name), image: this.track.image });
         this.inPlaylist = true;
       }
     },

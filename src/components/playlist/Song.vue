@@ -16,16 +16,16 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'PlaylistSong',
   components: { DeleteButton },
-  data () {
-    return {
-      deleting: false
-    };
-  },
   props: {
     track: {
       type: Object,
       required: true
     }
+  },
+  data () {
+    return {
+      deleting: false
+    };
   },
   computed: {
     ...mapGetters(['playing']),

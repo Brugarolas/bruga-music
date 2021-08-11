@@ -10,7 +10,7 @@ const format = 'json';
 
 /* API */
 const getTopArtists = async (country) => {
-  const url = buildApiUrl('geo.gettopartists', { 'country': country });
+  const url = buildApiUrl('geo.gettopartists', { country: country });
 
   const response = await fetch(url, { cache: 'default', localCache: WEEK * 2 });
   const json = await response.json();
@@ -18,7 +18,7 @@ const getTopArtists = async (country) => {
 };
 
 const getArtistInfo = async (artist) => {
-  const url = buildApiUrl('artist.getinfo', { 'artist': sanitize(artist) });
+  const url = buildApiUrl('artist.getinfo', { artist: sanitize(artist) });
 
   const response = await fetch(url, { cache: 'default', localCache: MONTH });
   const json = await response.json();
@@ -26,43 +26,43 @@ const getArtistInfo = async (artist) => {
 };
 
 const getArtistTopTags = async (artist, num) => {
-  const url = buildApiUrl('artist.gettoptags', { 'artist': sanitize(artist) });
+  const url = buildApiUrl('artist.gettoptags', { artist: sanitize(artist) });
 
   const response = await fetch(url, { cache: 'default', localCache: MONTH * 6 });
   const json = await response.json();
 
-  let tags = json.toptags.tag;
+  const tags = json.toptags.tag;
   return Adapt.adaptTags(num ? tags.slice(0, num) : tags);
 };
 
 const getArtistTopAlbums = async (artist) => {
-  const url = buildApiUrl('artist.gettopalbums', { 'artist': sanitize(artist) });
+  const url = buildApiUrl('artist.gettopalbums', { artist: sanitize(artist) });
 
   const response = await fetch(url, { cache: 'default', localCache: MONTH * 6 });
   const json = await response.json();
 
-  let albums = json.topalbums.album;
+  const albums = json.topalbums.album;
   return Adapt.adaptAlbums(filterUndefined(albums));
 };
 
 const getArtistTopTracks = async (artist) => {
-  const url = buildApiUrl('artist.gettoptracks', { 'artist': sanitize(artist), 'limit': 10 });
+  const url = buildApiUrl('artist.gettoptracks', { artist: sanitize(artist), limit: 10 });
 
   const response = await fetch(url, { cache: 'default', localCache: WEEK * 2 });
   const json = await response.json();
   return Adapt.adaptTracks(json.toptracks.track);
 };
 
-const getAlbumInfo = async(artist, album) => {
-  const url = buildApiUrl('album.getinfo', { 'artist': sanitize(artist), 'album': sanitize(album) } )
+const getAlbumInfo = async (artist, album) => {
+  const url = buildApiUrl('album.getinfo', { artist: sanitize(artist), album: sanitize(album) });
 
   const response = await fetch(url, { cache: 'default', localCache: MONTH * 6 });
   const json = await response.json();
   return Adapt.adaptAlbums(json.album);
-}
+};
 
 const getTrackInfo = async (artist, track) => {
-  const url = buildApiUrl('track.getinfo', { 'artist': sanitize(artist), 'track': sanitize(track) });
+  const url = buildApiUrl('track.getinfo', { artist: sanitize(artist), track: sanitize(track) });
 
   const response = await fetch(url, { cache: 'default', localCache: YEAR });
   const json = await response.json();
@@ -86,7 +86,7 @@ const getSearchFunction = (type) => {
 };
 
 const searchTrack = async (search) => {
-  const url = buildApiUrl('track.search', { 'track': search });
+  const url = buildApiUrl('track.search', { track: search });
 
   const response = await fetch(url, { cache: 'default', localCache: DAY * 5 });
   const json = await response.json();
@@ -94,7 +94,7 @@ const searchTrack = async (search) => {
 };
 
 const searchAlbum = async (search) => {
-  const url = buildApiUrl('album.search', { 'album': search });
+  const url = buildApiUrl('album.search', { album: search });
 
   const response = await fetch(url, { cache: 'default', localCache: DAY * 5 });
   const json = await response.json();
@@ -102,7 +102,7 @@ const searchAlbum = async (search) => {
 };
 
 const searchArtist = async (search) => {
-  const url = buildApiUrl('artist.search', { 'artist': search });
+  const url = buildApiUrl('artist.search', { artist: search });
 
   const response = await fetch(url, { cache: 'default', localCache: DAY * 5 });
   const json = await response.json();
@@ -110,7 +110,7 @@ const searchArtist = async (search) => {
 };
 
 /* Aux API methods */
-const buildApiUrl = (method, params) => buildUrl(url, { 'method': method, ...params, 'api_key': apiKey, 'format': format });
+const buildApiUrl = (method, params) => buildUrl(url, { method: method, ...params, api_key: apiKey, format: format });
 
 const buildUrl = (url, params) => `${url}?${paramsToUrl(params)}`;
 
@@ -120,12 +120,12 @@ const paramToUrl = (name, value) => name + (value ? '=' + value : '');
 
 /* Other aux */
 const filterMbids = (list) => {
-  let mbids = new Map();
+  const mbids = new Map();
 
   return list.filter(element => {
     if (!element.mbid) return true;
 
-    let exists = mbids.has(element.mbid);
+    const exists = mbids.has(element.mbid);
     if (!exists) mbids.set(element.mbid, true);
     return !exists;
   });
@@ -133,7 +133,7 @@ const filterMbids = (list) => {
 
 const filterUndefined = (list) => {
   return list.filter(element => element.name && element.name !== '(null)' && element.name !== 'undefined');
-}
+};
 
 const checkMbids = (list) => {
   list.filter(element => !element.mbid).forEach(element => {
@@ -143,12 +143,12 @@ const checkMbids = (list) => {
 };
 
 const sortWithoutImages = (artists) => {
-  let withImages = [];
-  let withoutImages = [];
+  const withImages = [];
+  const withoutImages = [];
 
   artists.forEach(artist => {
-    let image = artist.image[2]['#text'];
-    let array = image === '' ? withoutImages : withImages;
+    const image = artist.image[2]['#text'];
+    const array = image === '' ? withoutImages : withImages;
     array.push(artist);
   });
 
@@ -158,7 +158,7 @@ const sortWithoutImages = (artists) => {
 /* Exports */
 const standalone = { getTopArtists };
 const artist = { getArtistInfo, getArtistTopTags, getArtistTopAlbums, getArtistTopTracks };
-const album = { getAlbumInfo }
+const album = { getAlbumInfo };
 const track = { getTrackInfo };
 const search = { getSearchFunction, searchTrack, searchAlbum, searchArtist };
 

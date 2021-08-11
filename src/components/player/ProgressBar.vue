@@ -90,7 +90,7 @@ export default {
       this.hover.timeout = undefined;
     },
     updateHoverTime (eventPositionX) {
-      let percentage = this.calcPercentage(eventPositionX);
+      const percentage = this.calcPercentage(eventPositionX);
 
       this.hover.time = this.duration * percentage;
       this.hover.percentage = (percentage * 100).toFixed(2);
@@ -103,7 +103,7 @@ export default {
       }
     },
     calcPercentage (eventPositionX) {
-      let pos = eventPositionX - this.position.x;
+      const pos = eventPositionX - this.position.x;
       return pos / this.position.width;
     }
   }

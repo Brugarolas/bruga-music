@@ -45,7 +45,7 @@ export default {
     search (search, type = 'track') {
       this.loading = true;
 
-      let searchFunction = LastFM.getSearchFunction(type);
+      const searchFunction = LastFM.getSearchFunction(type);
 
       searchFunction(search).then((results) => {
         this.results = results;
