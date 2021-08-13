@@ -179,10 +179,10 @@ export default {
         background-color: @color-music;
         opacity: 1;
       }
+    }
 
-      & + .volume-hover::before {
-        opacity: 1;
-      }
+    & + .volume-progress + .volume-hover::before {
+      opacity: 1;
     }
   }
 }

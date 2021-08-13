@@ -7,7 +7,6 @@
     "stylelint-declaration-strict-value",
     "stylelint-high-performance-animation",
     "stylelint-group-selectors",
-    "stylelint-use-nesting",
     "stylelint-no-nested-media",
     "stylelint-selector-tag-no-without-class"
   ],
@@ -27,7 +26,6 @@
     ],
     "plugin/no-low-performance-animation-properties": true,
     "plugin/stylelint-group-selectors": true,
-    "csstools/use-nesting": "always",
     "pitcher/no-nested-media": true,
     "plugin/selector-tag-no-without-class": ["div", "span"]
   }

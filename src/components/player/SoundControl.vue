@@ -101,10 +101,10 @@ export default {
     vertical-align: 65%;
     opacity: 0;
     transition: all 0.3s ease-in-out;
+  }
 
-    @nest &:hover & {
-      opacity: 1;
-    }
+  &:hover .volume-bar-wrapper {
+    opacity: 1;
   }
 }
 </style>

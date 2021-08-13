@@ -19,31 +19,31 @@
     z-index: 1;
     transition: opacity 0.55s ease-in-out;
     opacity: 1;
+  }
 
-    &.pushed {
-      z-index: -1;
-      opacity: 0.9;
-      pointer-events: none;
-    }
+  #background.pushed {
+    z-index: -1;
+    opacity: 0.9;
+    pointer-events: none;
   }
 
   #app {
     z-index: 1;
     transition: opacity 0.55s ease-in-out;
     opacity: 0;
+  }
 
-    &.visible {
-      opacity: 1;
-    }
+  #app.visible {
+    opacity: 1;
   }
 
   #loader-spinner {
     transition: opacity 0.55s ease-in-out;
     opacity: 0;
+  }
 
-    &.visible {
-      opacity: 1;
-    }
+  #loader-spinner.visible {
+    opacity: 1;
   }
 
   #svg-gradient {
@@ -114,11 +114,14 @@
       font-weight: 600;
       letter-spacing: 4px;
       text-shadow: 2px 2px 2px #982726; /* IE fix */
-      &.hidden {
-        opacity: 0;
-      }
+    }
 
-      @media (max-width: 720px) {
+    .loader-title.hidden {
+      opacity: 0;
+    }
+
+    @media (max-width: 720px) {
+      .loader-title {
         top: 6%;
       }
     }
@@ -139,20 +142,21 @@
       height: 34px;
       top: calc(50% - 17px);
       left: calc(50% - 88px);
+    }
 
-      & .ball {
-        display: inline-block;
-        text-align: center;
-        width: 32px;
-        height: 32px;
-        margin-right: 36px;
-        border-radius: 50%;
-        background-color: #be484d; /* IE fix */
-        box-shadow: 0 0 6px 1px #8c2332; /* IE fix */
-        &:last-child {
-          margin-right: 0;
-        }
-      }
+    .bouncing-balls .ball {
+      display: inline-block;
+      text-align: center;
+      width: 32px;
+      height: 32px;
+      margin-right: 36px;
+      border-radius: 50%;
+      background-color: #be484d; /* IE fix */
+      box-shadow: 0 0 6px 1px #8c2332; /* IE fix */
+    }
+
+    .bouncing-balls .ball:last-child {
+      margin-right: 0;
     }
 
     @supports (mix-blend-mode: soft-light) { /* Good browsers */
@@ -166,21 +170,21 @@
     .bouncing-balls-animation .ball {
       -webkit-animation: bouncedelay 1.32s infinite ease-in-out both;
       animation: bounceDelay 1.32s infinite ease-in-out both;
+    }
 
-      &:nth-child(1) {
-        -webkit-animation-delay: -0.32s;
-        animation-delay: -0.32s;
-      }
+    .bouncing-balls-animation .ball:nth-child(1) {
+      -webkit-animation-delay: -0.32s;
+      animation-delay: -0.32s;
+    }
 
-      &:nth-child(2) {
-        -webkit-animation-delay: -0.16s;
-        animation-delay: -0.16s;
-      }
+    .bouncing-balls-animation .ball:nth-child(2) {
+      -webkit-animation-delay: -0.16s;
+      animation-delay: -0.16s;
+    }
 
-      &:nth-child(3) {
-        -webkit-animation-delay: 0;
-        animation-delay: 0;
-      }
+    .bouncing-balls-animation .ball:nth-child(3) {
+      -webkit-animation-delay: 0;
+      animation-delay: 0;
     }
 
     .bouncing-balls .ball.hidden {

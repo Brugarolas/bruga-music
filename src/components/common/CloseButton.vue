@@ -47,10 +47,10 @@ export default {
     color: @color-red;
     opacity: 0.35;
     transition: all 0.3s ease-in-out;
+  }
 
-    @nest &:hover & {
-      opacity: 1;
-    }
+  &:hover .icon-cancel {
+    opacity: 1;
   }
 }
 </style>

@@ -196,10 +196,10 @@ export default {
         background-color: @color-red;
         opacity: 1;
       }
+    }
 
-      & + .duration-hover::before {
-        opacity: 1;
-      }
+    & + .duration-progress + .duration-hover::before {
+      opacity: 1;
     }
   }
 }

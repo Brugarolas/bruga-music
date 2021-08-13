@@ -37,10 +37,10 @@ export default {
     &.three {
       animation-delay: 0.3s;
     }
+  }
 
-    @nest &.stop-animation & {
-      animation: none;
-    }
+  &.stop-animation .dot {
+    animation: none;
   }
 }
 
