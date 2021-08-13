@@ -1,7 +1,7 @@
 <template>
   <router-link :to="{ name: 'Playlist', params: {} }">
     <div class="playlist">
-      <i class="playlist-icon fas fa-list-ul" />
+      <i class="playlist-icon bm-icon bm-icon-list-ul-solid" />
       <div class="playlist-info">{{ playlistStatus }}</div>
     </div>
   </router-link>

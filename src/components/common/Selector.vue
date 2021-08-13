@@ -3,7 +3,7 @@
     <select v-model="selected" class="selector" @change="change">
       <option v-for="element in elements" :key="element.value" :value="element.value">{{ element.name }}</option>
     </select>
-    <i class="selector-icon fas fa-angle-down" />
+    <i class="selector-icon bm-icon bm-icon-angle-down-solid" />
   </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <header class="header float-box loading-translate">
-    <router-link :to="{ name: 'Main', params: {} }"><i class="header-icon fas fa-music" /></router-link>
+    <router-link :to="{ name: 'Main', params: {} }"><i class="header-icon bm-icon bm-icon-music-solid" /></router-link>
     <span class="header-title">Bruga Music</span>
-    <div class="author"><span class="author-text">Made with </span><i class="heart fas fa-heart" /><span class="author-text"> by Andrés Brugarolas</span></div>
+    <div class="author"><span class="author-text">Made with </span><i class="heart bm-icon bm-icon-heart-solid" /><span class="author-text"> by Andrés Brugarolas</span></div>
   </header>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <a class="track" :class="{ 'track-in-playlist': inPlaylist, 'track-selected': selected }" @click="selectSong">
     <img :src="track.image" class="track-image">
-    <i class="track-play fas" :class="faIcon" />
+    <i class="track-play bm-icon" :class="faIcon" />
     <h2 class="track-title">{{ title }}</h2>
   </a>
 </template>
@@ -48,12 +48,12 @@ export default {
     },
     faIcon () {
       if (this.selected) {
-        return 'fa-play';
+        return 'bm-icon-play-solid';
       }
       if (this.inPlaylist) {
-        return 'fa-check';
+        return 'bm-icon-check-solid';
       }
-      return this.hasSong ? 'fa-plus' : 'fa-play';
+      return this.hasSong ? 'bm-icon-plus-solid' : 'bm-icon-play-solid';
     }
   },
   mounted () {
@@ -129,7 +129,7 @@ export default {
     pointer-events: none;
     transition: opacity 0.3s ease-in-out;
 
-    &.fa-plus {
+    &.bm-icon-plus-solid {
       font-size: 36px;
       top: 11px;
       left: 11px;

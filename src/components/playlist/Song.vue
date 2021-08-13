@@ -1,7 +1,7 @@
 <template>
   <a class="track playlist-track" :class="{ 'track-selected': selected }" @click="selectSong">
     <img :src="track.image" class="track-image">
-    <i class="track-play fas fa-play" />
+    <i class="track-play bm-icon bm-icon-play-solid" />
     <h2 class="track-title">
       <span class="track-artist">{{ track.artist }}</span><span class="track-name">{{ track.track }}</span>
     </h2>

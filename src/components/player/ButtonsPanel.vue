@@ -1,8 +1,8 @@
 <template>
   <div class="buttons-panel">
-    <i class="control-button fas fa-step-backward" :class="{ 'disabled': !hasPrevSong }" @click="playPrevSong" />
-    <i class="control-button fas" :class="[isPlaying ? 'fa-pause' : 'fa-play']" @click="playPause" />
-    <i class="control-button fas fa-step-forward" :class="{ 'disabled': !hasNextSong }" @click="playNextSong" />
+    <i class="control-button bm-icon bm-icon-step-backward-solid" :class="{ 'disabled': !hasPrevSong }" @click="playPrevSong" />
+    <i class="control-button bm-icon" :class="[isPlaying ? 'bm-icon-pause-solid' : 'bm-icon-play-solid']" @click="playPause" />
+    <i class="control-button bm-icon bm-icon-step-forward-solid" :class="{ 'disabled': !hasNextSong }" @click="playNextSong" />
   </div>
 </template>
 

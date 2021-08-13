@@ -4,7 +4,7 @@
 
     <Selector extra-class="type-wrapper" :elements="types" :initial="startingType" @change="changeType" />
 
-    <Button icon="fa-search" text="Search" type="submit" />
+    <Button icon="bm-icon-search-solid" text="Search" type="submit" />
   </form>
 </template>
 

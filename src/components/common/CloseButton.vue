@@ -1,6 +1,6 @@
 <template>
   <button class="cancel-button" @click="click">
-    <i class="fas fa-times icon-cancel" />
+    <i class="bm-icon bm-icon-times-regular icon-cancel" />
   </button>
 </template>
 

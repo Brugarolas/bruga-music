@@ -66,7 +66,7 @@ export default {
   },
   data () {
     return {
-      name: '',
+      name: '—',
       artist: {},
       initialized: false,
       loading: true

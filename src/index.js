@@ -9,6 +9,7 @@ import DurationFilter from '@/utils/duration-filter.js';
 import VolumeFilter from '@/utils/volume-filter.js';
 import AsyncComputed from 'vue-async-computed';
 import store from '@/store/index.js';
+import '@/assets/bruga-font.js';
 
 const publicPath = PUBLIC_PATH || '/'; // eslint-disable-line no-undef
 

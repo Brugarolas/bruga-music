@@ -1,6 +1,6 @@
 <template>
   <button class="delete-button" @click.once.stop.prevent="click">
-    <i class="fas fa-times icon-delete" />
+    <i class="bm-icon bm-icon-times-solid icon-delete" />
   </button>
 </template>
 

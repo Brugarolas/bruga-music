@@ -1,7 +1,7 @@
 <template>
   <div class="sound-control">
     <div :class="{ muted: muted }" class="volume-icon-wrapper" @click="toggleMute">
-      <i :class="icon" class="volume-icon fas" />
+      <i class="volume-icon bm-icon" :class="icon" />
     </div>
 
     <div class="volume-bar-wrapper">
@@ -24,9 +24,9 @@ export default {
   },
   computed: {
     icon () {
-      if (this.volume < 0.01) return 'fa-volume-off';
-      if (this.volume < 0.50) return 'fa-volume-down';
-      return 'fa-volume-up';
+      if (this.volume < 0.01) return 'bm-icon-volume-off-solid';
+      if (this.volume < 0.50) return 'bm-icon-volume-down-solid';
+      return 'bm-icon-volume-up-solid';
     }
   },
   mounted () {

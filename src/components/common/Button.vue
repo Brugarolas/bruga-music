@@ -1,6 +1,6 @@
 <template>
   <button class="input-button" :class="[extraClass]" :type="computedType" @click="onClick">
-    <i class="fas" :class="[icon]" />
+    <i class="bm-icon" :class="[icon]" />
     <span>{{ text }}</span>
   </button>
 </template>
@@ -22,7 +22,7 @@ export default {
     },
     icon: {
       type: String,
-      default: 'fa-dot-circle'
+      default: 'bm-icon-dot-circle-solid'
     },
     extraClass: {
       type: String,

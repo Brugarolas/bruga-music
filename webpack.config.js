@@ -62,6 +62,33 @@ module.exports = {
         ]
       },
       {
+        test: /-font\.js$/,
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          {
+            loader: 'css-loader',
+            options: {
+              url: false
+            }
+          },
+          {
+            loader: 'webfonts-loader',
+            options: {
+              publicPath: publicPath,
+
+              // Will check if works - options are in theory passed to webfonts-generator and then to svgicons2svgfont
+              fixedWidth: true,
+              normalize: true,
+              centerHorizontally: true,
+              centerVertically: true,
+
+              html: true,
+              htmlDest: '/icons'
+            }
+          }
+        ]
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         exclude: /node_modules/,
@@ -101,7 +128,8 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[contenthash]',
-          outputPath: 'img'
+          outputPath: 'img',
+          esModule: false
         }
       },
       {
@@ -109,7 +137,8 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[contenthash]',
-          outputPath: 'fonts'
+          outputPath: 'fonts',
+          esModule: false
         }
       }
     ]

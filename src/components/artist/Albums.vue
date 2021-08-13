@@ -7,7 +7,7 @@
 
       <li v-if="showSeeMore" class="see-more" @click="seeMore">
         <h2 class="see-more-text">See more</h2>
-        <i class="see-more-icon fas fa-plus-square" />
+        <i class="see-more-icon bm-icon bm-icon-plus-square-solid" />
       </li>
     </ul>
   </div>
