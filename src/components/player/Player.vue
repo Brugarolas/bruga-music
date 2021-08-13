@@ -143,7 +143,7 @@ export default {
   box-sizing: border-box;
   padding: 12px 50px;
   background-color: @color-white;
-  box-shadow: 0 -1/4rem 1/8rem 0 @color-shadow;
+  box-shadow: 0 (-1/4rem) (1/8rem) 0 @color-shadow;
   transition: transform 0.3s ease-in-out;
   transform: none;
 
