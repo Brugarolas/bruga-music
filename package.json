@@ -22,16 +22,16 @@
     "utils:upgrades": "ncu -u"
   },
   "dependencies": {
-    "core-js": "^3.16.1",
     "@babel/runtime-corejs3": "^7.15.3",
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "core-js": "^3.16.1",
+    "format-duration": "^1.4.0",
+    "nanoid": "^3.1.25",
+    "unfetch": "^4.2.0",
     "vue": "^2.6.14",
+    "vue-async-computed": "^3.9.0",
     "vue-router": "^3.5.2",
     "vuex": "^3.6.2",
-    "vue-async-computed": "^3.9.0",
-    "nanoid": "^3.1.25",
-    "format-duration": "^1.4.0",
-    "@fortawesome/fontawesome-free": "^5.15.4",
-    "unfetch": "^4.2.0",
     "yaku": "^1.0.1"
   },
   "engines": {
