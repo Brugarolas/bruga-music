@@ -1,6 +1,7 @@
 <template>
-  <div id="app" class="full-height-viewport max-height-viewport scrolling-parent">
+  <div id="app" class="full-height-viewport-mobile max-height-viewport-mobile scrolling-parent">
     <Header />
+
     <main class="main loading-scale scrolling-element">
       <transition :name="transitionName" :mode="transitionMode">
         <keep-alive :max="5">
@@ -16,6 +17,8 @@
 </template>
 
 <script>
+import safeViewportArea from '@/utils/safe-viewport-area';
+import { applyFixOnKeyboardClose } from '@/utils/ios-header-fix';
 import Header from '@/components/static/Header.vue';
 import Footer from '@/components/static/Footer.vue';
 
@@ -63,17 +66,11 @@ export default {
     });
   },
   mounted () {
-    /* Set viewport height size only in Android for CSS .full-height-viewport-android class
-     * https://dev.to/peiche/100vh-behavior-on-chrome-2hm8
-     */
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    const isAndroid = userAgent.includes('android');
+    // Set viewport safe viewport height size for Android and iOS
+    safeViewportArea();
 
-    if (isAndroid) {
-      const body = document.body || document.querySelector('body');
-
-      body.style.setProperty('--viewport-height', '56px');
-    }
+    // Fix iOS bug that makes header and other fixed elements invisible when keyboard opens
+    applyFixOnKeyboardClose();
 
     /* Stop loader if two seconds have passed
      * Loader should be stopped in each route when all AJAX are completed
@@ -143,7 +140,7 @@ export default {
   display: block; // IE11 fix
   font-family: 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
   text-align: center;
-  .fontFixes();
+  .font-fixes();
 
   color: @color-white;
   position: relative;

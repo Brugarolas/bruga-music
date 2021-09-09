@@ -1,11 +1,9 @@
 @import (once, inline) "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Roboto:100,300,400,500,700,900";
 @import (less, reference) "./colors.less";
 
-.fontFixes() {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html {
+  min-height: 100%;
 }
-
 body {
   padding: 0;
   margin: 0;
@@ -25,14 +23,20 @@ body {
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 
   /* https://dev.to/peiche/100vh-behavior-on-chrome-2hm8 */
-  --viewport-height: 0;
+  --viewport-height: 0px;
 }
 
 // TODO Refactor this
 // TODO Add margin/padding bottom to all views
 h1,
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6, {
   font-weight: normal;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 ul {
@@ -46,10 +50,12 @@ li {
 }
 
 a {
+  box-sizing: border-box;
   color: @color-white;
   text-decoration: none;
 }
 
+@import (less) "./mixins.less";
 @import (less) "./details.less";
 @import (less) "./loading.less";
 @import (less) "./layout.less";

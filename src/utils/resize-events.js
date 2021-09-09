@@ -1,5 +1,4 @@
 import { nanoid } from 'nanoid/non-secure';
-
 class OnResize {
   constructor (delay) {
     this.events = [];
@@ -41,6 +40,6 @@ class OnResize {
   }
 }
 
-const resizeSingleton = new OnResize(500);
+const resizeSingleton = new OnResize(250);
 
 export default resizeSingleton;

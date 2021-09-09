@@ -1,3 +1,10 @@
+.overflow-hidden {
+  overflow: hidden;
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
 .scrolling-parent {
   flex: 1;
   display: flex;
@@ -7,21 +14,39 @@
 }
 
 .scrolling-element {
+  flex: 1 1 0 !important;
   overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
   scroll-behavior: smooth;
-  flex: 1;
 }
 
+.full-width {
+  width: 100%;
+}
+.full-width-viewport {
+  width: 100vw;
+}
+.full-height {
+  min-height: 100%;
+}
 .full-height-viewport {
+  min-height: 100vh;
+}
+.max-height-viewport {
+  max-height: 100vh;
+}
+.full-height-viewport-mobile {
   /* https://dev.to/peiche/100vh-behavior-on-chrome-2hm8 */
   min-height: calc(100vh - var(--viewport-height, 56px));
 }
-
-.max-height-viewport {
+.max-height-viewport-mobile {
   /* https://dev.to/peiche/100vh-behavior-on-chrome-2hm8 */
   max-height: calc(100vh - var(--viewport-height, 56px));
+}
+.full-height-flex-container {
+  .flex-full-height();
 }
 
 .set-margin-top-android-viewport-fix {

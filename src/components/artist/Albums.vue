@@ -74,32 +74,27 @@ export default {
     width: 120px;
     padding: 5px;
     margin: 32px 0 5px 0;
-    display: inline-block;
-    box-sizing: border-box;
-    vertical-align: top;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     cursor: pointer;
     background-color: #ccc0;
 
     .see-more-text {
-      display: block;
-      text-align: center;
-      width: 100%;
       margin-bottom: 10px;
       font-size: 20px;
-      max-height: 50px;
-      overflow: hidden;
     }
 
     .see-more-icon {
-      font-size: 128px;
+      font-size: 96px;
       opacity: 0.5;
-      transition: all 0.3s ease-in-out;
-      overflow: hidden;
+      transition: opacity 0.3s ease-in-out;
     }
 
     &:hover .see-more-icon {
       opacity: 0.75;
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
   }
 </style>

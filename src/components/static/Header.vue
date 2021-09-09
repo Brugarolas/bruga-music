@@ -26,7 +26,7 @@ export default {
 
   .header-title {
     font-family: 'Roboto', sans-serif;
-    .fontFixes();
+    .font-fixes();
 
     color: @color-white;
     font-size: 24px;
