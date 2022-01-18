@@ -214,14 +214,16 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    // contentBase: path.join(__dirname, 'dist'),
+    static: {
+      directory: path.resolve(__dirname, 'dist')
+    },
     compress: true,
     port: 8080,
     hot: true,
     open: true,
-    host: isLocal ? '0.0.0.0' : 'localhost',
-    useLocalIp: isLocal,
-    disableHostCheck: true // for ngrok
+    host: isLocal ? '0.0.0.0' : 'local-ip',
+    allowedHosts: 'all' // for ngrok
   },
   performance: {
     hints: false

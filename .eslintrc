@@ -18,6 +18,7 @@
   "extends": [
     "eslint:recommended",
     "semistandard",
+    "plugin:vue/base",
     "plugin:vue/recommended"
   ],
   "rules": {

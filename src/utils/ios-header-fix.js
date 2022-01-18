@@ -1,4 +1,4 @@
-import { detectMobileDevice, MobileDevices } from './detect-mobile-devices';
+import { detectMobileDevice, MOBILE_DEVICES } from './detect-mobile-devices';
 
 const device = detectMobileDevice();
 
@@ -54,7 +54,7 @@ function _applyFixOnKeyboardClose () {
 }
 
 // Only export real functions on iOS
-export const makeHeaderVisible = conditionalFunction(device === MobileDevices.IOS, _makeHeaderVisible);
-export const applyFixOnKeyboardClose = conditionalFunction(device === MobileDevices.IOS, _applyFixOnKeyboardClose);
+export const makeHeaderVisible = conditionalFunction(device === MOBILE_DEVICES.IOS, _makeHeaderVisible);
+export const applyFixOnKeyboardClose = conditionalFunction(device === MOBILE_DEVICES.IOS, _applyFixOnKeyboardClose);
 
 export default { makeHeaderVisible, applyFixOnKeyboardClose };
