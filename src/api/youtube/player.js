@@ -13,18 +13,6 @@ const YouTubeState = {
   Cued: 5
 };
 
-// TODO remove
-const YouTubeStatesReverted = [
-  'None',
-  'Unstarted',
-  'Ended',
-  'Playing',
-  'Paused',
-  'Buffering',
-  'Unknown',
-  'Cued'
-];
-
 class YouTubePlayer {
   constructor (player) {
     this._emptyResolve = () => { };
@@ -130,24 +118,6 @@ class YouTubePlayer {
   }
 
   _onStateChange (state) {
-    // TODO delete, is testing
-    const infoContainer = document.getElementById('log-messages');
-    const infoElement = document.createElement('div');
-    const mainInfo = document.createElement('h3');
-    const logInfo = document.createElement('p');
-
-    mainInfo.textContent = `${state.data} - ${YouTubeStatesReverted[state.data + 2]}`;
-    logInfo.textContent = JSON.stringify(state).replace(/\"/g, '\''); // eslint-disable-line no-useless-escape
-
-    infoElement.appendChild(mainInfo);
-    infoElement.appendChild(logInfo);
-    infoElement.appendChild(document.createElement('br'));
-
-    infoContainer.appendChild(infoElement);
-
-    console.log(mainInfo.textContent);
-
-    // Real
     if (state.data === this._resolveEvent) {
       this._resolve();
       this._resetResolve();
