@@ -1,4 +1,4 @@
-export const MobileDevices = {
+export const MOBILE_DEVICES = {
   IOS: Symbol('ios'),
   ANDROID: Symbol('android')
 };
@@ -18,14 +18,14 @@ export function detectMobileDevice () {
   const body = document.body || document.querySelector('body');
 
   if (userAgent.includes('android')) {
-    return MobileDevices.ANDROID;
+    return MOBILE_DEVICES.ANDROID;
   }
 
   if (userAgent.includes('iphone')) {
     body.classList.add('ios'); // For iOS specifics fixes
 
-    return MobileDevices.IOS;
+    return MOBILE_DEVICES.IOS;
   }
 }
 
-export default { detectMobileDevice, MobileDevices };
+export default { detectMobileDevice, MOBILE_DEVICES };
