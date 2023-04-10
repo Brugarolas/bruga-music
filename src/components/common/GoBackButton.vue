@@ -18,8 +18,8 @@ export default {
 <style lang="less">
 .go-back-button {
   position: absolute;
-  top: calc((100% - 72px) / 2);
-  left: -4%;
+  top: calc((100% - 90px) / 2);
+  left: -8%;
   cursor: pointer;
   opacity: 0.35;
   transition: opacity 0.3s ease-in-out;

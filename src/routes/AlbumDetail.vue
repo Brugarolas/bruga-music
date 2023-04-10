@@ -9,14 +9,16 @@
         <img :src="album.image" class="image">
         <h1 class="name">{{ album.name }}</h1>
 
-        <div class="extra">
-          <span class="extra-title">Listeners</span>
-          <span class="extra-info">{{ album.stats.listeners | humanNumber }}</span>
-        </div>
+        <div class="flex-wrapper">
+          <div class="extra">
+            <span class="extra-title">Listeners</span>
+            <span class="extra-info">{{ album.stats.listeners | humanNumber }}</span>
+          </div>
 
-        <div class="extra">
-          <span class="extra-title">Scrobblings</span>
-          <span class="extra-info">{{ album.stats.playcount | humanNumber }}</span>
+          <div class="extra">
+            <span class="extra-title">Scrobblings</span>
+            <span class="extra-info">{{ album.stats.playcount | humanNumber }}</span>
+          </div>
         </div>
 
         <div class="tags">

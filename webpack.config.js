@@ -194,16 +194,6 @@ module.exports = {
         sizes: [36, 48, 72, 96, 144, 192, 256],
         destination: path.join('icons', 'android')
       }]
-    }),
-    new GenerateSW({
-      clientsClaim: true,
-      skipWaiting: true,
-      babelPresetEnvTargets: babelTargets,
-      cleanupOutdatedCaches: true,
-      sourcemap: false,
-      inlineWorkboxRuntime: true,
-      swDest: '/js/service-worker.js',
-      include: [/\.html$/, /\.js$/, /\.css$/, /\.jpg$/, /\.png$/, /\.ico$/, /\.woff$/, /\.woff2$/, /\.ttf$/, /\.eot$/, /\.svg$/]
     })
   ],
   resolve: {
@@ -238,6 +228,17 @@ if (isProduction) {
   // Add babel-minify preset only in production
   const babelRules = module.exports.module.rules.find(rule => rule.loader === 'babel-loader');
   babelRules.options.presets.unshift(['minify', { builtIns: false }]);
+
+  module.exports.plugins.push(new GenerateSW({
+    clientsClaim: true,
+    skipWaiting: true,
+    babelPresetEnvTargets: babelTargets,
+    cleanupOutdatedCaches: true,
+    sourcemap: false,
+    inlineWorkboxRuntime: true,
+    swDest: '/js/service-worker.js',
+    include: [/\.html$/, /\.js$/, /\.css$/, /\.jpg$/, /\.png$/, /\.ico$/, /\.woff$/, /\.woff2$/, /\.ttf$/, /\.eot$/, /\.svg$/],
+  }))
 }
 
 if (isAnalyzer) {
