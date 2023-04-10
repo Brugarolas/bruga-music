@@ -29,7 +29,7 @@ const HOME_BUTTON_DEVICES = [
     width: 320,
     density: 2
   }
-]
+];
 
 /**
  * Detect manually if device has a physical home button to update viewport safe

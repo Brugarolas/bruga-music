@@ -26,7 +26,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: publicPath,
+    publicPath,
     filename: 'js/bundle.js?[contenthash]'
   },
   optimization: {
@@ -74,7 +74,7 @@ module.exports = {
           {
             loader: 'webfonts-loader',
             options: {
-              publicPath: publicPath,
+              publicPath,
 
               // Will check if works - options are in theory passed to webfonts-generator and then to svgicons2svgfont
               fixedWidth: true,
@@ -237,8 +237,8 @@ if (isProduction) {
     sourcemap: false,
     inlineWorkboxRuntime: true,
     swDest: '/js/service-worker.js',
-    include: [/\.html$/, /\.js$/, /\.css$/, /\.jpg$/, /\.png$/, /\.ico$/, /\.woff$/, /\.woff2$/, /\.ttf$/, /\.eot$/, /\.svg$/],
-  }))
+    include: [/\.html$/, /\.js$/, /\.css$/, /\.jpg$/, /\.png$/, /\.ico$/, /\.woff$/, /\.woff2$/, /\.ttf$/, /\.eot$/, /\.svg$/]
+  }));
 }
 
 if (isAnalyzer) {

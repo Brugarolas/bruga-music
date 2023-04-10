@@ -40,7 +40,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style>
 .track-list-header {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -51,9 +51,10 @@ export default {
   font-weight: 700;
   margin-top: 0;
   margin-bottom: 25px;
+}
 
-  .dot {
-    letter-spacing: 3px;
-  }
+
+.track-list-header .dot {
+  letter-spacing: 3px;
 }
 </style>

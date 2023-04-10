@@ -10,7 +10,7 @@ const format = 'json';
 
 /* API */
 const getTopArtists = async (country) => {
-  const url = buildApiUrl('geo.gettopartists', { country: country });
+  const url = buildApiUrl('geo.gettopartists', { country });
 
   const response = await fetch(url, { cache: 'default', localCache: WEEK * 2 });
   const json = await response.json();
@@ -110,7 +110,7 @@ const searchArtist = async (search) => {
 };
 
 /* Aux API methods */
-const buildApiUrl = (method, params) => buildUrl(url, { method: method, ...params, api_key: apiKey, format: format });
+const buildApiUrl = (method, params) => buildUrl(url, { method, ...params, api_key: apiKey, format });
 
 const buildUrl = (url, params) => `${url}?${paramsToUrl(params)}`;
 
