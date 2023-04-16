@@ -14,7 +14,7 @@ const isLocal = !isProduction && Boolean(LOCAL);
 const isAnalyzer = isProduction && Boolean(ANALYZER);
 const publicPath = isProduction ? '/' + (PUBLIC_PATH ? PUBLIC_PATH + '/' : '') : '/';
 
-const babelTargets = ['> 1%', 'last 2 versions', 'not ie <= 11', 'not dead'];
+const babelTargets = ['> 1%', 'last 2 versions', 'not ie <= 11', 'not android < 5', 'not dead'];
 
 module.exports = {
   entry: './src/index.js',
