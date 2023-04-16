@@ -5,9 +5,9 @@ module.exports = {
   fontName: 'bruga-music-font',
   classPrefix: 'bm-icon-',
   baseSelector: '.bm-icon',
-  types: ['woff2', 'woff'],
+  types: ['woff2', 'ttf'],
   embed: process.env.NODE_ENV === 'development',
-  dest: '/fonts',
+  dest: 'fonts',
   cssDest: '/styles',
   cssTemplate: './bruga-font.css.hbs',
   fileName: '[fontname].[ext]?[chunkhash]'

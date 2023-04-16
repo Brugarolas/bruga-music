@@ -82,7 +82,7 @@ module.exports = {
               centerHorizontally: true,
               centerVertically: true,
 
-              html: true,
+              /* html: true, */
               htmlDest: '/icons'
             }
           }
