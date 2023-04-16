@@ -1576,8 +1576,8 @@ from {
 
 @font-face {
 	font-family: "bruga-music-font";
-	src: url("/fonts/bruga-music-font.woff2?2d39061ea508c74b706e") format("woff2"),
-url("/fonts/bruga-music-font.ttf?2d39061ea508c74b706e") format("truetype");
+	src: url("/bruga-music/fonts/bruga-music-font.woff2?2d39061ea508c74b706e") format("woff2"),
+url("/bruga-music/fonts/bruga-music-font.ttf?2d39061ea508c74b706e") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: block;
