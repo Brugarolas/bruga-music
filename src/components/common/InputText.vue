@@ -78,7 +78,7 @@ export default {
   font-family: 'Open Sans', sans-serif;
   padding: 5px;
   display: inline-block;
-  width: 320px;
+  max-width: 320px;
   border: 2px solid @main-light-color;
   border-radius: 4px;
   transition: all 0.3s ease-in-out;
